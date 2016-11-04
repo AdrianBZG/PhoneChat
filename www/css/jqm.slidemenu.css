@@ -11,10 +11,27 @@
 	display: none;
 	overflow: auto;
 	-webkit-overflow-scrolling: touch;
+	overflow-x: hidden;
 }
 
-.slidemenu h3{
-	font-size:12px;
+::-webkit-scrollbar
+{
+  width: 12px;  /* for vertical scrollbars */
+  height: 12px; /* for horizontal scrollbars */
+}
+
+::-webkit-scrollbar-track
+{
+  background: rgba(0, 0, 0, 0.1);
+}
+
+::-webkit-scrollbar-thumb
+{
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.slidemenu h3 {
+	font-size:20px;
 	font-family: Arial, Helvetica, sans-serif;
 	color:#8C919F;
 	text-shadow: 0 1px 0 #272D39;
@@ -62,7 +79,7 @@
 .slidemenu ul li a:hover, .slidemenu ul li a:active {
 	background-color: #32394A;
 }
-		
+
 .ui-icon-smico {
 	background-image: url("../img/smico.png") !important;
 }
