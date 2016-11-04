@@ -29,6 +29,9 @@
 
 	<!--General CSS style-->
 	<link rel="stylesheet" href="css/style.css" />
+
+	<!--JS Scripts-->
+	<script src="js/loginsystem.js"></script>
 </head>
 <body>
 
@@ -36,8 +39,9 @@
 		<h3><img src="img/smico1.png">  General</h3>
 
 		<ul>
-			<li><a href="#account"><img src="img/smico5.png">Account</a></li>
-			<li><a href="#options"><img src="img/smico4.png">Options</a></li>
+			<li><a href="#register"><img src="img/smico4.png">Register</a></li>
+			<li><a href="#login"><img src="img/smico4.png">Login</a></li>
+			<li><a href="#options"><img src="img/smico5.png">Options</a></li>
 		</ul>
 
 		<h3><img src="img/smico1.png">  Chat</h3>
@@ -72,6 +76,22 @@
 
 		<div data-role="content">
 			<p>Bla Bla Bla Bla</p>
+		</div>
+
+	</div>
+
+	<div data-role="page" id="register" data-theme="a">
+
+		<div data-role="header" data-position="fixed" data-tap-toggle="false" data-update-page-padding="false">
+			<a href="#" data-slidemenu="#slidemenu" data-slideopen="false" data-icon="smico" data-corners="false" data-iconpos="notext">Menu</a>
+			<h1>PhoneChat</h1>
+		</div>
+
+		<div data-role="content">
+			<input id="fullname" type="text" />
+			<input id="email" type="email" />
+			<input id="password" type="password" placeholder="password" />
+			<button id="signup">Create an Account</button>
 		</div>
 
 	</div>
