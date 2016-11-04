@@ -166,5 +166,17 @@
         },
         "is_top_level": true,
         "variables": {}
+    },
+    "cordova-plugin-googlemaps": {
+        "source": {
+            "type": "git",
+            "url": "https://github.com/phonegap-googlemaps-plugin/cordova-plugin-googlemaps",
+            "subdir": "."
+        },
+        "is_top_level": true,
+        "variables": {
+            "API_KEY_FOR_ANDROID": "AIzaSyB7_39pIm3Oit-W5G5uAp9MBS3nhejIuEE",
+            "API_KEY_FOR_IOS": "AIzaSyB7_39pIm3Oit-W5G5uAp9MBS3nhejIuEE"
+        }
     }
 }
