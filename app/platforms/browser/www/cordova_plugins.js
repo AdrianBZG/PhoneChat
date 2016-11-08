@@ -636,7 +636,8 @@ module.exports.metadata =
     "cordova-plugin-statusbar": "2.1.3",
     "cordova-plugin-vibration": "2.1.2",
     "cordova-plugin-whitelist": "1.2.2",
-    "cordova-plugin-googlemaps": "1.3.9"
+    "cordova-plugin-googlemaps": "1.3.9",
+    "cordova-plugin-websocket": "0.12.0"
 }
 // BOTTOM OF METADATA
 });

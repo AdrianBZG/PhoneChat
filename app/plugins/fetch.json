@@ -178,5 +178,13 @@
             "API_KEY_FOR_ANDROID": "AIzaSyB7_39pIm3Oit-W5G5uAp9MBS3nhejIuEE",
             "API_KEY_FOR_IOS": "AIzaSyB7_39pIm3Oit-W5G5uAp9MBS3nhejIuEE"
         }
+    },
+    "cordova-plugin-websocket": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-websocket"
+        },
+        "is_top_level": true,
+        "variables": {}
     }
 }

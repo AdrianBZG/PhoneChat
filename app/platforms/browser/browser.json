@@ -87,6 +87,9 @@
         },
         "cordova-plugin-googlemaps": {
             "PACKAGE_NAME": "com.phonegap.helloworld"
+        },
+        "cordova-plugin-websocket": {
+            "PACKAGE_NAME": "com.phonegap.helloworld"
         }
     },
     "dependent_plugins": {},
@@ -725,6 +728,7 @@
         "cordova-plugin-statusbar": "2.1.3",
         "cordova-plugin-vibration": "2.1.2",
         "cordova-plugin-whitelist": "1.2.2",
-        "cordova-plugin-googlemaps": "1.3.9"
+        "cordova-plugin-googlemaps": "1.3.9",
+        "cordova-plugin-websocket": "0.12.0"
     }
 }
