@@ -19,12 +19,9 @@ var config = {
 
     enableEmojiTab: false,
     enableHistoryTab: true,
-    enableStoreTab: true,
+    enableStoreTab: false,
 
-    userId: null,
-
-    priceB: '0.99 $',
-    priceC: '1.99 $'
+    userId: null
   }
 };
 

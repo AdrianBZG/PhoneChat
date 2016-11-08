@@ -378,7 +378,3 @@ a.pull_push.active  {
 .visibility_hidden{
   visibility: hidden;
 }
-
-iframe::-webkit-scrollbar {
-	width: 0;
-}
