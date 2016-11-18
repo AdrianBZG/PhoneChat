@@ -24,7 +24,7 @@ body {
     -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
     -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
     -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
-    background-color: #34495e;
+    /*background-color: #34495e;*/
     -webkit-box-shadow: 3px 0px 5px -2px #32394A;
     box-shadow: 3px 0px 5px -2px #32394A;
     overflow-x: hidden;

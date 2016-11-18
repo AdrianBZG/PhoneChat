@@ -3,24 +3,26 @@
 var currentUser;
 
 $(document).ready(function() {
+});
 
+function showLoginModal() {
   $("#loginForm").modal("show");
   $('#loginForm .progress').hide();
 
-  // User1 login action
-  //
-  $('#user1').click(function() {
-    currentUser = QBUser1;
-    connectToChat(QBUser1);
+  // login action
+  $('#loginButton').click(function() {
+    var inputUserName = $('#loginUsername').val();
+    var inputUserPassword = $('#loginPassword').val();
+    var usuarioQB = {
+            id: 6729119,
+            name: inputUserName,
+            login: inputUserName,
+            pass: inputUserPassword
+        };
+     currentUser = usuarioQB;
+    connectToChat(usuarioQB);
   });
-
-  // User2 login action
-  //
-  $('#user2').click(function() {
-    currentUser = QBUser2;
-    connectToChat(QBUser2);
-  });
-});
+}
 
 function connectToChat(user) {
   $('#loginForm button').hide();

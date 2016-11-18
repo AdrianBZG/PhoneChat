@@ -1,0 +1,13 @@
+﻿var PhoneChat = PhoneChat || {};
+PhoneChat.ApiMessages = PhoneChat.ApiMessages || {};
+PhoneChat.ApiMessages.EMAIL_NOT_FOUND = 0;
+PhoneChat.ApiMessages.INVALID_PWD = 1;
+PhoneChat.ApiMessages.DB_ERROR = 2;
+PhoneChat.ApiMessages.NOT_FOUND = 3;
+PhoneChat.ApiMessages.EMAIL_ALREADY_EXISTS = 4;
+PhoneChat.ApiMessages.COULD_NOT_CREATE_USER = 5;
+PhoneChat.ApiMessages.PASSWORD_RESET_EXPIRED = 6;
+PhoneChat.ApiMessages.PASSWORD_RESET_HASH_MISMATCH = 7;
+PhoneChat.ApiMessages.PASSWORD_RESET_EMAIL_MISMATCH = 8;
+PhoneChat.ApiMessages.COULD_NOT_RESET_PASSWORD = 9;
+PhoneChat.ApiMessages.PASSWORD_CONFIRM_MISMATCH = 10;

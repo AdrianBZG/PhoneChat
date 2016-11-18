@@ -40,19 +40,26 @@
 	<script src="js/chat/dialogs.js"></script>
 	<script src="js/chat/users.js"></script>
 
+	<script src="js/user_registration/api-messages.js"></script>
+	<script src="js/user_registration/settings.js"></script>
+	<script src="js/user_registration/signup-controller.js"></script>
+	<script type="text/javascript" src="js/user_registration/index.js"></script>
+
 	<!--Include JQM and JQ-->
 	<script src="js/jquery.animate-enhanced.min.js"></script>
 
 	<!--JQM globals you can edit or remove file entirely... note it needs to be loaded before jquerymobile js -->
-	<script src="js/jqm.globals.js"></script>
+	<script src="js/jqm/jqm.globals.js"></script>
 
 	<script src="http://code.jquery.com/mobile/latest/jquery.mobile.min.js"></script>
 
 	<!--JQM SlideMenu-->
-	<script src="js/jqm.slidemenu.js"></script>
+	<script src="js/jqm/jqm.slidemenu.js"></script>
 
 	<!--Speech recognition (Annyang)-->
 	<script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.5.0/annyang.min.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="css/phonechat-app.css" />
 
 </head>
 <body>
@@ -61,9 +68,9 @@
 		<h3><img src="img/smico1.png">  General</h3>
 
 		<ul>
-			<li><a href="#register"><img src="img/smico4.png">Register</a></li>
-			<li><a href="#login"><img src="img/smico4.png">Login</a></li>
-			<li><a href="#options"><img src="img/smico5.png">Options</a></li>
+			<li><a href="#page-signup"><img src="img/smico4.png">Register</a></li>
+			<li><a href="#" onClick="showLoginModal()"><img src="img/smico4.png">Login</a></li>
+			<li><a href="#options" data-rel="dialog"><img src="img/smico5.png">Options</a></li>
 		</ul>
 
 		<h3><img src="img/smico1.png">  Community</h3>
@@ -75,14 +82,14 @@
 		<h3><img src="img/smico1.png">  Events</h3>
 
 		<ul>
-			<li><a href="#listevents"><img src="img/smico4.png">List events</a></li>
-			<li><a href="#addevent"><img src="img/smico4.png">Create event</a></li>
+			<li><a href="#listevents" data-rel="dialog"><img src="img/smico4.png">List events</a></li>
+			<li><a href="#addevent" data-rel="dialog"><img src="img/smico4.png">Create event</a></li>
 		</ul>
 
 		<h3><img src="img/smico1.png">  Games</h3>
 
 		<ul>
-			<li><a href="#brocolito"><img src="img/smico3.png">Brocolito</a></li>
+			<li><a href="http://brocolito.io/" target="blank_"><img src="img/smico3.png">Brocolito</a></li>
 			<li><a href="#throwthephone"><img src="img/smico3.png">Throw the Phone</a></li>
 		</ul>
 
@@ -99,30 +106,92 @@
 
 		<div data-role="header" data-position="fixed" data-tap-toggle="false" data-update-page-padding="false">
 			<a href="#" data-slidemenu="#slidemenu" data-slideopen="false" data-icon="smico" data-corners="false" data-iconpos="notext">Menu</a>
-			<h1>PhoneChat</h1>
+			<h1>PhoneChat: Welcome Screen</h1>
 		</div>
 
 		<div data-role="content">
-			<p>Bla Bla Bla Bla</p>
+			<p>Welcome to PhoneChat, with this app you can chat with other people with the same interests as you, create channels of your favorites topics or create events and meet new people... also you can play games and try to be in the Top10!</p>
+			<br><br>
+			<center><img src="/img/chat-image-1.png"></center>
 		</div>
 
 	</div>
 
-	<div data-role="page" id="register" data-theme="a">
+	<div data-role="page" id="page-signin">
+			<div data-role="header" data-theme="c" data-position="fixed">
+					<a href="#page-index" data-icon="home" data-iconpos="notext" data-transition="slide" data-direction="reverse"></a>
+					<h1>PhoneChat</h1>
+			</div><!-- /header -->
+			<div role="main" class="ui-content">
+					<h3>Sign In</h3>
+					<label for="txt-email">Email Address</label>
+					<input type="text" name="txt-email" id="txt-email" value="">
+					<label for="txt-password">Password</label>
+					<input type="password" name="txt-password" id="txt-password" value="">
+					<fieldset data-role="controlgroup">
+							<input type="checkbox" name="chck-rememberme" id="chck-rememberme">
+							<label for="chck-rememberme">Remember me</label>
+					</fieldset>
+					<a href="#dlg-invalid-credentials" data-rel="popup" data-transition="pop" data-position-to="window" id="btn-submit" class="ui-btn ui-btn-b ui-corner-all mc-top-margin-1-5">Submit</a>
+					<p class="mc-top-margin-1-5"><a href="begin-password-reset.html">Can't access your account?</a></p>
+					<div data-role="popup" id="dlg-invalid-credentials" data-dismissible="false" style="max-width:400px;">
+							<div role="main" class="ui-content">
+									<h3 class="mc-text-danger">Login Failed</h3>
+									<p>Did you enter the right credentials?</p>
+									<div class="mc-text-center"><a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-b mc-top-margin-1-5">OK</a></div>
+							</div>
+					</div>
+			</div><!-- /content -->
+	</div><!-- /page -->
+
+	<div data-role="page" id="page-signup" data-theme="a">
 
 		<div data-role="header" data-position="fixed" data-tap-toggle="false" data-update-page-padding="false">
 			<a href="#" data-slidemenu="#slidemenu" data-slideopen="false" data-icon="smico" data-corners="false" data-iconpos="notext">Menu</a>
 			<h1>PhoneChat</h1>
 		</div>
 
-		<div data-role="content">
-			<input id="fullname" type="text" />
-			<input id="email" type="email" />
-			<input id="password" type="password" placeholder="password" />
-			<button id="signup">Create an Account</button>
-		</div>
+		<div role="main" class="ui-content">
+				<h3>Sign Up</h3>
+				<div id="ctn-err" class="bi-invisible"></div>
+				<label for="txt-first-name">First Name</label>
+				<input type="text" name="txt-first-name" id="txt-first-name" value="">
+				<label for="txt-last-name">Last Name</label>
+				<input type="text" name="txt-last-name" id="txt-last-name" value="">
+				<label for="txt-email-address">Email Address</label>
+				<input type="text" name="txt-email-address" id="txt-email-address" value="">
+				<label for="txt-password">Password</label>
+				<input type="password" name="txt-password" id="txt-password" value="">
+				<label for="txt-password-confirm">Confirm Password</label>
+				<input type="password" name="txt-password-confirm" id="txt-password-confirm" value="">
+				<!--<a href="#dlg-sign-up-sent" data-rel="popup" data-transition="pop" data-position-to="window" id="btn-submit" class="ui-btn ui-btn-b ui-corner-all mc-top-margin-1-5">Submit</a>-->
+				<button id="btn-submit" class="ui-btn ui-btn-b ui-corner-all mc-top-margin-1-5">Submit</button>
+				<div data-role="popup" id="dlg-sign-up-sent" data-dismissible="false" style="max-width:400px;">
+						<div data-role="header">
+								<h1>Almost done...</h1>
+						</div>
+						<div role="main" class="ui-content">
+								<h3>Confirm Your Email Address</h3>
+								<p>We sent you an email with instructions on how to confirm your email address. Please check your inbox and follow the instructions in the email.</p>
+								<div class="mc-text-center"><a href="sign-in.html" class="ui-btn ui-corner-all ui-shadow ui-btn-b mc-top-margin-1-5">OK</a></div>
+
+						</div>
+				</div>
+		</div><!-- /content -->
 
 	</div>
+
+	<div data-role="page" id="page-signup-succeeded">
+			<div data-role="header" data-theme="c">
+					<h1>PhoneChat</h1>
+			</div><!-- /header -->
+			<div role="main" class="ui-content">
+					<h2 class="mc-text-center">Registration Succeeded</h2>
+					<p class="mc-top-margin-1-5">Congratulations!  You are now registered with PhoneChat.</p>
+					<a href="#page-signin" class="ui-btn ui-btn-b ui-corner-all">Sign In</a>
+					<p></p>
+			</div><!-- /content -->
+	</div><!-- /page -->
 
 	<div data-role="page" id="chat" data-theme="a">
 
@@ -200,7 +269,10 @@
 					<h3 class="modal-title">Sign In to PhoneChat</h3>
 				</div>
 				<div class="modal-body">
-					<button type="button" value="Quick" id="user1" class="btn btn-primary btn-lg btn-block">Sign in with AdrianBZG</button>
+					Username: <input id="loginUsername" name="userName" type="text" class="required" placeholder="Username"><br>
+					Password: <input id="loginPassword" pattern=".{8,}" name="password" type="password" class="required" placeholder="Password"><br>
+					<br><br><br>
+					<button type="button" value="Quick" id="loginButton" class="btn btn-primary btn-lg btn-block">Sign in</button>
 					<div class="progress">
 						<div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%">
 						</div>
@@ -260,17 +332,60 @@
 		</div>
 	</div>
 
-	<div data-role="page" id="another" data-theme="a">
+	<div data-role="page" id="developers">
 
 		<div data-role="header" data-position="fixed" data-tap-toggle="false" data-update-page-padding="false">
 			<a href="#" data-slidemenu="#slidemenu" data-slideopen="false" data-icon="smico" data-corners="false" data-iconpos="notext">Menu</a>
-			<h1>Slide Menu</h1>
+			<h1>PhoneChat: Developers</h1>
 		</div>
 
 		<div data-role="content">
+			<p>The development team of this app is formed by:</p>
+			<ul><li>Adrián Rodríguez Bazaga</li>
+				<li>Eleazar Díaz Delgado</li>
+				<li>Rudolf Cicko</li>
+		</div>
 
-			<h2>This is an example of another page loaded</h2>
-			<p>Do you see any Teletubbies in here? Do you see a slender plastic tag clipped to my shirt with my name printed on it? Do you see a little Asian child with a blank expression on his face sitting outside on a mechanical helicopter that shakes when you put quarters in it? No? Well, that's what you see at a toy store. And you must think you're in a toy store, because you're here shopping for an infant named Jeb.</p>
+	</div>
+
+	<div data-role="page" id="options">
+
+		<div data-role="header" data-position="fixed" data-tap-toggle="false" data-update-page-padding="false">
+			<a href="#" data-slidemenu="#slidemenu" data-slideopen="false" data-icon="smico" data-corners="false" data-iconpos="notext">Menu</a>
+			<h1>PhoneChat: Options</h1>
+		</div>
+
+		<div data-role="content">
+			<p>CURRENTLY NOT AVAILABLE:</p>
+			<p>On this screen you'll be able to change some elements of the app</p>
+		</div>
+
+	</div>
+
+	<div data-role="page" id="listevents">
+
+		<div data-role="header" data-position="fixed" data-tap-toggle="false" data-update-page-padding="false">
+			<a href="#" data-slidemenu="#slidemenu" data-slideopen="false" data-icon="smico" data-corners="false" data-iconpos="notext">Menu</a>
+			<h1>PhoneChat: Events</h1>
+		</div>
+
+		<div data-role="content">
+			<p>CURRENTLY NOT AVAILABLE:</p>
+			<p>On this screen you'll be able to list all the events created by the PhoneGap users</p>
+		</div>
+
+	</div>
+
+	<div data-role="page" id="addevent">
+
+		<div data-role="header" data-position="fixed" data-tap-toggle="false" data-update-page-padding="false">
+			<a href="#" data-slidemenu="#slidemenu" data-slideopen="false" data-icon="smico" data-corners="false" data-iconpos="notext">Menu</a>
+			<h1>PhoneChat: Add Event</h1>
+		</div>
+
+		<div data-role="content">
+			<p>CURRENTLY NOT AVAILABLE:</p>
+			<p>On this screen you'll be able to create an event, specifying it's date, place and description.</p>
 		</div>
 
 	</div>
