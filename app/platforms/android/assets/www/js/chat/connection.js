@@ -14,12 +14,12 @@ function showLoginModal() {
     var inputUserName = $('#loginUsername').val();
     var inputUserPassword = $('#loginPassword').val();
     var usuarioQB = {
-            id: 6729119,
+            id: 6729119, // Just a number, it'll create a random one
             name: inputUserName,
             login: inputUserName,
             pass: inputUserPassword
         };
-     currentUser = usuarioQB;
+    currentUser = usuarioQB;
     connectToChat(usuarioQB);
   });
 }
@@ -59,6 +59,9 @@ function connectToChat(user) {
           // setup scroll events handler
           //
           setupMsgScrollHandler();
+
+          // Move to the main page
+          $.mobile.navigate("#");
         }
       });
     }
