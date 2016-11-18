@@ -10,10 +10,10 @@
     session = [],
     MailerMock = require('../test/mailer-mock.js'),
     mailer = new MailerMock();
-    
+
 
 router.route('/account/register')
-    
+
     .post(function (req, res) {
 
         var accountController = new AccountController(User, req.session, mailer);
@@ -28,7 +28,7 @@ router.route('/account/register')
 
                 return res.send(apiResponseStep2);
             });
-        } else {            
+        } else {
             res.send(apiResponseStep1);
         }
     });
@@ -42,7 +42,7 @@ router.route('/account/logon')
         var userLogon = new UserLogon(req.body);
 
         accountController.logon(userLogon.email, userLogon.password, function (err, response) {
-            
+
             return res.send(response);
         });
     });
