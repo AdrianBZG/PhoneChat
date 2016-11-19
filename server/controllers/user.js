@@ -1,4 +1,7 @@
-﻿var UserController = function (userModel) {
+// Not used
+/*
+
+var UserController = function (userModel) {
 
         var uuid = require('node-uuid'),
         ApiResponse = require('../models/api-response.js'),
@@ -123,3 +126,4 @@
 };
 
 module.exports = UserController;
+*/

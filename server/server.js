@@ -1,31 +1,51 @@
-﻿var express = require('express'),
-    bodyParser = require('body-parser'),
-    cookieParser = require('cookie-parser'),
-    mongoose = require('mongoose'),
-    expressSession = require('express-session'),
-    mongooseSession = require('mongoose-session'),
-    accountRoutes = require('./routes/account');
-    app = express(),
-    port = 30000;
+const express    = require('express');
+const path       = require('path');
+const morgan     = require('morgan');
+const bodyParser = require('body-parser');
+const session    = require('express-session');
+//const MongoStore = require('connect-mongo')(session);
+const mongoose   = require('mongoose');
 
-var dbName = 'phoneChatDB';
-var connectionString = 'mongodb://localhost:27017/' + dbName;
+//const favicon    = require('serve-favicon');
+
+let app = express();
+
+let port = process.env.PORT || 30000;
+
+app.set('port', port);
+app.set('ip', (process.env.IP || '127.168.0.1'));
+
+const connectionString = process.env.MONGODB_URI || 'mongodb://localhost:27017/phoneChatDB';
 
 mongoose.connect(connectionString);
 
-app.use(expressSession({
-        key: 'session',
-        secret: '128013A7-5B9F-4CC0-BD9E-4480B2D3EFE9',
-        store: new mongooseSession(mongoose),
-        resave: true,
-        saveUninitialized: true
-    })
-);
+// view engine setup
+// app.set('views', path.join(__dirname, 'views'));
+// app.set('view engine', 'jade');
+//app.use(express.static(path.join(__dirname, 'public')));
+// uncomment after placing your favicon in /public
+// app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+
+// TODO: See This
+app.use(morgan('combined'))
+
+app.use(session({
+  key: 'session',
+  secret: '128013A7-5B9F-4CC0-BD9E-4480B2D3EFE9', // TODO ENV
+  store: require('mongoose-session')(mongoose), // new MongoStore({ mongooseConnection: mongoose.connection })
+  // store: new MongoStore({ db: mongoose.connection }),
+  resave: true,
+  saveUninitialized: true
+}));
+
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+// Routes
+const accountRoutes = require('./routes/account');
 app.use('/api', accountRoutes);
 
-var server = app.listen(port, function () {
-    console.log('Express server listening on port ' + server.address().port);
-});
+ var server = app.listen(port, function () {
+     console.log('Express server listening on port ' + server.address().port);
+ });
