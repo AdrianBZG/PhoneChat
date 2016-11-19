@@ -38,6 +38,7 @@ class AccountController {
       lastName: userRegistrationModel.lastName,
       password: userRegistrationModel.password
     });
+<<<<<<< HEAD
     return new ApiResponse({ success: true, extras: { user: user } });
   }
 
@@ -98,6 +99,38 @@ class AccountController {
               sessionId: this.session.id
             }
           }));
+=======
+};
+
+AccountController.prototype.logon = function(email, password, callback) {
+    var me = this;
+
+    me.userModel.findOne({ email: email }, function (err, user) {
+        if (err) {
+            return callback(err, new me.ApiResponse({ success: false, extras: { msg: me.ApiMessages.DB_ERROR } }));
+        }
+        if (user) {
+                if (password === user.password) {
+
+                    var userProfileModel = new me.UserProfile({
+                        email: user.email,
+                        firstName: user.firstName,
+                        lastName: user.lastName
+                    });
+
+                    me.session.userProfileModel = userProfileModel;
+                    me.session.id = me.uuid.v4();
+
+                    return callback(err, new me.ApiResponse({
+                        success: true, extras: {
+                            userProfileModel: userProfileModel,
+                            sessionId: me.session.id
+                        }
+                    }));
+                } else {
+                    return callback(err, new me.ApiResponse({ success: false, extras: { msg: me.ApiMessages.INVALID_PWD } }));
+                }
+>>>>>>> 439b3e0fe7d870fc8c2831b339c243814995b0ce
         } else {
           return callback(err, new ApiResponse(
             { success: false,

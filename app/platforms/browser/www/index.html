@@ -117,33 +117,6 @@
 
 	</div>
 
-	<div data-role="page" id="page-signin">
-			<div data-role="header" data-theme="c" data-position="fixed">
-					<a href="#page-index" data-icon="home" data-iconpos="notext" data-transition="slide" data-direction="reverse"></a>
-					<h1>PhoneChat</h1>
-			</div><!-- /header -->
-			<div role="main" class="ui-content">
-					<h3>Sign In</h3>
-					<label for="txt-email">Email Address</label>
-					<input type="text" name="txt-email" id="txt-email" value="">
-					<label for="txt-password">Password</label>
-					<input type="password" name="txt-password" id="txt-password" value="">
-					<fieldset data-role="controlgroup">
-							<input type="checkbox" name="chck-rememberme" id="chck-rememberme">
-							<label for="chck-rememberme">Remember me</label>
-					</fieldset>
-					<a href="#dlg-invalid-credentials" data-rel="popup" data-transition="pop" data-position-to="window" id="btn-submit" class="ui-btn ui-btn-b ui-corner-all mc-top-margin-1-5">Submit</a>
-					<p class="mc-top-margin-1-5"><a href="begin-password-reset.html">Can't access your account?</a></p>
-					<div data-role="popup" id="dlg-invalid-credentials" data-dismissible="false" style="max-width:400px;">
-							<div role="main" class="ui-content">
-									<h3 class="mc-text-danger">Login Failed</h3>
-									<p>Did you enter the right credentials?</p>
-									<div class="mc-text-center"><a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-b mc-top-margin-1-5">OK</a></div>
-							</div>
-					</div>
-			</div><!-- /content -->
-	</div><!-- /page -->
-
 	<div data-role="page" id="page-signup" data-theme="a">
 
 		<div data-role="header" data-position="fixed" data-tap-toggle="false" data-update-page-padding="false">
@@ -165,7 +138,7 @@
 				<label for="txt-password-confirm">Confirm Password</label>
 				<input type="password" name="txt-password-confirm" id="txt-password-confirm" value="">
 				<!--<a href="#dlg-sign-up-sent" data-rel="popup" data-transition="pop" data-position-to="window" id="btn-submit" class="ui-btn ui-btn-b ui-corner-all mc-top-margin-1-5">Submit</a>-->
-				<button id="btn-submit" class="ui-btn ui-btn-b ui-corner-all mc-top-margin-1-5">Submit</button>
+				<button id="btn-submit" class="ui-btn ui-btn-b ui-corner-all mc-top-margin-1-5">Register</button>
 				<div data-role="popup" id="dlg-sign-up-sent" data-dismissible="false" style="max-width:400px;">
 						<div data-role="header">
 								<h1>Almost done...</h1>
@@ -182,13 +155,15 @@
 	</div>
 
 	<div data-role="page" id="page-signup-succeeded">
-			<div data-role="header" data-theme="c">
-					<h1>PhoneChat</h1>
-			</div><!-- /header -->
+		<div data-role="header" data-position="fixed" data-tap-toggle="false" data-update-page-padding="false">
+			<a href="#" data-slidemenu="#slidemenu" data-slideopen="false" data-icon="smico" data-corners="false" data-iconpos="notext">Menu</a>
+			<h1>PhoneChat: Registration Succeeded!</h1>
+		</div>
 			<div role="main" class="ui-content">
-					<h2 class="mc-text-center">Registration Succeeded</h2>
-					<p class="mc-top-margin-1-5">Congratulations!  You are now registered with PhoneChat.</p>
-					<a href="#page-signin" class="ui-btn ui-btn-b ui-corner-all">Sign In</a>
+					<h1>Registration Succeeded</h1><br><br>
+					<center><p>Congratulations!  You are now registered with PhoneChat.</p></center><br><br><br>
+					<center><img src="/img/ThumbsUp1.png" height="150" width="150"></center><br><br><br>
+					<button onClick="showLoginModal()" class="ui-btn ui-btn-b ui-corner-all mc-top-margin-1-5">Open login window</button>
 					<p></p>
 			</div><!-- /content -->
 	</div><!-- /page -->
@@ -341,9 +316,9 @@
 
 		<div data-role="content">
 			<p>The development team of this app is formed by:</p>
-			<ul><li>Adrián Rodríguez Bazaga</li>
-				<li>Eleazar Díaz Delgado</li>
-				<li>Rudolf Cicko</li>
+			<ul><li>Adrián Rodríguez Bazaga (Github: @AdrianBZG)</li>
+				<li>Eleazar Díaz Delgado (Github: @EleDiaz)</li>
+				<li>Rudolf Cicko (Github: @cicko)</li>
 		</div>
 
 	</div>
