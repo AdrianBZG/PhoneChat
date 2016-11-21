@@ -25,24 +25,24 @@ class AccountController {
 
   // TODO: Something is strange here
   getUserFromUserRegistration(userRegistrationModel) {
-    if (userRegistrationModel.password !== userRegistrationModel.passwordConfirm) {
-      return new ApiResponse(
-        { success: false,
-          extras: { msg: ApiMessages.PASSWORD_CONFIRM_MISMATCH } }
-        );
-    }
-
-    var user = new User({
-      email: userRegistrationModel.email,
-      firstName: userRegistrationModel.firstName,
-      lastName: userRegistrationModel.lastName,
-      password: userRegistrationModel.password
-    });
     return new ApiResponse({ success: true, extras: { user: user } });
   }
 
   // Try register a user fail if the email is used currently
-  register(newUser, callback) {
+  register(body, callback) {
+    let error = {};
+    let mkError = (err) => new ApiResponse({ success: false, extra: {msg : err}});
+    let newUser = new User({
+      email: body.email || mkError("Incorrect Email"),
+      userName: body.userName || mkError("Incorrect firstName"),
+      fisrtName: body.firstName || mkError("Incorrect firstName"),
+      lastName: body.lastName || mkError("Incorrect lastName"),
+      password: body.password || mkError("Incorrect password")
+    });
+    if (error !== {}) {
+
+    }
+
     User.findOne({ email: newUser.email }, (err, user) => {
       if (err) {
         return callback(err, new ApiResponse({ success: false, extras: { msg: ApiMessages.DB_ERROR } }));
@@ -56,9 +56,9 @@ class AccountController {
           }
           if (numberAffected === 1) {
             let userProfileModel = new UserProfile({
-              email: user.email,
-              firstName: user.firstName,
-              lastName: user.lastName
+              email: newUser.email,
+              firstName: newUser.firstName,
+              lastName: newUser.lastName
             });
             return callback(err, new ApiResponse({
               success: true, extras: {

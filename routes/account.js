@@ -5,7 +5,6 @@ const router = express.Router();
 const AccountController = require('../controllers/account.js');
 
 // Models
-const UserRegistration       = require('../models/user-registration.js');
 const UserLogon              = require('../models/user-logon.js');
 const User                   = require('../models/user.js');
 const ApiResponse            = require('../models/api-response.js');
@@ -14,29 +13,22 @@ const UserPasswordResetFinal = require('../models/user-pwd-reset-final.js');
 
 // Register Handler
 router.route('/account/register').post((req, res) => {
-  console.log("Register");
+  console.log("Register {{{");
+  console.log(req.body);
   let accountController = new AccountController(req.session);
-  let apiResponseStep1 = accountController.getUserFromUserRegistration(
-    new UserRegistration(req.body));
 
-  // TODO: No tiene sentido esta parte                     vvvvv
-  // res.set("Access-Control-Allow-Origin", "http://localhost:42550");   // Enable CORS in dev environment.
-
-  if (apiResponseStep1.success) {
-    accountController.register(
-      apiResponseStep1.extras.user,
-      (err, apiResponseStep2) => {
-        return res.send(apiResponseStep2);
-      }
-    );
-  } else {
-    res.send(apiResponseStep1);
-  }
+  accountController.register(
+      req.body
+    , (err, apiResponseStep2) => {
+      return res.send(apiResponseStep2);
+    }
+  );
+  console.log("}}}")
 });
 
 //
 router.route('/account/logon').post((req, res) => {
-  console.log("Logon");
+  console.log("Logon {{{");
   var accountController = new AccountController(req.session);
   var userLogon = new UserLogon(req.body);
 
@@ -44,6 +36,7 @@ router.route('/account/logon').post((req, res) => {
     (err, response) => {
       return res.send(response);
   });
+  console.log("}}}")
 });
 
 // TODO: get and post? same thing
