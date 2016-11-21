@@ -1,0 +1,45 @@
+
+<ion-header>
+  <ion-navbar>
+    <ion-title>Create a Account into PhoneChat</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label color="primary" stacked>User name</ion-label>
+      <ion-input [(ngModel)]="userName" type="text" placeholder="User Name (Used to login)"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label color="primary" stacked>Name</ion-label>
+      <ion-input [(ngModel)]="name" type="text" placeholder="Name"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label color="primary" stacked>Last Name</ion-label>
+      <ion-input [(ngModel)]="lastName" type="text" placeholder="Last Name"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label color="primary" stacked>Email</ion-label>
+      <ion-input [(ngModel)]="email" type="email" placeholder="Your Email"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label color="primary" stacked>Password</ion-label>
+      <ion-input [(ngModel)]="password" type="password" placeholder="Your Password"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label color="primary" stacked>Check password</ion-label>
+      <ion-input [(ngModel)]="passwordRetype" type="password" placeholder="Retype Password"></ion-input>
+    </ion-item>
+
+  </ion-list>
+  <div padding>
+    <button ion-button block type="button" (click)="signup()">Create Account</button>
+    <button ion-button block type="button" (click)="login()">Have an account?</button>
+  </div>
+</ion-content>

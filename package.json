@@ -1,0 +1,63 @@
+{
+  "name": "PhoneChat",
+  "version": "4.0.2",
+  "description": "A chat with games embeded",
+  "author": "PhoneChat team",
+  "license": "Apache-2.0.0",
+  "keywords": [
+    "ecosystem:phonegap",
+    "ecosystem:cordova",
+    "cordova:template",
+    "phonegap:template"
+  ],
+  "bugs": {
+    "url": "https://github.com/AdrianBZG/PhoneChat/issues"
+  },
+  "homepage": "http://phonechat.herokuapp.com/",
+  "scripts": {
+    "ionic:build": "ionic-app-scripts build",
+    "ionic:serve": "ionic-app-scripts serve"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AdrianBZG/PhoneChat"
+  },
+  "dependencies": {
+    "@angular/common": "2.1.1",
+    "@angular/compiler": "2.1.1",
+    "@angular/compiler-cli": "2.1.1",
+    "@angular/core": "2.1.1",
+    "@angular/forms": "2.1.1",
+    "@angular/http": "2.1.1",
+    "@angular/platform-browser": "2.1.1",
+    "@angular/platform-browser-dynamic": "2.1.1",
+    "@angular/platform-server": "2.1.1",
+    "@angular/router": "3.2.1",
+    "@ionic/storage": "1.1.6",
+    "ionic-angular": "2.0.0-rc.3",
+    "ionic-native": "2.2.3",
+    "ionicons": "3.0.0",
+    "jquery": "^3.1.1",
+    "quickblox": "^2.4.0"
+  },
+  "devDependencies": {
+    "@ionic/app-scripts": "0.0.45",
+    "typescript": "^2.0.3"
+  },
+  "cordovaPlugins": [
+    "cordova-plugin-device",
+    "cordova-plugin-console",
+    "cordova-plugin-whitelist",
+    "cordova-plugin-splashscreen",
+    "cordova-plugin-statusbar",
+    "ionic-plugin-keyboard"
+  ],
+  "cordovaPlatforms": [
+    "ios",
+    {
+      "platform": "ios",
+      "version": "",
+      "locator": "ios"
+    }
+  ]
+}

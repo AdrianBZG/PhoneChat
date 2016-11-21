@@ -1,0 +1,11 @@
+{
+  "name": "PhoneChat",
+  "app_id": "",
+  "v2": true,
+  "typescript": true,
+  "proxies": [
+    {
+      "path": "/api",
+      "proxyUrl": "http://phonechat.herokuapp.com/api/"
+    }]
+}

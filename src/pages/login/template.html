@@ -1,0 +1,24 @@
+
+<ion-header>
+  <ion-navbar>
+    <ion-title>Start to chat with PhoneChat</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label color="primary" stacked>Email</ion-label>
+      <ion-input [(ngModel)]="email" type="email" placeholder="Your email"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label color="primary" stacked>Password</ion-label>
+      <ion-input [(ngModel)]="password" type="password" placeholder="Your password"></ion-input>
+    </ion-item>
+  </ion-list>
+  <div padding>
+    <button ion-button block type="button" (click)="login()">Log In</button>
+    <button ion-button block type="button" (click)="signup()">Haven't an account?</button>
+  </div>
+</ion-content>
