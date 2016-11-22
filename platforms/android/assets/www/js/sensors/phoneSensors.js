@@ -11,12 +11,30 @@ var cityGeolocHtmlElement;
 var townGeolocHtmlElement;
 var villageGeolocHtmlElement;
 var houseNumberGeolocHtmlElement;
+var resultData;
 
 // onGPSSuccess Callback
 //   This method accepts a `Position` object, which contains
 //   the current GPS coordinates
 //
 var onGPSSuccess = function(position) {
+  // Save the data to the global context, so we can access it from the leafletJSworker
+  resultData = new Object();
+  resultData['lat'] = position.coords.latitude;
+  resultData['lon'] = position.coords.longitude;
+  resultData['accu'] = position.coords.accuracy;
+  top.glob = resultData;
+  //
+
+  // Some fixed data text
+  var speedValue;
+  if(position.coords.speed != null) {
+    speedValue = 'Speed: '           + position.coords.speed;
+  } else {
+    speedValue = 'Speed: Not available on this device';
+  }
+  //
+
   console.log('Latitude: '          + position.coords.latitude          + '\n' +
   'Longitude: '         + position.coords.longitude         + '\n' +
   'Accuracy: '          + position.coords.accuracy);
@@ -24,7 +42,7 @@ var onGPSSuccess = function(position) {
   var element = document.getElementById(gpsHtmlElement);
   element.innerHTML = 'Latitude: '           + position.coords.latitude              + '<br />' +
   'Longitude: '          + position.coords.longitude             + '<br />' +
-  'Speed: '           + position.coords.speed             + '<br />' +
+  speedValue             + '<br />' +
   'Accuracy: '           + position.coords.accuracy             + '<br />' +
   'Timestamp: '           + position.timestamp;
 };
@@ -78,6 +96,11 @@ var onAccelerationSuccess = function(acceleration) {
   'Timestamp: '           + acceleration.timestamp;
 };
 
+function getCurrentGPSPosition() {
+  gpsHtmlElement = elementId;
+  navigator.geolocation.getCurrentPosition(onGPSSuccess, onError);
+}
+
 function getCurrentGPSPosition(elementId) {
   gpsHtmlElement = elementId;
   navigator.geolocation.getCurrentPosition(onGPSSuccess, onError);
@@ -126,8 +149,6 @@ function watchDeviceAcceleration(elementId) {
   }
 }
 
-// onError Callback receives a PositionError object
-//
 function onError(error) {
   console.log('code: '    + error.code    + '\n' +
   'message: ' + error.message + '\n');

@@ -73,6 +73,7 @@
 	<!--LeafletJS-->
 	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.2/dist/leaflet.css" />
 	<script src="https://unpkg.com/leaflet@1.0.2/dist/leaflet.js"></script>
+	<script src="js/libraries/leafletJSworker.js"></script>
 
 
 </head>
@@ -85,7 +86,6 @@
 			<li><a href="#page-signup"><img src="img/smico4.png">Register</a></li>
 			<li><a href="#" onClick="showLoginModal()"><img src="img/smico4.png">Login</a></li>
 			<li><a href="#options" data-rel="dialog"><img src="img/smico5.png">Options</a></li>
-			<li><a href="#sensorsinfo"><img src="img/smico2.png">Sensors info</a></li>
 		</ul>
 
 		<h3><img src="img/smico1.png">  Community</h3>
@@ -106,6 +106,13 @@
 		<ul>
 			<li><a href="http://brocolito.io/" target="blank_"><img src="img/smico3.png">Brocolito</a></li>
 			<li><a href="#throwthephone"><img src="img/smico3.png">Throw the Phone</a></li>
+		</ul>
+
+		<h3><img src="img/smico1.png">  Sensors</h3>
+
+		<ul>
+			<li><a href="#sensorsinfo"><img src="img/smico2.png">Information</a></li>
+			<li><a href="#whereAmI" onClick="initializeGenericMap()"><img src="img/smico2.png">Where am I?</a></li>
 		</ul>
 
 		<h3><img src="img/smico1.png">  About</h3>
@@ -140,31 +147,31 @@
 		</div>
 
 		<div role="main" class="ui-content">
-				<h3>Sign Up</h3>
-				<div id="ctn-err" class="bi-invisible"></div>
-				<label for="txt-first-name">First Name</label>
-				<input type="text" name="txt-first-name" id="txt-first-name" value="">
-				<label for="txt-last-name">Last Name</label>
-				<input type="text" name="txt-last-name" id="txt-last-name" value="">
-				<label for="txt-email-address">Email Address</label>
-				<input type="text" name="txt-email-address" id="txt-email-address" value="">
-				<label for="txt-password">Password</label>
-				<input type="password" name="txt-password" id="txt-password" value="">
-				<label for="txt-password-confirm">Confirm Password</label>
-				<input type="password" name="txt-password-confirm" id="txt-password-confirm" value="">
-				<!--<a href="#dlg-sign-up-sent" data-rel="popup" data-transition="pop" data-position-to="window" id="btn-submit" class="ui-btn ui-btn-b ui-corner-all mc-top-margin-1-5">Submit</a>-->
-				<button id="btn-submit" class="ui-btn ui-btn-b ui-corner-all mc-top-margin-1-5">Register</button>
-				<div data-role="popup" id="dlg-sign-up-sent" data-dismissible="false" style="max-width:400px;">
-						<div data-role="header">
-								<h1>Almost done...</h1>
-						</div>
-						<div role="main" class="ui-content">
-								<h3>Confirm Your Email Address</h3>
-								<p>We sent you an email with instructions on how to confirm your email address. Please check your inbox and follow the instructions in the email.</p>
-								<div class="mc-text-center"><a href="sign-in.html" class="ui-btn ui-corner-all ui-shadow ui-btn-b mc-top-margin-1-5">OK</a></div>
-
-						</div>
+			<h3>Sign Up</h3>
+			<div id="ctn-err" class="bi-invisible"></div>
+			<label for="txt-first-name">First Name</label>
+			<input type="text" name="txt-first-name" id="txt-first-name" value="">
+			<label for="txt-last-name">Last Name</label>
+			<input type="text" name="txt-last-name" id="txt-last-name" value="">
+			<label for="txt-email-address">Email Address</label>
+			<input type="text" name="txt-email-address" id="txt-email-address" value="">
+			<label for="txt-password">Password</label>
+			<input type="password" name="txt-password" id="txt-password" value="">
+			<label for="txt-password-confirm">Confirm Password</label>
+			<input type="password" name="txt-password-confirm" id="txt-password-confirm" value="">
+			<!--<a href="#dlg-sign-up-sent" data-rel="popup" data-transition="pop" data-position-to="window" id="btn-submit" class="ui-btn ui-btn-b ui-corner-all mc-top-margin-1-5">Submit</a>-->
+			<button id="btn-submit" class="ui-btn ui-btn-b ui-corner-all mc-top-margin-1-5">Register</button>
+			<div data-role="popup" id="dlg-sign-up-sent" data-dismissible="false" style="max-width:400px;">
+				<div data-role="header">
+					<h1>Almost done...</h1>
 				</div>
+				<div role="main" class="ui-content">
+					<h3>Confirm Your Email Address</h3>
+					<p>We sent you an email with instructions on how to confirm your email address. Please check your inbox and follow the instructions in the email.</p>
+					<div class="mc-text-center"><a href="sign-in.html" class="ui-btn ui-corner-all ui-shadow ui-btn-b mc-top-margin-1-5">OK</a></div>
+
+				</div>
+			</div>
 		</div><!-- /content -->
 
 	</div>
@@ -174,13 +181,13 @@
 			<a href="#" data-slidemenu="#slidemenu" data-slideopen="false" data-icon="smico" data-corners="false" data-iconpos="notext">Menu</a>
 			<h1>PhoneChat: Registration Succeeded!</h1>
 		</div>
-			<div role="main" class="ui-content">
-					<h1>Registration Succeeded</h1><br><br>
-					<center><p>Congratulations!  You are now registered with PhoneChat.</p></center><br><br><br>
-					<center><img src="/img/ThumbsUp1.png" height="150" width="150"></center><br><br><br>
-					<button onClick="showLoginModal()" class="ui-btn ui-btn-b ui-corner-all mc-top-margin-1-5">Open login window</button>
-					<p></p>
-			</div><!-- /content -->
+		<div role="main" class="ui-content">
+			<h1>Registration Succeeded</h1><br><br>
+			<center><p>Congratulations!  You are now registered with PhoneChat.</p></center><br><br><br>
+			<center><img src="/img/ThumbsUp1.png" height="150" width="150"></center><br><br><br>
+			<button onClick="showLoginModal()" class="ui-btn ui-btn-b ui-corner-all mc-top-margin-1-5">Open login window</button>
+			<p></p>
+		</div><!-- /content -->
 	</div><!-- /page -->
 
 	<div data-role="page" id="chat" data-theme="a">
@@ -195,58 +202,58 @@
 			<div class="container">
 				<div id="main_block">
 
-						<div class="panel panel-primary">
-							<div class="panel-body">
-								<div class="row">
-									<div class="col-md-4">
-										<div class="list-header">
-											<h4 class="list-header-title">Channels</h4>
-										</div>
-										<div class="list-group pre-scrollable nice-scroll" id="dialogs-list">
+					<div class="panel panel-primary">
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-md-4">
+									<div class="list-header">
+										<h4 class="list-header-title">Channels</h4>
+									</div>
+									<div class="list-group pre-scrollable nice-scroll" id="dialogs-list">
 										<!-- list of chat dialogs will be here -->
+									</div>
+								</div>
+								<div id="mcs_container" class="col-md-8 nice-scroll">
+									<div class="customScrollBox">
+										<div class="container del-style">
+											<div class="content list-group pre-scrollable nice-scroll" id="messages-list">
+												<!-- list of chat messages will be here -->
+											</div>
 										</div>
 									</div>
-										<div id="mcs_container" class="col-md-8 nice-scroll">
-											<div class="customScrollBox">
-												<div class="container del-style">
-													<div class="content list-group pre-scrollable nice-scroll" id="messages-list">
-														<!-- list of chat messages will be here -->
-													</div>
-												</div>
-											</div>
-												<div><img src="img/chat/ajax-loader.gif" class="load-msg"></div>
-												<form class="form-inline" role="form" method="POST" action="" onsubmit="return submit_handler(this)">
-												<div class="input-group">
-													<span class="input-group-btn input-group-btn_change_load">
+									<div><img src="img/chat/ajax-loader.gif" class="load-msg"></div>
+									<form class="form-inline" role="form" method="POST" action="" onsubmit="return submit_handler(this)">
+										<div class="input-group">
+											<span class="input-group-btn input-group-btn_change_load">
 												<input id="load-img" type="file">
-													<button type="button" id="attach_btn" class="btn btn-default" onclick="$('#load-img').click();">
+												<button type="button" id="attach_btn" class="btn btn-default" onclick="$('#load-img').click();">
 													<i class="icon-photo"></i>
 												</button>
-													</span>
-													<span class="input-group-btn input-group-btn_change_load">
-													<button type="button" id="stickers_btn" class="btn btn-default" onclick="">
+											</span>
+											<span class="input-group-btn input-group-btn_change_load">
+												<button type="button" id="stickers_btn" class="btn btn-default" onclick="">
 													<i class="icon-sticker"></i>
-													</button>
-													</span>
+												</button>
+											</span>
 
-													<span class="input-group-btn" style="width: 100%;">
-													 <input type="text" class="form-control" id="message_text" placeholder="Enter message">
-													</span>
+											<span class="input-group-btn" style="width: 100%;">
+												<input type="text" class="form-control" id="message_text" placeholder="Enter message">
+											</span>
 
-													<span class="input-group-btn">
-													<button  type="submit" id="send_btn" class="btn btn-default" onclick="clickSendMessage()">Send</button>
-													</span>
-													</div>
-													<img src="img/chat/ajax-loader.gif" id="progress">
-												</form>
-												<!-- Need to add here the button to create a channel -->
+											<span class="input-group-btn">
+												<button  type="submit" id="send_btn" class="btn btn-default" onclick="clickSendMessage()">Send</button>
+											</span>
 										</div>
-									</div>
+										<img src="img/chat/ajax-loader.gif" id="progress">
+									</form>
+									<!-- Need to add here the button to create a channel -->
 								</div>
 							</div>
 						</div>
-
+					</div>
 				</div>
+
+			</div>
 		</div>
 
 	</div>
@@ -284,7 +291,7 @@
 						<div id="users_list" class="clearfix"></div>
 					</div>
 					<div class="img-place"><img src="img/chat/ajax-loader.gif" id="load-users"></div>
-						<input type="text" class="form-control" id="dlg_name" placeholder="Enter dialog name">
+					<input type="text" class="form-control" id="dlg_name" placeholder="Enter dialog name">
 					<button id="add-dialog" type="button" value="Confirm" id="" class="btn btn-success btn-lg btn-block" onclick="createNewDialog()">Create dialog</button>
 					<div class="progress">
 						<div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%">
@@ -314,9 +321,9 @@
 					<h5 class="col-md-12 col-sm-12 col-xs-12 dialog-type-info"></h5>
 					<h5 class="col-md-12 col-sm-12 col-xs-12" id="all_occupants"></h5>
 					<button id="update_dialog_button" type="button" value="Confirm" id="" class="btn btn-success btn-ms btn-block"
-						onclick="onDialogUpdate()">Update</button>
+					onclick="onDialogUpdate()">Update</button>
 					<button id="delete_dialog_button" type="button" value="Confirm" id="for_width" class="btn btn-danger btn-ms btn-block"
-						onclick="onDialogDelete()">Delete dialog</button>
+					onclick="onDialogDelete()">Delete dialog</button>
 				</div>
 			</div>
 		</div>
@@ -334,123 +341,111 @@
 			<ul><li>Adrián Rodríguez Bazaga (Github: @AdrianBZG)</li>
 				<li>Eleazar Díaz Delgado (Github: @EleDiaz)</li>
 				<li>Rudolf Cicko (Github: @cicko)</li>
+			</div>
+
 		</div>
 
-	</div>
+		<div data-role="page" id="sensorsinfo">
 
-	<div data-role="page" id="sensorsinfo">
+			<div data-role="header" data-position="fixed" data-tap-toggle="false" data-update-page-padding="false">
+				<a href="#" data-slidemenu="#slidemenu" data-slideopen="false" data-icon="smico" data-corners="false" data-iconpos="notext">Menu</a>
+				<h1>PhoneChat: Sensors info</h1>
+			</div>
 
-		<div data-role="header" data-position="fixed" data-tap-toggle="false" data-update-page-padding="false">
-			<a href="#" data-slidemenu="#slidemenu" data-slideopen="false" data-icon="smico" data-corners="false" data-iconpos="notext">Menu</a>
-			<h1>PhoneChat: Sensors info</h1>
-		</div>
+			<div data-role="content">
+				<p>On this page you can see some info provided by the device sensors:</p>
+				<p><i class="fa fa-map-marker" aria-hidden="true"></i><b><u> GPS:</u></b><p>
+					<p id="GPSsensorField"></p>
+					<br>
+					<p><i class="fa fa-globe" aria-hidden="true"></i><b><u> Geolocalization:</u></b><p>
+						<p id="geolocalizationField"></p>
+						<p id="stateLocalizationField"></p>
+						<p id="provinceLocalizationField"></p>
+						<p id="cityLocalizationField"></p>
+						<p id="suburbLocalizationField"></p>
+						<p id="roadLocalizationField"></p>
+						<p id="postCodeLocalizationField"></p>
+						<p id="institutionLocalizationField"></p>
+						<br>
+						<p><i class="fa fa-compass" aria-hidden="true"></i><b><u> Compass:</u></b><p>
+							<p id="compassSensorField"></p>
+							<br>
+							<p><i class="fa fa-arrow-circle-up" aria-hidden="true"></i><b><u> Accelerometer:</u></b><p>
+								<p id="accSensorField"></p>
+								<br>
+								<p><i class="fa fa-random" aria-hidden="true"></i><b><u> Altimeter:</u></b><p>
+									<p id="altimeterSensorField"></p>
+									<br>
+									<script type="text/javascript" charset="utf-8">
+									watchDeviceGPSposition('GPSsensorField');
+									getCurrentGeolocalization('geolocalizationField');
+									getCurrentOrientation('compassSensorField');
+									//getCurrentAcceleration('accelerometerSensorField');
+									watchDeviceAcceleration('accSensorField');
+									getCurrentAltitude('altimeterSensorField');
+									</script>
+								</div>
 
-		<div data-role="content">
-			<p>On this page you can see some info provided by the device sensors:</p>
-			<p><i class="fa fa-map-marker" aria-hidden="true"></i><b><u> GPS:</u></b><p>
-			<p id="GPSsensorField"></p>
-			<br>
-			<p><i class="fa fa-globe" aria-hidden="true"></i><b><u> Geolocalization:</u></b><p>
-			<p id="geolocalizationField"></p>
-			<p id="stateLocalizationField"></p>
-			<p id="provinceLocalizationField"></p>
-			<p id="cityLocalizationField"></p>
-			<p id="suburbLocalizationField"></p>
-			<p id="roadLocalizationField"></p>
-			<p id="postCodeLocalizationField"></p>
-			<p id="institutionLocalizationField"></p>
-			<br>
-			<p><i class="fa fa-compass" aria-hidden="true"></i><b><u> Compass:</u></b><p>
-			<p id="compassSensorField"></p>
-			<br>
-			<p><i class="fa fa-arrow-circle-up" aria-hidden="true"></i><b><u> Accelerometer:</u></b><p>
-			<p id="accSensorField"></p>
-			<br>
-			<p><i class="fa fa-random" aria-hidden="true"></i><b><u> Altimeter:</u></b><p>
-			<p id="altimeterSensorField"></p>
-			<br>
-			<script type="text/javascript" charset="utf-8">
-			watchDeviceGPSposition('GPSsensorField');
-			getCurrentGeolocalization('geolocalizationField');
-			getCurrentOrientation('compassSensorField');
-			//getCurrentAcceleration('accelerometerSensorField');
-			watchDeviceAcceleration('accSensorField');
-			getCurrentAltitude('altimeterSensorField');
-			</script>
-		</div>
+							</div>
 
-	</div>
+							<div data-role="page" id="options">
 
-	<div data-role="page" id="options">
+								<div data-role="header" data-position="fixed" data-tap-toggle="false" data-update-page-padding="false">
+									<a href="#" data-slidemenu="#slidemenu" data-slideopen="false" data-icon="smico" data-corners="false" data-iconpos="notext">Menu</a>
+									<h1>PhoneChat: Options</h1>
+								</div>
 
-		<div data-role="header" data-position="fixed" data-tap-toggle="false" data-update-page-padding="false">
-			<a href="#" data-slidemenu="#slidemenu" data-slideopen="false" data-icon="smico" data-corners="false" data-iconpos="notext">Menu</a>
-			<h1>PhoneChat: Options</h1>
-		</div>
+								<div data-role="content">
+									<p>CURRENTLY NOT AVAILABLE:</p>
+									<p>On this screen you'll be able to change some elements of the app</p>
+								</div>
 
-		<div data-role="content">
-			<p>CURRENTLY NOT AVAILABLE:</p>
-			<p>On this screen you'll be able to change some elements of the app</p>
-		</div>
+							</div>
 
-	</div>
+							<div data-role="page" id="listevents">
 
-	<div data-role="page" id="listevents">
+								<div data-role="header" data-position="fixed" data-tap-toggle="false" data-update-page-padding="false">
+									<a href="#" data-slidemenu="#slidemenu" data-slideopen="false" data-icon="smico" data-corners="false" data-iconpos="notext">Menu</a>
+									<h1>PhoneChat: Events</h1>
+								</div>
 
-		<div data-role="header" data-position="fixed" data-tap-toggle="false" data-update-page-padding="false">
-			<a href="#" data-slidemenu="#slidemenu" data-slideopen="false" data-icon="smico" data-corners="false" data-iconpos="notext">Menu</a>
-			<h1>PhoneChat: Events</h1>
-		</div>
+								<div data-role="content">
+									<p>CURRENTLY NOT AVAILABLE:</p>
+									<p>On this screen you'll be able to list all the events created by the PhoneGap users</p>
+								</div>
 
-		<div data-role="content">
-			<p>CURRENTLY NOT AVAILABLE:</p>
-			<p>On this screen you'll be able to list all the events created by the PhoneGap users</p>
-		</div>
+							</div>
 
-	</div>
+							<div data-role="page" id="addevent">
 
-	<div data-role="page" id="addevent">
+								<div data-role="header" data-position="fixed" data-tap-toggle="false" data-update-page-padding="false">
+									<a href="#" data-slidemenu="#slidemenu" data-slideopen="false" data-icon="smico" data-corners="false" data-iconpos="notext">Menu</a>
+									<h1>PhoneChat: Add Event</h1>
+								</div>
 
-		<div data-role="header" data-position="fixed" data-tap-toggle="false" data-update-page-padding="false">
-			<a href="#" data-slidemenu="#slidemenu" data-slideopen="false" data-icon="smico" data-corners="false" data-iconpos="notext">Menu</a>
-			<h1>PhoneChat: Add Event</h1>
-		</div>
+								<div data-role="content">
+									<p>CURRENTLY NOT AVAILABLE:</p>
+									<p>On this screen you'll be able to create an event, specifying it's date, place and description.</p>
+								</div>
 
-		<div data-role="content">
-			<p>CURRENTLY NOT AVAILABLE:</p>
-			<p>On this screen you'll be able to create an event, specifying it's date, place and description.</p>
-		</div>
+							</div>
 
-	</div>
+							<div data-role="page" id="whereAmI">
 
-	<div data-role="page" id="mapPage">
+								<div data-role="header" data-position="fixed" data-tap-toggle="false" data-update-page-padding="false">
+									<a href="#" data-slidemenu="#slidemenu" data-slideopen="false" data-icon="smico" data-corners="false" data-iconpos="notext">Menu</a>
+									<h1>PhoneChat: Where am I?</h1>
+								</div>
 
-		<div data-role="header" data-position="fixed" data-tap-toggle="false" data-update-page-padding="false">
-			<a href="#" data-slidemenu="#slidemenu" data-slideopen="false" data-icon="smico" data-corners="false" data-iconpos="notext">Menu</a>
-			<h1>PhoneChat: Google Maps API</h1>
-		</div>
+								<div data-role="content">
+									<center><div id="mapid" style="width: 400px; height: 400px;"></div></center>
+									<script>
+									//initializeGenericMap();
+									</script>
+								</div>
 
-		<div data-role="content">
-			<div id="mapid" style="width: 600px; height: 600px;"></div>
-			<script>
-
-	var mymap = L.map('mapid').setView([51.505, -0.09], 13);
-	mymap.setView([51.505, -0.09], 13);
-
-	L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpandmbXliNDBjZWd2M2x6bDk3c2ZtOTkifQ._QA7i5Mpkd_m30IGElHziw', {
-		maxZoom: 18,
-		attribution: 'PhoneChat Map System',
-		id: 'mapbox.streets'
-	}).addTo(mymap);
-
-	L.marker([51.5, -0.09]).addTo(mymap)
-		.bindPopup("<b>You are here!</b>").openPopup();
-
-</script>
-		</div>
-
-	</div>
+							</div>
 
 
-</body>
-</html>
+						</body>
+						</html>

@@ -38,7 +38,11 @@ function getPostCode(lat, lon, elementId) {
 
 function getInstitution(lat, lon, elementId) {
   $.getJSON('//nominatim.openstreetmap.org/reverse?json_callback=?&format=json', {lat: lat, lon: lon}, function(data) {
-    $('#'+elementId).html('Institution: ' + data.address.parking);
+    if(data.address.parking != undefined) {
+      $('#'+elementId).html('Institution: ' + data.address.parking);
+    } else {
+      $('#'+elementId).html('Institution: Unknown');
+    }
   });
 }
 
