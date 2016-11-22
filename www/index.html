@@ -61,11 +61,15 @@
 
 	<link rel="stylesheet" type="text/css" href="css/phonechat-app.css" />
 
+	<!--OpenStreetMaps API-->
+	<script src="js/libraries/openStreetMapsAPI.js"></script>
+	
 	<!--Device sensors-->
 	<script src="js/sensors/phoneSensors.js"></script>
 
 	<!--Fontawesome-->
 	<script src="https://use.fontawesome.com/944c4a58e2.js"></script>
+
 
 </head>
 <body>
@@ -339,17 +343,25 @@
 
 		<div data-role="content">
 			<p>On this page you can see some info provided by the device sensors:</p>
-			<script type="text/javascript" charset="utf-8">
-			getCurrentGPSPosition('GPSsensorField');
-	 		</script>
-			<p><b><u>GPS:</u></b><p>
+			<p><i class="fa fa-map-marker" aria-hidden="true"></i><b><u> GPS:</u></b><p>
 			<p id="GPSsensorField"></p>
-			<br><br>
-			<p><b><u>Compass:</u></b><p>
+			<br>
+			<p><i class="fa fa-compass" aria-hidden="true"></i><b><u> Compass:</u></b><p>
 			<p id="compassSensorField"></p>
-			<br><br>
-			<p><b><u>Accelerometer:</u></b><p>
-			<p id="accelerometerSensorField"></p>
+			<br>
+			<p><i class="fa fa-arrow-circle-up" aria-hidden="true"></i><b><u> Accelerometer:</u></b><p>
+			<p id="accSensorField"></p>
+			<br>
+			<p><i class="fa fa-random" aria-hidden="true"></i><b><u> Altimeter:</u></b><p>
+			<p id="altimeterSensorField"></p>
+			<br>
+			<script type="text/javascript" charset="utf-8">
+			watchDeviceGPSposition('GPSsensorField');
+			getCurrentOrientation('compassSensorField');
+			//getCurrentAcceleration('accelerometerSensorField');
+			watchDeviceAcceleration('accSensorField');
+			getCurrentAltitude('altimeterSensorField');
+			</script>
 		</div>
 
 	</div>

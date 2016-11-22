@@ -1,6 +1,10 @@
 var pictureSource;          // Picture source: pictureSource.PHOTOLIBRARY, pictureSource.SAVEDPHOTOALBUM
 var destinationType;        // Sets the format of returned value
-var htmlElementToEdit;      // The HTML element to put the info inside
+// The HTML elemente to put the info inside
+var gpsHtmlElement;
+var compassHtmlElement;
+var accelerometerHtmlElement;
+var altitudeHtmlElement;
 
 // onGPSSuccess Callback
 //   This method accepts a `Position` object, which contains
@@ -11,41 +15,95 @@ var onGPSSuccess = function(position) {
   'Longitude: '         + position.coords.longitude         + '\n' +
   'Accuracy: '          + position.coords.accuracy);
 
-  var element = document.getElementById(htmlElementToEdit);
+  showCountry(position.coords.latitude, position.coords.longitude);
+
+  var element = document.getElementById(gpsHtmlElement);
   element.innerHTML = 'Latitude: '           + position.coords.latitude              + '<br />' +
-                      'Longitude: '          + position.coords.longitude             + '<br />' +
-                      'Accuracy: '           + position.coords.accuracy              + '<br />';
+  'Longitude: '          + position.coords.longitude             + '<br />' +
+  'Speed: '           + position.coords.speed             + '<br />' +
+  'Accuracy: '           + position.coords.accuracy             + '<br />' +
+  'Timestamp: '           + position.timestamp;
 };
 
 var onAltitudeSuccess = function(altitude) {
-  console.log('Altitude: '          + position.coords.altitude          + '\n' +
-  'Altitude Accuracy: ' + position.coords.altitudeAccuracy);
+  console.log('Altitude: '          + altitude.coords.altitude          + '\n' +
+  'Altitude Accuracy: ' + altitude.coords.altitudeAccuracy);
 
-  var element = document.getElementById(htmlElementToEdit);
-  element.innerHTML = 'Altitude: '           + position.coords.altitude              + '<br />' +
-                      'Altitude Accuracy: '          + position.coords.altitudeAccuracy      + '<br />';
+  var element = document.getElementById(altitudeHtmlElement);
+  if(altitude.coords.altitude == null) {
+    element.innerHTML = 'Altimeter is not available on current device<br />';
+  } else {
+    element.innerHTML = 'Altitude: '           + altitude.coords.altitude              + '<br />' +
+                        'Altitude Accuracy: '          + altitude.coords.altitudeAccuracy      + '<br />';
+  }
 };
 
-var onOrientationSuccess = function(altitude) {
-  console.log('Heading/Orientation: '           + position.coords.heading);
+var onOrientationSuccess = function(orientation) {
+  console.log('Heading/Orientation: '           + orientation.coords.heading);
 
-  var element = document.getElementById(htmlElementToEdit);
-  element.innerHTML = 'Heading/Orientation: '           + position.coords.heading              + '<br />';
+  if(orientation.coords.heading == null) {
+    var element = document.getElementById(compassHtmlElement);
+    element.innerHTML = 'Compass is not available on current device<br />';
+  } else {
+    var element = document.getElementById(compassHtmlElement);
+    element.innerHTML = 'Heading/Orientation: '           + orientation.coords.heading              + '<br />';
+  }
+};
+
+var onAccelerationSuccess = function(acceleration) {
+  console.log('Acceleration X: ' + acceleration.x + '\n' +
+  'Acceleration Y: ' + acceleration.y + '\n' +
+  'Acceleration Z: ' + acceleration.z + '\n' +
+  'Timestamp: '      + acceleration.timestamp);
+
+  var element = document.getElementById(accelerometerHtmlElement);
+  element.innerHTML = 'Acceleration X: '           + acceleration.x              + '<br />' +
+  'Acceleration Y: '           + acceleration.y              + '<br />' +
+  'Acceleration Z: '           + acceleration.z              + '<br />' +
+  'Timestamp: '           + acceleration.timestamp;
 };
 
 function getCurrentGPSPosition(elementId) {
-  htmlElementToEdit = elementId;
+  gpsHtmlElement = elementId;
   navigator.geolocation.getCurrentPosition(onGPSSuccess, onError);
 }
 
 function getCurrentAltitude(elementId) {
-  htmlElementToEdit = elementId;
+  altitudeHtmlElement = elementId;
   navigator.geolocation.getCurrentPosition(onAltitudeSuccess, onError);
 }
 
 function getCurrentOrientation(elementId) {
-  htmlElementToEdit = elementId;
+  compassHtmlElement = elementId;
   navigator.geolocation.getCurrentPosition(onOrientationSuccess, onError);
+}
+
+function getCurrentAcceleration(elementId) {
+  accelerometerHtmlElement = elementId;
+  navigator.accelerometer.getCurrentAcceleration(onAccelerationSuccess, onError);
+}
+
+function watchDeviceGPSposition(elementId) {
+  var options = {
+    frequency : 100
+  };
+  gpsHtmlElement = elementId;
+  navigator.geolocation.watchPosition(onGPSSuccess, onError, options);
+}
+
+function watchDeviceAcceleration(elementId) {
+  accelerometerHtmlElement = elementId;
+  var element = document.getElementById(accelerometerHtmlElement);
+
+  var options = {
+    frequency : 100
+  };
+
+  if(navigator.accelerometer != undefined) {
+    navigator.accelerometer.watchAcceleration(onAccelerationSuccess, onError, options);
+  } else {
+    element.innerHTML = 'Accelerometer is not available on current device<br />';
+  }
 }
 
 // onError Callback receives a PositionError object
