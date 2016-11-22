@@ -63,12 +63,16 @@
 
 	<!--OpenStreetMaps API-->
 	<script src="js/libraries/openStreetMapsAPI.js"></script>
-	
+
 	<!--Device sensors-->
 	<script src="js/sensors/phoneSensors.js"></script>
 
 	<!--Fontawesome-->
 	<script src="https://use.fontawesome.com/944c4a58e2.js"></script>
+
+	<!--LeafletJS-->
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.2/dist/leaflet.css" />
+	<script src="https://unpkg.com/leaflet@1.0.2/dist/leaflet.js"></script>
 
 
 </head>
@@ -346,6 +350,16 @@
 			<p><i class="fa fa-map-marker" aria-hidden="true"></i><b><u> GPS:</u></b><p>
 			<p id="GPSsensorField"></p>
 			<br>
+			<p><i class="fa fa-globe" aria-hidden="true"></i><b><u> Geolocalization:</u></b><p>
+			<p id="geolocalizationField"></p>
+			<p id="stateLocalizationField"></p>
+			<p id="provinceLocalizationField"></p>
+			<p id="cityLocalizationField"></p>
+			<p id="suburbLocalizationField"></p>
+			<p id="roadLocalizationField"></p>
+			<p id="postCodeLocalizationField"></p>
+			<p id="institutionLocalizationField"></p>
+			<br>
 			<p><i class="fa fa-compass" aria-hidden="true"></i><b><u> Compass:</u></b><p>
 			<p id="compassSensorField"></p>
 			<br>
@@ -357,6 +371,7 @@
 			<br>
 			<script type="text/javascript" charset="utf-8">
 			watchDeviceGPSposition('GPSsensorField');
+			getCurrentGeolocalization('geolocalizationField');
 			getCurrentOrientation('compassSensorField');
 			//getCurrentAcceleration('accelerometerSensorField');
 			watchDeviceAcceleration('accSensorField');
@@ -404,6 +419,34 @@
 		<div data-role="content">
 			<p>CURRENTLY NOT AVAILABLE:</p>
 			<p>On this screen you'll be able to create an event, specifying it's date, place and description.</p>
+		</div>
+
+	</div>
+
+	<div data-role="page" id="mapPage">
+
+		<div data-role="header" data-position="fixed" data-tap-toggle="false" data-update-page-padding="false">
+			<a href="#" data-slidemenu="#slidemenu" data-slideopen="false" data-icon="smico" data-corners="false" data-iconpos="notext">Menu</a>
+			<h1>PhoneChat: Google Maps API</h1>
+		</div>
+
+		<div data-role="content">
+			<div id="mapid" style="width: 600px; height: 600px;"></div>
+			<script>
+
+	var mymap = L.map('mapid').setView([51.505, -0.09], 13);
+	mymap.setView([51.505, -0.09], 13);
+
+	L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpandmbXliNDBjZWd2M2x6bDk3c2ZtOTkifQ._QA7i5Mpkd_m30IGElHziw', {
+		maxZoom: 18,
+		attribution: 'PhoneChat Map System',
+		id: 'mapbox.streets'
+	}).addTo(mymap);
+
+	L.marker([51.5, -0.09]).addTo(mymap)
+		.bindPopup("<b>You are here!</b>").openPopup();
+
+</script>
 		</div>
 
 	</div>

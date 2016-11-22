@@ -1,10 +1,16 @@
 var pictureSource;          // Picture source: pictureSource.PHOTOLIBRARY, pictureSource.SAVEDPHOTOALBUM
 var destinationType;        // Sets the format of returned value
+
 // The HTML elemente to put the info inside
 var gpsHtmlElement;
 var compassHtmlElement;
 var accelerometerHtmlElement;
 var altitudeHtmlElement;
+var countryGeolocHtmlElement;
+var cityGeolocHtmlElement;
+var townGeolocHtmlElement;
+var villageGeolocHtmlElement;
+var houseNumberGeolocHtmlElement;
 
 // onGPSSuccess Callback
 //   This method accepts a `Position` object, which contains
@@ -15,14 +21,23 @@ var onGPSSuccess = function(position) {
   'Longitude: '         + position.coords.longitude         + '\n' +
   'Accuracy: '          + position.coords.accuracy);
 
-  showCountry(position.coords.latitude, position.coords.longitude);
-
   var element = document.getElementById(gpsHtmlElement);
   element.innerHTML = 'Latitude: '           + position.coords.latitude              + '<br />' +
   'Longitude: '          + position.coords.longitude             + '<br />' +
   'Speed: '           + position.coords.speed             + '<br />' +
   'Accuracy: '           + position.coords.accuracy             + '<br />' +
   'Timestamp: '           + position.timestamp;
+};
+
+var onGeolocalizationSuccess = function(position) {
+  getCountry(position.coords.latitude, position.coords.longitude, countryGeolocHtmlElement);
+  getCity(position.coords.latitude, position.coords.longitude, 'cityLocalizationField');
+  getProvince(position.coords.latitude, position.coords.longitude, 'provinceLocalizationField');
+  getSuburb(position.coords.latitude, position.coords.longitude, 'suburbLocalizationField');
+  getRoad(position.coords.latitude, position.coords.longitude, 'roadLocalizationField');
+  getState(position.coords.latitude, position.coords.longitude, 'stateLocalizationField');
+  getPostCode(position.coords.latitude, position.coords.longitude, 'postCodeLocalizationField');
+  getInstitution(position.coords.latitude, position.coords.longitude, 'institutionLocalizationField');
 };
 
 var onAltitudeSuccess = function(altitude) {
@@ -34,7 +49,7 @@ var onAltitudeSuccess = function(altitude) {
     element.innerHTML = 'Altimeter is not available on current device<br />';
   } else {
     element.innerHTML = 'Altitude: '           + altitude.coords.altitude              + '<br />' +
-                        'Altitude Accuracy: '          + altitude.coords.altitudeAccuracy      + '<br />';
+    'Altitude Accuracy: '          + altitude.coords.altitudeAccuracy      + '<br />';
   }
 };
 
@@ -76,6 +91,11 @@ function getCurrentAltitude(elementId) {
 function getCurrentOrientation(elementId) {
   compassHtmlElement = elementId;
   navigator.geolocation.getCurrentPosition(onOrientationSuccess, onError);
+}
+
+function getCurrentGeolocalization(elementId) {
+  countryGeolocHtmlElement = elementId;
+  navigator.geolocation.getCurrentPosition(onGeolocalizationSuccess, onError);
 }
 
 function getCurrentAcceleration(elementId) {
