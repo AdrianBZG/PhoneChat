@@ -14,14 +14,6 @@ export class Login {
   password;
   email;
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController) {
-    /*
-    this.form = new FormGroup({
-      userName: new FormControl("", Validators.required),
-      // TODO: See way of get insesitive case in the pattern
-      email: new FormControl("", Validators.pattern("^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$")),
-      password: new FormControl("", Validators.minLength(8)),
-    });
-    */
   }
 
   signup() {

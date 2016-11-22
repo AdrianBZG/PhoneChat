@@ -1,11 +1,12 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output } from '@angular/core';
+import { Http, Response } from '@angular/http';
+import 'rxjs/add/operator/map';
 
 import { NavController, NavParams, AlertController } from 'ionic-angular';
 
 declare var $;
 declare var QB;
-
-let serverURL = "http://phonechat.herokuapp.com/api/account/register";
+let serverURL = "http://localhost:8100/api/account/register";
 
 enum ApiMessages {
   EMAIL_NOT_FOUND = 0,
@@ -38,7 +39,11 @@ export class SignUp {
   password : string;
   passwordRetype : string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController) {
+  constructor
+    (public navCtrl: NavController
+    , public navParams: NavParams
+    , public alertCtrl: AlertController
+    , private http: Http) {
   }
 
   login() {
@@ -63,6 +68,20 @@ export class SignUp {
     if (!this.emailReg.test(this.email)) {
       return this.showError("Not recognise as email");
     }
+    this.http.post(serverURL,
+      { email: this.email
+      , userName: this.userName
+      , firstName: this.name
+      , lastName: this.lastName
+      , password: this.password
+      }
+    ).subscribe(resp => {
+      if (resp.ok) {
+        this.navCtrl.setRoot(Chat);
+      }
+    });
+
+/*
     $.ajax(
       { type: 'POST',
         url: serverURL,
@@ -103,7 +122,7 @@ export class SignUp {
         }
       }
     );
-
+*/
   }
 
   showError(err : string) {

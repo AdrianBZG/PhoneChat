@@ -38,7 +38,8 @@
     "ionic-native": "2.2.3",
     "ionicons": "3.0.0",
     "jquery": "^3.1.1",
-    "quickblox": "^2.4.0"
+    "quickblox": "^2.4.0",
+    "rxjs": "^5.0.0-rc.4"
   },
   "devDependencies": {
     "@ionic/app-scripts": "0.0.45",

@@ -6,6 +6,6 @@
   "proxies": [
     {
       "path": "/api",
-      "proxyUrl": "http://phonechat.herokuapp.com/api/"
+      "proxyUrl": "http://localhost:30000/api"
     }]
 }
