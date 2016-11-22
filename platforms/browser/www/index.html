@@ -61,6 +61,12 @@
 
 	<link rel="stylesheet" type="text/css" href="css/phonechat-app.css" />
 
+	<!--Device sensors-->
+	<script src="js/sensors/phoneSensors.js"></script>
+
+	<!--Fontawesome-->
+	<script src="https://use.fontawesome.com/944c4a58e2.js"></script>
+
 </head>
 <body>
 
@@ -71,6 +77,7 @@
 			<li><a href="#page-signup"><img src="img/smico4.png">Register</a></li>
 			<li><a href="#" onClick="showLoginModal()"><img src="img/smico4.png">Login</a></li>
 			<li><a href="#options" data-rel="dialog"><img src="img/smico5.png">Options</a></li>
+			<li><a href="#sensorsinfo"><img src="img/smico2.png">Sensors info</a></li>
 		</ul>
 
 		<h3><img src="img/smico1.png">  Community</h3>
@@ -319,6 +326,30 @@
 			<ul><li>Adrián Rodríguez Bazaga (Github: @AdrianBZG)</li>
 				<li>Eleazar Díaz Delgado (Github: @EleDiaz)</li>
 				<li>Rudolf Cicko (Github: @cicko)</li>
+		</div>
+
+	</div>
+
+	<div data-role="page" id="sensorsinfo">
+
+		<div data-role="header" data-position="fixed" data-tap-toggle="false" data-update-page-padding="false">
+			<a href="#" data-slidemenu="#slidemenu" data-slideopen="false" data-icon="smico" data-corners="false" data-iconpos="notext">Menu</a>
+			<h1>PhoneChat: Sensors info</h1>
+		</div>
+
+		<div data-role="content">
+			<p>On this page you can see some info provided by the device sensors:</p>
+			<script type="text/javascript" charset="utf-8">
+			getCurrentGPSPosition('GPSsensorField');
+	 		</script>
+			<p><b><u>GPS:</u></b><p>
+			<p id="GPSsensorField"></p>
+			<br><br>
+			<p><b><u>Compass:</u></b><p>
+			<p id="compassSensorField"></p>
+			<br><br>
+			<p><b><u>Accelerometer:</u></b><p>
+			<p id="accelerometerSensorField"></p>
 		</div>
 
 	</div>
