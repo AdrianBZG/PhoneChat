@@ -21,18 +21,31 @@ function onError(error) {
 
 function initializeGenericMap() {
   if(mymap == undefined) {
-    mymap = L.map('mapid').setView([28.4835557, -16.3255379], 15);
+    // Get GPS position
+    getCurrentGPSPosition();
+    mymap = L.map('mapid').setView([top.glob['lat'], top.glob['lon']], 15);
 
-    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpandmbXliNDBjZWd2M2x6bDk3c2ZtOTkifQ._QA7i5Mpkd_m30IGElHziw', {
-      maxZoom: 18,
-      attribution: 'PhoneChat Map System',
-      id: 'mapbox.streets'
-    }).addTo(mymap);
+    var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+    var osmAttrib = 'Map @ PhoneChat';
+    var osm = new L.TileLayer(osmUrl);
 
-    marker = L.marker([28.4835557, -16.3255379]).addTo(mymap);
+    mymap.addLayer(osm);
+
+    marker = L.marker([top.glob['lat'], top.glob['lon']]).addTo(mymap);
     marker.bindPopup("<b>You are here!</b>").openPopup();
 
+    mymap.invalidateSize();
+
+    // Update button
+    $("#toggleMapButton").html('Update map');
+
   } else {
+    var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+    var osmAttrib = 'Map @ PhoneChat';
+    var osm = new L.TileLayer(osmUrl);
+
+    mymap.addLayer(osm);
+
     // Remove the previous marker
     mymap.removeLayer(marker);
 
@@ -46,11 +59,15 @@ function initializeGenericMap() {
     // Put the new marker with popup
     marker = L.marker([top.glob['lat'], top.glob['lon']]).addTo(mymap);
     marker.bindPopup("<b>You are here!</b>").openPopup();
+    mymap.invalidateSize();
   }
 }
 
 function changeGenericMapViewToCurrentPosition() {
-  console.log('holaaaaa');
   navigator.geolocation.getCurrentPosition(onChangeGenericMapView, onError);
-  console.log('holaaaaa2');
+}
+
+function redirectToMapPage() {
+  initializeGenericMap();
+  $().redirect('#whereAmI');
 }

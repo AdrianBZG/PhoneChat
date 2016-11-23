@@ -72,6 +72,9 @@
 
 	<!--LeafletJS-->
 	<link rel="stylesheet" href="js/libraries/leafletJS/leaflet.css" />
+	<!--[if lte IE 8]>
+			 <link rel="stylesheet" href="libs/leaflet/leaflet.ie.css" />
+	<![endif]-->
 	<script src="js/libraries/leafletJS/leaflet.js"></script>
 	<script src="js/libraries/leafletJSworker.js"></script>
 
@@ -112,7 +115,7 @@
 
 		<ul>
 			<li><a href="#sensorsinfo"><img src="img/smico2.png">Information</a></li>
-			<li><a href="#whereAmI" onClick="initializeGenericMap()"><img src="img/smico2.png">Where am I?</a></li>
+			<li><a href="#whereAmI"><img src="img/smico2.png">Where am I?</a></li>
 		</ul>
 
 		<h3><img src="img/smico1.png">  About</h3>
@@ -438,7 +441,8 @@
 								</div>
 
 								<div data-role="content">
-									<center><div id="mapid" style="width: 400px; height: 400px;"></div></center>
+									<center><button id="toggleMapButton" onClick="initializeGenericMap()">Toggle map</button></center><br><br>
+									<center><div id="mapid" style="width: 600px; height: 400px;"></div></center>
 									<script>
 									//initializeGenericMap();
 									</script>
