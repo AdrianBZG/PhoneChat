@@ -209,7 +209,8 @@ function sendMessage(text, attachmentFileId) {
       showMessage(currentUser.id, msg, attachmentFileId);
     }
   } else {
-    QB.chat.send(currentDialog.xmpp_room_jid, msg);
+    showMessage(currentUser.id, msg);
+    //QB.chat.send(currentDialog.xmpp_room_jid, msg);
   }
 
   // claer timer and send 'stop typing' status

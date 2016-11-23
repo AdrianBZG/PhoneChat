@@ -33,6 +33,15 @@ var onGPSSuccess = function(position) {
   } else {
     speedValue = 'Speed: Not available on this device';
   }
+
+  // Orientation
+  if(position.coords.heading == null) {
+    var element = document.getElementById(compassHtmlElement);
+    element.innerHTML = 'Compass is not available on current device<br />';
+  } else {
+    var element = document.getElementById(compassHtmlElement);
+    element.innerHTML = 'Heading/Orientation: '           + position.coords.heading              + '<br />';
+  }
   //
 
   console.log('Latitude: '          + position.coords.latitude          + '\n' +
@@ -128,9 +137,10 @@ function getCurrentAcceleration(elementId) {
 
 function watchDeviceGPSposition(elementId) {
   var options = {
-    frequency : 100
+    enableHighAccuracy : true
   };
   gpsHtmlElement = elementId;
+  compassHtmlElement = 'compassSensorField';
   navigator.geolocation.watchPosition(onGPSSuccess, onError, options);
 }
 
@@ -139,7 +149,7 @@ function watchDeviceAcceleration(elementId) {
   var element = document.getElementById(accelerometerHtmlElement);
 
   var options = {
-    frequency : 100
+    enableHighAccuracy : true
   };
 
   if(navigator.accelerometer != undefined) {

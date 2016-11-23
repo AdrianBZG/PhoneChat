@@ -51,6 +51,10 @@ p {display: block;}
   color: #333;
 }
 
+.ui-loader .ui-corner-all .ui-body-e .ui-loader-verbose .ui-loader-textonly {
+  visibility: hidden;
+}
+
 .navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
   border-color: #DDD;
 }
