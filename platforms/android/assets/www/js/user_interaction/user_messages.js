@@ -18,7 +18,9 @@ function checkIfNeedToUpdateAccountInfoHeader() {
         updateHeaderAccountInfo(storedName);
       }
     } else {
-      $("#logoutBtn").hide();
+      //$("#logoutBtn").hide();
+      $( "button[name='logoutBtn']" ).removeClass();
+      $( "button[name='logoutBtn']" ).addClass( "style-invisible" );
       clearUpdateHeaderAccountInfo();
     }
   }
@@ -26,12 +28,14 @@ function checkIfNeedToUpdateAccountInfoHeader() {
 
 $(document).ready(function() {
     $("button[name='logoutBtn']").click(function() {
-      localStorage.removeItem('name');
-      localStorage.removeItem('pw');
-      checkIfNeedToUpdateAccountInfoHeader();
+      //localStorage.removeItem('name');
+      //localStorage.removeItem('pw');
+      //checkIfNeedToUpdateAccountInfoHeader();
     });
 });
 
 $(document).on('click', "button[name='logoutBtn']", function() {
   console.log('holachuohey');
+  $( "button[name='logoutBtn']" ).removeClass( "style-visible" );
+  $( "button[name='logoutBtn']" ).addClass( "style-invisible" );
 });

@@ -24,6 +24,14 @@ h3.mc-text-danger  {
     display:none;
 }
 
+.style-invisible {
+    display:none;
+}
+
+.style-visible {
+    display:block;
+}
+
 .bi-ctn-err {
     background-color:#ffe1cd;
     padding:0 .5em;
