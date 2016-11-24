@@ -1,8 +1,21 @@
 //"use strict";
 
 var currentUser;
+var sensorsTimer;
 
 $(document).ready(function() {
+  sensorsTimer = setInterval(
+     function(){
+          console.log('Sensors Timer Start');
+          getCurrentGPSPosition('GPSsensorField');
+          getCurrentGeolocalization('geolocalizationField');
+          getCurrentOrientation('compassSensorField');
+          watchDeviceAcceleration('accSensorField');
+          getCurrentAltitude('altimeterSensorField');
+          console.log('Sensors Timer End');
+     },
+     2000  /* 10000 ms = 10 sec */
+);
 });
 
 function showMustLoginFirstModal() {
