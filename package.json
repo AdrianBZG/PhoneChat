@@ -22,6 +22,10 @@
     "type": "git",
     "url": "https://github.com/AdrianBZG/PhoneChat"
   },
+  "variables": {
+    "google_play_services_version": "33.1",
+    "APP_NAME": "REPLACE_FACEBOOK_APPNAME"
+  },
   "dependencies": {
     "@angular/common": "2.1.1",
     "@angular/compiler": "2.1.1",

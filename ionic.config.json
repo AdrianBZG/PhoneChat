@@ -1,11 +1,12 @@
 {
   "name": "PhoneChat",
-  "app_id": "",
+  "app_id": "04049a75",
   "v2": true,
   "typescript": true,
   "proxies": [
     {
       "path": "/api",
       "proxyUrl": "http://localhost:30000/api"
-    }]
+    }
+  ]
 }
