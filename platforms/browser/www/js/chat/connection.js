@@ -5,6 +5,10 @@ var currentUser;
 $(document).ready(function() {
 });
 
+function showMustLoginFirstModal() {
+  $("#needToLoginForm").modal("show");
+}
+
 function showLoginModal() {
   $("#loginForm").modal("show");
   $('#loginForm .progress').hide();
@@ -62,10 +66,46 @@ function connectToChat(user) {
 
           // Move to the main page
           $.mobile.navigate("#");
+          if (typeof(Storage) !== "undefined") {
+            // Code for localStorage
+            localStorage.setItem('name', user.login);
+            localStorage.setItem('pw', user.pass);
+            top.loggedInChat = 1;
+          } else {
+            // No Web Storage support..
+          }
         }
       });
     }
   });
+}
+
+function moveToChatPage() {
+  if (typeof(Storage) !== "undefined") {
+    // Code for localStorage
+    var storedName = localStorage.getItem('name');
+    var storedPw = localStorage.getItem('pw');
+    if(storedName === null && storedPw === null) {
+      showMustLoginFirstModal();
+      $.mobile.navigate("#");
+    } else {
+      if(top.loggedInChat != 1) {
+        var usuarioQB = {
+                id: 6729119, // Just a number, it'll create a random one
+                name: storedName,
+                login: storedName,
+                pass: storedPw
+            };
+        connectToChat(usuarioQB);
+        $.mobile.navigate("#chat");
+      } else {
+        $.mobile.navigate("#chat");
+      }
+    }
+  } else {
+    // No Web Storage support..
+    $.mobile.navigate("#");
+  }
 }
 
 function setupAllListeners() {

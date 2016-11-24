@@ -87,6 +87,7 @@ function moveToChatPage() {
     var storedPw = localStorage.getItem('pw');
     if(storedName === null && storedPw === null) {
       showMustLoginFirstModal();
+      $.mobile.navigate("#");
     } else {
       if(top.loggedInChat != 1) {
         var usuarioQB = {
