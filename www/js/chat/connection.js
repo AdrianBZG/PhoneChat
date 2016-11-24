@@ -25,6 +25,8 @@ function showLoginModal() {
         };
     currentUser = usuarioQB;
     connectToChat(usuarioQB);
+    clearUpdateHeaderAccountInfo();
+    checkIfNeedToUpdateAccountInfoHeader();
   });
 }
 
@@ -97,8 +99,11 @@ function moveToChatPage() {
                 pass: storedPw
             };
         connectToChat(usuarioQB);
+        top.loggedInChat = 1;
+        checkIfNeedToUpdateAccountInfoHeader();
         $.mobile.navigate("#chat");
       } else {
+        checkIfNeedToUpdateAccountInfoHeader()
         $.mobile.navigate("#chat");
       }
     }

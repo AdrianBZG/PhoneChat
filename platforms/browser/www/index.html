@@ -67,6 +67,9 @@
 	<!--Device sensors-->
 	<script src="js/sensors/phoneSensors.js"></script>
 
+	<!--User messages dynamic management-->
+	<script src="js/user_interaction/user_messages.js"></script>
+
 	<!--Fontawesome-->
 	<script src="https://use.fontawesome.com/944c4a58e2.js"></script>
 
@@ -100,7 +103,7 @@
 		<h3><img src="img/smico1.png">  Events</h3>
 
 		<ul>
-			<li><a href="#listevents" data-rel="dialog"><img src="img/smico4.png">List events</a></li>
+			<li><a href="#listevents" onClick="checkIfNeedToUpdateAccountInfoHeader()" data-rel="dialog"><img src="img/smico4.png">List events</a></li>
 			<li><a href="#addevent" data-rel="dialog"><img src="img/smico4.png">Create event</a></li>
 		</ul>
 
@@ -132,12 +135,13 @@
 		<div data-role="header" data-position="fixed" data-tap-toggle="false" data-update-page-padding="false">
 			<a href="#" data-slidemenu="#slidemenu" data-slideopen="false" data-icon="smico" data-corners="false" data-iconpos="notext">Menu</a>
 			<h1>PhoneChat: Welcome Screen</h1>
-			<div id="headerAccountInfo" style="position:absolute; top:0; right: 0;">You're logged as root</div>
+			<div id="accountInfoHeader" style="position:absolute; top:0; right: 0;"></div>
 		</div>
 
 		<div data-role="content">
 			<p>Welcome to PhoneChat, with this app you can chat with other people with the same interests as you, create channels of your favorites topics or create events and meet new people... also you can play games and try to be in the Top10!</p>
 			<br><br>
+			<script>checkIfNeedToUpdateAccountInfoHeader();</script>
 			<center><img src="img/chat-image-1.png"></center>
 		</div>
 
@@ -148,6 +152,7 @@
 		<div data-role="header" data-position="fixed" data-tap-toggle="false" data-update-page-padding="false">
 			<a href="#" data-slidemenu="#slidemenu" data-slideopen="false" data-icon="smico" data-corners="false" data-iconpos="notext">Menu</a>
 			<h1>PhoneChat</h1>
+			<div id="accountInfoHeader" style="position:absolute; top:0; right: 0;"></div>
 		</div>
 
 		<div role="main" class="ui-content">
@@ -184,6 +189,7 @@
 		<div data-role="header" data-position="fixed" data-tap-toggle="false" data-update-page-padding="false">
 			<a href="#" data-slidemenu="#slidemenu" data-slideopen="false" data-icon="smico" data-corners="false" data-iconpos="notext">Menu</a>
 			<h1>PhoneChat: Registration Succeeded!</h1>
+			<div id="accountInfoHeader" style="position:absolute; top:0; right: 0;"></div>
 		</div>
 		<div role="main" class="ui-content">
 			<h1>Registration Succeeded</h1><br><br>
@@ -199,6 +205,7 @@
 		<div data-role="header" data-position="fixed" data-tap-toggle="false" data-update-page-padding="false">
 			<a href="#" data-slidemenu="#slidemenu" data-slideopen="false" data-icon="smico" data-corners="false" data-iconpos="notext">Menu</a>
 			<h1>PhoneChat</h1>
+			<div id="accountInfoHeader" style="position:absolute; top:0; right: 0;"></div>
 		</div>
 
 		<div data-role="content">
@@ -352,6 +359,7 @@
 		<div data-role="header" data-position="fixed" data-tap-toggle="false" data-update-page-padding="false">
 			<a href="#" data-slidemenu="#slidemenu" data-slideopen="false" data-icon="smico" data-corners="false" data-iconpos="notext">Menu</a>
 			<h1>PhoneChat: Developers</h1>
+			<div id="accountInfoHeader" style="position:absolute; top:0; right: 0;"></div>
 		</div>
 
 		<div data-role="content">
@@ -368,6 +376,7 @@
 			<div data-role="header" data-position="fixed" data-tap-toggle="false" data-update-page-padding="false">
 				<a href="#" data-slidemenu="#slidemenu" data-slideopen="false" data-icon="smico" data-corners="false" data-iconpos="notext">Menu</a>
 				<h1>PhoneChat: Sensors info</h1>
+				<div id="accountInfoHeader" style="position:absolute; top:0; right: 0;"></div>
 			</div>
 
 			<div data-role="content">
@@ -453,14 +462,12 @@
 								<div data-role="header" data-position="fixed" data-tap-toggle="false" data-update-page-padding="false">
 									<a href="#" data-slidemenu="#slidemenu" data-slideopen="false" data-icon="smico" data-corners="false" data-iconpos="notext">Menu</a>
 									<h1>PhoneChat: Where am I?</h1>
+									<div id="accountInfoHeader" style="position:absolute; top:0; right: 0;"></div>
 								</div>
 
 								<div data-role="content">
 									<center><button id="toggleMapButton" onClick="initializeGenericMap()">Toggle map</button></center><br><br>
 									<center><div id="mapid" style="width: 600px; height: 400px;"></div></center>
-									<script>
-									//initializeGenericMap();
-									</script>
 								</div>
 
 							</div>
