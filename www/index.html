@@ -76,7 +76,7 @@
 	<!--LeafletJS-->
 	<link rel="stylesheet" href="js/libraries/leafletJS/leaflet.css" />
 	<!--[if lte IE 8]>
-			 <link rel="stylesheet" href="libs/leaflet/leaflet.ie.css" />
+	<link rel="stylesheet" href="libs/leaflet/leaflet.ie.css" />
 	<![endif]-->
 	<script src="js/libraries/leafletJS/leaflet.js"></script>
 	<script src="js/libraries/leafletJSworker.js"></script>
@@ -91,7 +91,13 @@
 		<ul>
 			<li><a href="#page-signup"><img src="img/smico4.png">Register</a></li>
 			<li><a href="#" onClick="showLoginModal()"><img src="img/smico4.png">Login</a></li>
-			<li><a href="#options" data-rel="dialog"><img src="img/smico5.png">Options</a></li>
+		</ul>
+
+		<h3><img src="img/smico1.png">  Account</h3>
+
+		<ul>
+			<li><a href="#" onClick="moveToAccountInfoPage()"><img src="img/smico4.png">Account info</a></li>
+			<li><a href="#" onClick="showLoginModal()"><img src="img/smico4.png">Options</a></li>
 		</ul>
 
 		<h3><img src="img/smico1.png">  Community</h3>
@@ -304,6 +310,20 @@
 		</div>
 	</div>
 
+	<!-- Modal (already logged)-->
+	<div id="needToLoginForm" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h3 class="modal-title">You're already logged!</h3>
+				</div>
+				<div class="modal-body">
+					You're already logged!
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<!-- Modal (new dialog)-->
 	<div id="add_new_dialog" class="modal fade" role="dialog">
 		<div class="modal-dialog">
@@ -411,6 +431,23 @@
 									watchDeviceAcceleration('accSensorField');
 									getCurrentAltitude('altimeterSensorField');
 									</script>
+								</div>
+
+							</div>
+
+							<div data-role="page" id="accountInfoPage">
+
+								<div data-role="header" data-position="fixed" data-tap-toggle="false" data-update-page-padding="false">
+									<a href="#" data-slidemenu="#slidemenu" data-slideopen="false" data-icon="smico" data-corners="false" data-iconpos="notext">Menu</a>
+									<h1>PhoneChat: Account Info</h1>
+								</div>
+
+								<div data-role="content">
+									<p><i class="fa fa-compass" aria-hidden="true"></i><b><u> Compass:</u></b><p>
+									You're logged in as: <p id="userNameField"></p>
+									Operating system: <p id="userOSname"></p>
+									Operating system version: <p id="userOSversion"></p>
+									Your connection IP address is: <p id="userIpAddressField"></p>
 								</div>
 
 							</div>

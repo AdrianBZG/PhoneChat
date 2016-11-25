@@ -1,46 +1,39 @@
 //"use strict";
 
 var currentUser;
-var sensorsTimer;
-
-$(document).ready(function() {
-  sensorsTimer = setInterval(
-     function(){
-          console.log('Sensors Timer Start');
-          getCurrentGPSPosition('GPSsensorField');
-          getCurrentGeolocalization('geolocalizationField');
-          getCurrentOrientation('compassSensorField');
-          watchDeviceAcceleration('accSensorField');
-          getCurrentAltitude('altimeterSensorField');
-          console.log('Sensors Timer End');
-     },
-     2000  /* 10000 ms = 10 sec */
-);
-});
 
 function showMustLoginFirstModal() {
   $("#needToLoginForm").modal("show");
 }
 
-function showLoginModal() {
-  $("#loginForm").modal("show");
-  $('#loginForm .progress').hide();
+function showAlreadyLoggedModal() {
+  $("#alreadyLoggedForm").modal("show");
+}
 
-  // login action
-  $('#loginButton').click(function() {
-    var inputUserName = $('#loginUsername').val();
-    var inputUserPassword = $('#loginPassword').val();
-    var usuarioQB = {
-            id: 6729119, // Just a number, it'll create a random one
-            name: inputUserName,
-            login: inputUserName,
-            pass: inputUserPassword
-        };
-    currentUser = usuarioQB;
-    connectToChat(usuarioQB);
-    clearUpdateHeaderAccountInfo();
-    checkIfNeedToUpdateAccountInfoHeader();
-  });
+function showLoginModal() {
+  if(top.loggedInChat != 1) {
+    $("#loginForm").modal("show");
+    $('#loginForm .progress').hide();
+
+    // login action
+    $('#loginButton').click(function() {
+      var inputUserName = $('#loginUsername').val();
+      var inputUserPassword = $('#loginPassword').val();
+      var usuarioQB = {
+        id: 6729119, // Just a number, it'll create a random one
+        name: inputUserName,
+        login: inputUserName,
+        pass: inputUserPassword
+      };
+      currentUser = usuarioQB;
+      connectToChat(usuarioQB);
+      clearUpdateHeaderAccountInfo();
+      checkIfNeedToUpdateAccountInfoHeader();
+    });
+  } else {
+    showAlreadyLoggedModal();
+    $.mobile.navigate("#");
+  }
 }
 
 function connectToChat(user) {
@@ -86,6 +79,9 @@ function connectToChat(user) {
             localStorage.setItem('name', user.login);
             localStorage.setItem('pw', user.pass);
             top.loggedInChat = 1;
+            // Let's call the content updating functions
+            updateAccountInfoPage();
+            //
           } else {
             // No Web Storage support..
           }
@@ -93,6 +89,41 @@ function connectToChat(user) {
       });
     }
   });
+}
+
+function updateAccountInfoPage() {
+  var storedName = localStorage.getItem('name');
+  $("#userNameField").text(storedName);
+
+  // Get IP
+  updateDeviceIpInfo();
+
+  // Get Android OS info
+
+}
+
+function updateDeviceIpInfo() {
+  $.ajax({
+        url: '//freegeoip.net/json/',
+        type: 'POST',
+        dataType: 'jsonp',
+        success: function(location) {
+            //alert(location.ip);
+            $("#userIpAddressField").text(location.ip);
+        }
+    });
+}
+
+function updateAndroidOSinfo() {
+   var parsedOSVersion;
+   var deviceOS  = device.platform;  //fetch the device operating system
+   var deviceOSVersion = device.version;  //fetch the device OS version
+   parsedOSVersion = parseInt(deviceOSVersion);
+   alert("Device OS: " + deviceOS);
+   alert("Device OS Version: " + deviceOSVersion);
+
+   $("#userOSname").text(deviceOS);
+   $("#userOSversion").text(parsedOSVersion);
 }
 
 function moveToChatPage() {
@@ -106,11 +137,11 @@ function moveToChatPage() {
     } else {
       if(top.loggedInChat != 1) {
         var usuarioQB = {
-                id: 6729119, // Just a number, it'll create a random one
-                name: storedName,
-                login: storedName,
-                pass: storedPw
-            };
+          id: 6729119, // Just a number, it'll create a random one
+          name: storedName,
+          login: storedName,
+          pass: storedPw
+        };
         connectToChat(usuarioQB);
         top.loggedInChat = 1;
         checkIfNeedToUpdateAccountInfoHeader();
@@ -118,6 +149,28 @@ function moveToChatPage() {
       } else {
         checkIfNeedToUpdateAccountInfoHeader()
         $.mobile.navigate("#chat");
+      }
+    }
+  } else {
+    // No Web Storage support..
+    $.mobile.navigate("#");
+  }
+}
+
+function moveToAccountInfoPage() {
+  if (typeof(Storage) !== "undefined") {
+    // Code for localStorage
+    var storedName = localStorage.getItem('name');
+    var storedPw = localStorage.getItem('pw');
+    if(storedName === null && storedPw === null) {
+      showMustLoginFirstModal();
+      $.mobile.navigate("#");
+    } else {
+      if(top.loggedInChat != 1) {
+        showMustLoginFirstModal();
+        $.mobile.navigate("#");
+      } else {
+        $.mobile.navigate("#accountInfoPage");
       }
     }
   } else {
@@ -148,8 +201,8 @@ function onReconnectListener(){
 
 // niceScroll() - ON
 $(document).ready(
-    function() {
-        $("html").niceScroll({cursorcolor:"#02B923", cursorwidth:"7", zindex:"99999"});
-        $(".nice-scroll").niceScroll({cursorcolor:"#02B923", cursorwidth:"7", zindex:"99999"});
-    }
+  function() {
+    $("html").niceScroll({cursorcolor:"#02B923", cursorwidth:"7", zindex:"99999"});
+    $(".nice-scroll").niceScroll({cursorcolor:"#02B923", cursorwidth:"7", zindex:"99999"});
+  }
 );

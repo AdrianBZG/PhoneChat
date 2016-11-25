@@ -12,6 +12,7 @@ var townGeolocHtmlElement;
 var villageGeolocHtmlElement;
 var houseNumberGeolocHtmlElement;
 var resultData;
+var sensorsTimer;
 
 // onGPSSuccess Callback
 //   This method accepts a `Position` object, which contains
@@ -225,21 +226,33 @@ function capturePhoto() {
   //
   function capturePhotoEdit() {
     // Take picture using device camera, allow edit, and retrieve image as base64-encoded string
-    navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 20, allowEdit: true,
-      destinationType: destinationType.DATA_URL });
-    }
+    navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 20, allowEdit: true, destinationType: destinationType.DATA_URL });
+  }
 
-    // A button will call this function
-    //
-    function getPhoto(source) {
-      // Retrieve image file location from specified source
-      navigator.camera.getPicture(onPhotoURISuccess, onFail, { quality: 50,
-        destinationType: destinationType.FILE_URI,
-        sourceType: source });
-      }
+  // A button will call this function
+  //
+  function getPhoto(source) {
+    // Retrieve image file location from specified source
+    navigator.camera.getPicture(onPhotoURISuccess, onFail, { quality: 50, destinationType: destinationType.FILE_URI, sourceType: source });
+  }
 
-      // Called if something bad happens.
-      //
-      function onFail(message) {
-        alert('Failed because: ' + message);
-      }
+  // Called if something bad happens.
+  //
+  function onFail(message) {
+    alert('Failed because: ' + message);
+  }
+
+  $(document).ready(function() {
+    sensorsTimer = setInterval(
+      function(){
+        console.log('Sensors Timer Start');
+        getCurrentGPSPosition('GPSsensorField');
+        getCurrentGeolocalization('geolocalizationField');
+        getCurrentOrientation('compassSensorField');
+        watchDeviceAcceleration('accSensorField');
+        getCurrentAltitude('altimeterSensorField');
+        console.log('Sensors Timer End');
+      },
+      2000  /* 10000 ms = 10 sec */
+    );
+  });
