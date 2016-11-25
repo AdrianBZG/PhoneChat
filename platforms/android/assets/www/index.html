@@ -81,6 +81,49 @@
 	<script src="js/libraries/leafletJS/leaflet.js"></script>
 	<script src="js/libraries/leafletJSworker.js"></script>
 
+	<!--Speech recognition-->
+	<script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.5.0/annyang.min.js"></script>
+	<script>
+	if (annyang) {
+		// Let's define our first command. First the text we expect, and then the function it should call
+		var commands = {
+			'show test': function() {
+				alert('test');
+			},
+
+			'show teacher': function() {
+				alert('hello teacher');
+			},
+
+			'show superman': function() {
+				alert('my name is superman');
+			},
+
+			'move developers': function() {
+				$.mobile.navigate("#developers");
+			},
+
+			'move login': function() {
+				showLoginModal();
+			},
+
+			'move chat': function() {
+				$.mobile.navigate("#chat");
+			},
+
+			'show menu': function() {
+				$('#showMenuBtn').click();
+			}
+		};
+
+		// Add our commands to annyang
+		annyang.addCommands(commands);
+
+		// Start listening. You can call this here, or attach this call to an event, button, etc.
+		annyang.start();
+	}
+	</script>
+
 
 </head>
 <body>
@@ -97,7 +140,7 @@
 
 		<ul>
 			<li><a href="#" onClick="moveToAccountInfoPage()"><img src="img/smico4.png">Account info</a></li>
-			<li><a href="#" onClick="showLoginModal()"><img src="img/smico4.png">Options</a></li>
+			<li><a href="#" onClick=""><img src="img/smico4.png">Options</a></li>
 		</ul>
 
 		<h3><img src="img/smico1.png">  Community</h3>
@@ -139,7 +182,7 @@
 	<div data-role="page" id="main_page">
 
 		<div data-role="header" data-position="fixed" data-tap-toggle="false" data-update-page-padding="false">
-			<a href="#" data-slidemenu="#slidemenu" data-slideopen="false" data-icon="smico" data-corners="false" data-iconpos="notext">Menu</a>
+			<a href="#" id="showMenuBtn" data-slidemenu="#slidemenu" data-slideopen="false" data-icon="smico" data-corners="false" data-iconpos="notext">Menu</a>
 			<h1>PhoneChat: Welcome Screen</h1>
 			<div id="accountInfoHeader" style="position:absolute; top:0; right: 0;"></div>
 		</div>
@@ -156,7 +199,7 @@
 	<div data-role="page" id="page-signup" data-theme="a">
 
 		<div data-role="header" data-position="fixed" data-tap-toggle="false" data-update-page-padding="false">
-			<a href="#" data-slidemenu="#slidemenu" data-slideopen="false" data-icon="smico" data-corners="false" data-iconpos="notext">Menu</a>
+			<a href="#" id="showMenuBtn" data-slidemenu="#slidemenu" data-slideopen="false" data-icon="smico" data-corners="false" data-iconpos="notext">Menu</a>
 			<h1>PhoneChat</h1>
 			<div id="accountInfoHeader" style="position:absolute; top:0; right: 0;"></div>
 		</div>
@@ -193,7 +236,7 @@
 
 	<div data-role="page" id="page-signup-succeeded">
 		<div data-role="header" data-position="fixed" data-tap-toggle="false" data-update-page-padding="false">
-			<a href="#" data-slidemenu="#slidemenu" data-slideopen="false" data-icon="smico" data-corners="false" data-iconpos="notext">Menu</a>
+			<a href="#" id="showMenuBtn" data-slidemenu="#slidemenu" data-slideopen="false" data-icon="smico" data-corners="false" data-iconpos="notext">Menu</a>
 			<h1>PhoneChat: Registration Succeeded!</h1>
 			<div id="accountInfoHeader" style="position:absolute; top:0; right: 0;"></div>
 		</div>
@@ -209,7 +252,7 @@
 	<div data-role="page" id="chat" data-theme="a">
 
 		<div data-role="header" data-position="fixed" data-tap-toggle="false" data-update-page-padding="false">
-			<a href="#" data-slidemenu="#slidemenu" data-slideopen="false" data-icon="smico" data-corners="false" data-iconpos="notext">Menu</a>
+			<a href="#" id="showMenuBtn" data-slidemenu="#slidemenu" data-slideopen="false" data-icon="smico" data-corners="false" data-iconpos="notext">Menu</a>
 			<h1>PhoneChat</h1>
 			<div id="accountInfoHeader" style="position:absolute; top:0; right: 0;"></div>
 		</div>
@@ -265,21 +308,21 @@
 														<i class="icon-sticker"></i>
 													</button>
 												</span>
-										</form>
+											</form>
+										</div>
 									</div>
-								</div>
 									<!-- Need to add here the button to create a channel -->
 								</div>
 								<div class="col-md-4">
 
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
 
+				</div>
 			</div>
 		</div>
-	 </div>
 	</div>
 
 	<!-- Modal (login to chat)-->
@@ -291,248 +334,248 @@
 				</div>
 				<div class="modal-body">
 					<center>Username: <input id="loginUsername" name="userName" type="text" class="required" placeholder="Username"><br>
-					Password: <input id="loginPassword" pattern=".{8,}" name="password" type="password" class="required" placeholder="Password"><br></center>
-					<br><br><br>
-					<button type="button" value="Quick" id="loginButton" class="btn btn-primary btn-lg btn-block">Sign in</button>
-					<div class="progress">
-						<div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%">
+						Password: <input id="loginPassword" pattern=".{8,}" name="password" type="password" class="required" placeholder="Password"><br></center>
+						<br><br><br>
+						<button type="button" value="Quick" id="loginButton" class="btn btn-primary btn-lg btn-block">Sign in</button>
+						<div class="progress">
+							<div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%">
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
 
-	<!-- Modal (need to login first)-->
-	<div id="needToLoginForm" class="modal fade" role="dialog">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h3 class="modal-title">You must login first!</h3>
-				</div>
-				<div class="modal-body">
-					In order to use this functionality you must login, go ahead to the 'Login' section.
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<!-- Modal (already logged)-->
-	<div id="needToLoginForm" class="modal fade" role="dialog">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h3 class="modal-title">You're already logged!</h3>
-				</div>
-				<div class="modal-body">
-					You're already logged!
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<!-- Modal (logged out)-->
-	<div id="loggedOutModal" class="modal fade" role="dialog">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h3 class="modal-title">Succesfully logged out!</h3>
-				</div>
-				<div class="modal-body">
-					You have been succesfully logged out!
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<!-- Modal (new dialog)-->
-	<div id="add_new_dialog" class="modal fade" role="dialog">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h3 class="modal-title">Choose users to create a dialog with</h3>
-				</div>
-				<div class="modal-body">
-					<div class="list-group pre-scrollable for-scroll">
-						<div id="users_list" class="clearfix"></div>
+		<!-- Modal (need to login first)-->
+		<div id="needToLoginForm" class="modal fade" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h3 class="modal-title">You must login first!</h3>
 					</div>
-					<div class="img-place"><img src="img/chat/ajax-loader.gif" id="load-users"></div>
-					<input type="text" class="form-control" id="dlg_name" placeholder="Enter dialog name">
-					<button id="add-dialog" type="button" value="Confirm" id="" class="btn btn-success btn-lg btn-block" onclick="createNewDialog()">Create dialog</button>
-					<div class="progress">
-						<div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%">
+					<div class="modal-body">
+						In order to use this functionality you must login, go ahead to the 'Login' section.
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Modal (already logged)-->
+		<div id="needToLoginForm" class="modal fade" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h3 class="modal-title">You're already logged!</h3>
+					</div>
+					<div class="modal-body">
+						You're already logged!
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Modal (logged out)-->
+		<div id="loggedOutModal" class="modal fade" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h3 class="modal-title">Succesfully logged out!</h3>
+					</div>
+					<div class="modal-body">
+						You have been succesfully logged out!
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Modal (new dialog)-->
+		<div id="add_new_dialog" class="modal fade" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h3 class="modal-title">Choose users to create a dialog with</h3>
+					</div>
+					<div class="modal-body">
+						<div class="list-group pre-scrollable for-scroll">
+							<div id="users_list" class="clearfix"></div>
+						</div>
+						<div class="img-place"><img src="img/chat/ajax-loader.gif" id="load-users"></div>
+						<input type="text" class="form-control" id="dlg_name" placeholder="Enter dialog name">
+						<button id="add-dialog" type="button" value="Confirm" id="" class="btn btn-success btn-lg btn-block" onclick="createNewDialog()">Create dialog</button>
+						<div class="progress">
+							<div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%">
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
 
-	<!-- Modal (update dialog)-->
-	<div id="update_dialog" class="modal fade row" role="dialog">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h3 class="modal-title">Dialog info</h3>
-				</div>
-				<div class="modal-body">
-					<div class="col-md-12 col-sm-12 col-xs-12 new-info">
-						<h5 class="col-md-12 col-sm-12 col-xs-12">Name:</h5>
-						<input type="text" class="form-control" id="dialog-name-input">
+		<!-- Modal (update dialog)-->
+		<div id="update_dialog" class="modal fade row" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h3 class="modal-title">Dialog info</h3>
 					</div>
-					<h5 class="col-md-12 col-sm-12 col-xs-12 push">Add more user (select to add):</h5>
-					<div class="list-group pre-scrollable occupants" id="push_usersList">
-						<div id="add_new_occupant" class="clearfix"></div>
+					<div class="modal-body">
+						<div class="col-md-12 col-sm-12 col-xs-12 new-info">
+							<h5 class="col-md-12 col-sm-12 col-xs-12">Name:</h5>
+							<input type="text" class="form-control" id="dialog-name-input">
+						</div>
+						<h5 class="col-md-12 col-sm-12 col-xs-12 push">Add more user (select to add):</h5>
+						<div class="list-group pre-scrollable occupants" id="push_usersList">
+							<div id="add_new_occupant" class="clearfix"></div>
+						</div>
+						<h5 class="col-md-12 col-sm-12 col-xs-12 dialog-type-info"></h5>
+						<h5 class="col-md-12 col-sm-12 col-xs-12" id="all_occupants"></h5>
+						<button id="update_dialog_button" type="button" value="Confirm" id="" class="btn btn-success btn-ms btn-block"
+						onclick="onDialogUpdate()">Update</button>
+						<button id="delete_dialog_button" type="button" value="Confirm" id="for_width" class="btn btn-danger btn-ms btn-block"
+						onclick="onDialogDelete()">Delete dialog</button>
 					</div>
-					<h5 class="col-md-12 col-sm-12 col-xs-12 dialog-type-info"></h5>
-					<h5 class="col-md-12 col-sm-12 col-xs-12" id="all_occupants"></h5>
-					<button id="update_dialog_button" type="button" value="Confirm" id="" class="btn btn-success btn-ms btn-block"
-					onclick="onDialogUpdate()">Update</button>
-					<button id="delete_dialog_button" type="button" value="Confirm" id="for_width" class="btn btn-danger btn-ms btn-block"
-					onclick="onDialogDelete()">Delete dialog</button>
 				</div>
 			</div>
 		</div>
-	</div>
 
-	<div data-role="page" id="developers">
-
-		<div data-role="header" data-position="fixed" data-tap-toggle="false" data-update-page-padding="false">
-			<a href="#" data-slidemenu="#slidemenu" data-slideopen="false" data-icon="smico" data-corners="false" data-iconpos="notext">Menu</a>
-			<h1>PhoneChat: Developers</h1>
-			<div id="accountInfoHeader" style="position:absolute; top:0; right: 0;"></div>
-		</div>
-
-		<div data-role="content">
-			<p>The development team of this app is formed by:</p>
-			<ul><li>Adrián Rodríguez Bazaga (Github: @AdrianBZG)</li>
-				<li>Eleazar Díaz Delgado (Github: @EleDiaz)</li>
-				<li>Rudolf Cicko (Github: @cicko)</li>
-			</div>
-
-		</div>
-
-		<div data-role="page" id="sensorsinfo">
+		<div data-role="page" id="developers">
 
 			<div data-role="header" data-position="fixed" data-tap-toggle="false" data-update-page-padding="false">
-				<a href="#" data-slidemenu="#slidemenu" data-slideopen="false" data-icon="smico" data-corners="false" data-iconpos="notext">Menu</a>
-				<h1>PhoneChat: Sensors info</h1>
+				<a href="#" id="showMenuBtn" data-slidemenu="#slidemenu" data-slideopen="false" data-icon="smico" data-corners="false" data-iconpos="notext">Menu</a>
+				<h1>PhoneChat: Developers</h1>
 				<div id="accountInfoHeader" style="position:absolute; top:0; right: 0;"></div>
 			</div>
 
 			<div data-role="content">
-				<p>On this page you can see some info provided by the device sensors:</p>
-				<p><i class="fa fa-map-marker" aria-hidden="true"></i><b><u> GPS:</u></b><p>
-					<p id="GPSsensorField"></p>
-					<br>
-					<p><i class="fa fa-globe" aria-hidden="true"></i><b><u> Geolocalization:</u></b><p>
-						<p id="geolocalizationField"></p>
-						<p id="stateLocalizationField"></p>
-						<p id="provinceLocalizationField"></p>
-						<p id="cityLocalizationField"></p>
-						<p id="suburbLocalizationField"></p>
-						<p id="roadLocalizationField"></p>
-						<p id="postCodeLocalizationField"></p>
-						<p id="institutionLocalizationField"></p>
+				<p>The development team of this app is formed by:</p>
+				<ul><li>Adrián Rodríguez Bazaga (Github: @AdrianBZG)</li>
+					<li>Eleazar Díaz Delgado (Github: @EleDiaz)</li>
+					<li>Rudolf Cicko (Github: @cicko)</li>
+				</div>
+
+			</div>
+
+			<div data-role="page" id="sensorsinfo">
+
+				<div data-role="header" data-position="fixed" data-tap-toggle="false" data-update-page-padding="false">
+					<a href="#" id="showMenuBtn" data-slidemenu="#slidemenu" data-slideopen="false" data-icon="smico" data-corners="false" data-iconpos="notext">Menu</a>
+					<h1>PhoneChat: Sensors info</h1>
+					<div id="accountInfoHeader" style="position:absolute; top:0; right: 0;"></div>
+				</div>
+
+				<div data-role="content">
+					<p>On this page you can see some info provided by the device sensors:</p>
+					<p><i class="fa fa-map-marker" aria-hidden="true"></i><b><u> GPS:</u></b><p>
+						<p id="GPSsensorField"></p>
 						<br>
-						<p><i class="fa fa-compass" aria-hidden="true"></i><b><u> Compass:</u></b><p>
-							<p id="compassSensorField"></p>
+						<p><i class="fa fa-globe" aria-hidden="true"></i><b><u> Geolocalization:</u></b><p>
+							<p id="geolocalizationField"></p>
+							<p id="stateLocalizationField"></p>
+							<p id="provinceLocalizationField"></p>
+							<p id="cityLocalizationField"></p>
+							<p id="suburbLocalizationField"></p>
+							<p id="roadLocalizationField"></p>
+							<p id="postCodeLocalizationField"></p>
+							<p id="institutionLocalizationField"></p>
 							<br>
-							<p><i class="fa fa-arrow-circle-up" aria-hidden="true"></i><b><u> Accelerometer:</u></b><p>
-								<p id="accSensorField"></p>
+							<p><i class="fa fa-compass" aria-hidden="true"></i><b><u> Compass:</u></b><p>
+								<p id="compassSensorField"></p>
 								<br>
-								<p><i class="fa fa-random" aria-hidden="true"></i><b><u> Altimeter:</u></b><p>
-									<p id="altimeterSensorField"></p>
+								<p><i class="fa fa-arrow-circle-up" aria-hidden="true"></i><b><u> Accelerometer:</u></b><p>
+									<p id="accSensorField"></p>
 									<br>
-									<script type="text/javascript" charset="utf-8">
-									watchDeviceGPSposition('GPSsensorField');
-									getCurrentGeolocalization('geolocalizationField');
-									getCurrentOrientation('compassSensorField');
-									//getCurrentAcceleration('accelerometerSensorField');
-									watchDeviceAcceleration('accSensorField');
-									getCurrentAltitude('altimeterSensorField');
-									</script>
+									<p><i class="fa fa-random" aria-hidden="true"></i><b><u> Altimeter:</u></b><p>
+										<p id="altimeterSensorField"></p>
+										<br>
+										<script type="text/javascript" charset="utf-8">
+										watchDeviceGPSposition('GPSsensorField');
+										getCurrentGeolocalization('geolocalizationField');
+										getCurrentOrientation('compassSensorField');
+										//getCurrentAcceleration('accelerometerSensorField');
+										watchDeviceAcceleration('accSensorField');
+										getCurrentAltitude('altimeterSensorField');
+										</script>
+									</div>
+
 								</div>
 
-							</div>
+								<div data-role="page" id="accountInfoPage">
 
-							<div data-role="page" id="accountInfoPage">
+									<div data-role="header" data-position="fixed" data-tap-toggle="false" data-update-page-padding="false">
+										<a href="#" id="showMenuBtn" data-slidemenu="#slidemenu" data-slideopen="false" data-icon="smico" data-corners="false" data-iconpos="notext">Menu</a>
+										<h1>PhoneChat: Account Info</h1>
+									</div>
 
-								<div data-role="header" data-position="fixed" data-tap-toggle="false" data-update-page-padding="false">
-									<a href="#" data-slidemenu="#slidemenu" data-slideopen="false" data-icon="smico" data-corners="false" data-iconpos="notext">Menu</a>
-									<h1>PhoneChat: Account Info</h1>
-								</div>
+									<div data-role="content">
+										<p><i class="fa fa-compass" aria-hidden="true"></i><b><u> Account information:</u></b><p>
+											<p id="userNameField"></p>
+											<p id="userOSname"></p>
+											<p id="userOSversion"></p>
+											<p id="userIpAddressField"></p>
+											<br><br>
+											<p><i class="fa fa-compass" aria-hidden="true"></i><b><u> Account options:</u></b><p>
+												Logout from your account: <button id="btnAccountLogout">Logout</button>
+											</div>
 
-								<div data-role="content">
-									<p><i class="fa fa-compass" aria-hidden="true"></i><b><u> Account information:</u></b><p>
-									<p id="userNameField"></p>
-									<p id="userOSname"></p>
-									<p id="userOSversion"></p>
-									<p id="userIpAddressField"></p>
-									<br><br>
-									<p><i class="fa fa-compass" aria-hidden="true"></i><b><u> Account options:</u></b><p>
-									Logout from your account: <button id="btnAccountLogout">Logout</button>
-								</div>
+										</div>
 
-							</div>
+										<div data-role="page" id="options">
 
-							<div data-role="page" id="options">
+											<div data-role="header" data-position="fixed" data-tap-toggle="false" data-update-page-padding="false">
+												<a href="#" id="showMenuBtn" data-slidemenu="#slidemenu" data-slideopen="false" data-icon="smico" data-corners="false" data-iconpos="notext">Menu</a>
+												<h1>PhoneChat: Options</h1>
+											</div>
 
-								<div data-role="header" data-position="fixed" data-tap-toggle="false" data-update-page-padding="false">
-									<a href="#" data-slidemenu="#slidemenu" data-slideopen="false" data-icon="smico" data-corners="false" data-iconpos="notext">Menu</a>
-									<h1>PhoneChat: Options</h1>
-								</div>
+											<div data-role="content">
+												<p>CURRENTLY NOT AVAILABLE:</p>
+												<p>On this screen you'll be able to change some elements of the app</p>
+											</div>
 
-								<div data-role="content">
-									<p>CURRENTLY NOT AVAILABLE:</p>
-									<p>On this screen you'll be able to change some elements of the app</p>
-								</div>
+										</div>
 
-							</div>
+										<div data-role="page" id="listevents">
 
-							<div data-role="page" id="listevents">
+											<div data-role="header" data-position="fixed" data-tap-toggle="false" data-update-page-padding="false">
+												<a href="#" id="showMenuBtn" data-slidemenu="#slidemenu" data-slideopen="false" data-icon="smico" data-corners="false" data-iconpos="notext">Menu</a>
+												<h1>PhoneChat: Events</h1>
+											</div>
 
-								<div data-role="header" data-position="fixed" data-tap-toggle="false" data-update-page-padding="false">
-									<a href="#" data-slidemenu="#slidemenu" data-slideopen="false" data-icon="smico" data-corners="false" data-iconpos="notext">Menu</a>
-									<h1>PhoneChat: Events</h1>
-								</div>
+											<div data-role="content">
+												<p>CURRENTLY NOT AVAILABLE:</p>
+												<p>On this screen you'll be able to list all the events created by the PhoneGap users</p>
+											</div>
 
-								<div data-role="content">
-									<p>CURRENTLY NOT AVAILABLE:</p>
-									<p>On this screen you'll be able to list all the events created by the PhoneGap users</p>
-								</div>
+										</div>
 
-							</div>
+										<div data-role="page" id="addevent">
 
-							<div data-role="page" id="addevent">
+											<div data-role="header" data-position="fixed" data-tap-toggle="false" data-update-page-padding="false">
+												<a href="#" id="showMenuBtn" data-slidemenu="#slidemenu" data-slideopen="false" data-icon="smico" data-corners="false" data-iconpos="notext">Menu</a>
+												<h1>PhoneChat: Add Event</h1>
+											</div>
 
-								<div data-role="header" data-position="fixed" data-tap-toggle="false" data-update-page-padding="false">
-									<a href="#" data-slidemenu="#slidemenu" data-slideopen="false" data-icon="smico" data-corners="false" data-iconpos="notext">Menu</a>
-									<h1>PhoneChat: Add Event</h1>
-								</div>
+											<div data-role="content">
+												<p>CURRENTLY NOT AVAILABLE:</p>
+												<p>On this screen you'll be able to create an event, specifying it's date, place and description.</p>
+											</div>
 
-								<div data-role="content">
-									<p>CURRENTLY NOT AVAILABLE:</p>
-									<p>On this screen you'll be able to create an event, specifying it's date, place and description.</p>
-								</div>
+										</div>
 
-							</div>
+										<div data-role="page" id="whereAmI">
 
-							<div data-role="page" id="whereAmI">
+											<div data-role="header" data-position="fixed" data-tap-toggle="false" data-update-page-padding="false">
+												<a href="#" id="showMenuBtn" data-slidemenu="#slidemenu" data-slideopen="false" data-icon="smico" data-corners="false" data-iconpos="notext">Menu</a>
+												<h1>PhoneChat: Where am I?</h1>
+												<div id="accountInfoHeader" style="position:absolute; top:0; right: 0;"></div>
+											</div>
 
-								<div data-role="header" data-position="fixed" data-tap-toggle="false" data-update-page-padding="false">
-									<a href="#" data-slidemenu="#slidemenu" data-slideopen="false" data-icon="smico" data-corners="false" data-iconpos="notext">Menu</a>
-									<h1>PhoneChat: Where am I?</h1>
-									<div id="accountInfoHeader" style="position:absolute; top:0; right: 0;"></div>
-								</div>
+											<div data-role="content">
+												<center><button id="toggleMapButton" onClick="initializeGenericMap()">Toggle map</button></center><br><br>
+												<center><div id="mapid" style="width: 600px; height: 400px;"></div></center>
+											</div>
 
-								<div data-role="content">
-									<center><button id="toggleMapButton" onClick="initializeGenericMap()">Toggle map</button></center><br><br>
-									<center><div id="mapid" style="width: 600px; height: 400px;"></div></center>
-								</div>
-
-							</div>
+										</div>
 
 
-						</body>
-						</html>
+									</body>
+									</html>
