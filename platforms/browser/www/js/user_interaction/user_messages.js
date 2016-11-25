@@ -1,12 +1,12 @@
 function updateHeaderAccountInfo(textToAppend) {
-  $('#accountInfoHeader').text('You are logged in as ' + textToAppend);
+  /*$('#accountInfoHeader').text('You are logged in as ' + textToAppend);
   var domElement = $('<button name="logoutBtn">Logout</button>');
-  $('#accountInfoHeader').after(domElement);
+  $('#accountInfoHeader').after(domElement);*/
 }
 
 function clearUpdateHeaderAccountInfo() {
-  $('#accountInfoHeader').text('');
-  $("button[name='logoutBtn']").remove();
+  /*$('#accountInfoHeader').text('');
+  $("button[name='logoutBtn']").remove();*/
 }
 
 function checkIfNeedToUpdateAccountInfoHeader() {
@@ -18,24 +18,9 @@ function checkIfNeedToUpdateAccountInfoHeader() {
         updateHeaderAccountInfo(storedName);
       }
     } else {
-      //$("#logoutBtn").hide();
-      $( "button[name='logoutBtn']" ).removeClass();
-      $( "button[name='logoutBtn']" ).addClass( "style-invisible" );
+      //$( "button[name='logoutBtn']" ).removeClass();
+      //$( "button[name='logoutBtn']" ).addClass( "style-invisible" );
       clearUpdateHeaderAccountInfo();
     }
   }
 }
-
-$(document).ready(function() {
-    $("button[name='logoutBtn']").click(function() {
-      //localStorage.removeItem('name');
-      //localStorage.removeItem('pw');
-      //checkIfNeedToUpdateAccountInfoHeader();
-    });
-});
-
-$(document).on('click', "button[name='logoutBtn']", function() {
-  console.log('holachuohey');
-  $( "button[name='logoutBtn']" ).removeClass( "style-visible" );
-  $( "button[name='logoutBtn']" ).addClass( "style-invisible" );
-});

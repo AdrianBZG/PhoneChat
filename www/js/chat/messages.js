@@ -193,7 +193,7 @@ function sendMessage(text, attachmentFileId) {
     senderId: currentUser.id,
     markable: 1
   };
-  if(attachmentFileId !== null){
+  if(attachmentFileId != null){
     msg["extension"]["attachments"] = [{id: attachmentFileId, type: 'photo'}];
   }
 

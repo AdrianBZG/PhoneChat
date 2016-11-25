@@ -141,7 +141,7 @@
 		<div data-role="header" data-position="fixed" data-tap-toggle="false" data-update-page-padding="false">
 			<a href="#" data-slidemenu="#slidemenu" data-slideopen="false" data-icon="smico" data-corners="false" data-iconpos="notext">Menu</a>
 			<h1>PhoneChat: Welcome Screen</h1>
-			<div id="accountInfoHeader" style="position:absolute; top:0; right: 0;"></div><button name="logoutBtn">Logout</button>
+			<div id="accountInfoHeader" style="position:absolute; top:0; right: 0;"></div>
 		</div>
 
 		<div data-role="content">
@@ -238,21 +238,9 @@
 											</div>
 										</div>
 									</div>
-									<div><img src="img/chat/ajax-loader.gif" class="load-msg"></div>
+									<!--<div><img src="img/chat/ajax-loader.gif" class="load-msg"></div>-->
 									<form class="form-inline" role="form" method="POST" action="" onsubmit="return submit_handler(this)">
 										<div class="input-group">
-											<span class="input-group-btn input-group-btn_change_load">
-												<input id="load-img" type="file">
-												<button type="button" id="attach_btn" class="btn btn-default" onclick="$('#load-img').click();">
-													<i class="icon-photo"></i>
-												</button>
-											</span>
-											<span class="input-group-btn input-group-btn_change_load">
-												<button type="button" id="stickers_btn" class="btn btn-default" onclick="">
-													<i class="icon-sticker"></i>
-												</button>
-											</span>
-
 											<span class="input-group-btn" style="width: 100%;">
 												<input type="text" class="form-control" id="message_text" placeholder="Enter message">
 											</span>
@@ -263,8 +251,27 @@
 										</div>
 										<img src="img/chat/ajax-loader.gif" id="progress">
 									</form>
+									<div class="list-group pre-scrollable nice-scroll">
+										<form class="form-inline" role="form" method="POST" action="" onsubmit="return submit_handler(this)">
+											<div class="input-group">
+												<span class="input-group-btn input-group-btn_change_load">
+													<input id="load-img" type="file">
+													<button type="button" id="attach_btn" class="btn btn-default" onclick="$('#load-img').click();">
+														<i class="icon-photo"></i>
+													</button>
+												</span>
+												<span class="input-group-btn input-group-btn_change_load">
+													<button type="button" id="stickers_btn" onclick="">
+														<i class="icon-sticker"></i>
+													</button>
+												</span>
+										</form>
+									</div>
+								</div>
 									<!-- Need to add here the button to create a channel -->
 								</div>
+								<div class="col-md-4">
+
 							</div>
 						</div>
 					</div>
@@ -272,7 +279,7 @@
 
 			</div>
 		</div>
-
+	 </div>
 	</div>
 
 	<!-- Modal (login to chat)-->
@@ -283,8 +290,8 @@
 					<h3 class="modal-title">Sign In to PhoneChat</h3>
 				</div>
 				<div class="modal-body">
-					Username: <input id="loginUsername" name="userName" type="text" class="required" placeholder="Username"><br>
-					Password: <input id="loginPassword" pattern=".{8,}" name="password" type="password" class="required" placeholder="Password"><br>
+					<center>Username: <input id="loginUsername" name="userName" type="text" class="required" placeholder="Username"><br>
+					Password: <input id="loginPassword" pattern=".{8,}" name="password" type="password" class="required" placeholder="Password"><br></center>
 					<br><br><br>
 					<button type="button" value="Quick" id="loginButton" class="btn btn-primary btn-lg btn-block">Sign in</button>
 					<div class="progress">
@@ -319,6 +326,20 @@
 				</div>
 				<div class="modal-body">
 					You're already logged!
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Modal (logged out)-->
+	<div id="loggedOutModal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h3 class="modal-title">Succesfully logged out!</h3>
+				</div>
+				<div class="modal-body">
+					You have been succesfully logged out!
 				</div>
 			</div>
 		</div>
@@ -443,11 +464,14 @@
 								</div>
 
 								<div data-role="content">
-									<p><i class="fa fa-compass" aria-hidden="true"></i><b><u> Compass:</u></b><p>
-									You're logged in as: <p id="userNameField"></p>
-									Operating system: <p id="userOSname"></p>
-									Operating system version: <p id="userOSversion"></p>
-									Your connection IP address is: <p id="userIpAddressField"></p>
+									<p><i class="fa fa-compass" aria-hidden="true"></i><b><u> Account information:</u></b><p>
+									<p id="userNameField"></p>
+									<p id="userOSname"></p>
+									<p id="userOSversion"></p>
+									<p id="userIpAddressField"></p>
+									<br><br>
+									<p><i class="fa fa-compass" aria-hidden="true"></i><b><u> Account options:</u></b><p>
+									Logout from your account: <button id="btnAccountLogout">Logout</button>
 								</div>
 
 							</div>
