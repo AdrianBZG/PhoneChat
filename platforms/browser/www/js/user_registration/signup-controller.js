@@ -134,7 +134,12 @@ PhoneChat.SignUpController.prototype.onSignupCommand = function () {
     $.ajax({
         type: 'POST',
         url: PhoneChat.Settings.signUpUrl,
-        data: "email=" + emailAddress + "&firstName=" + firstName + "&lastName=" + lastName + "&password=" + password + "&passwordConfirm=" + passwordConfirm,
+        data: { email: emailAddress
+              , userName: "TODO: not username"
+              , firstName: firstName
+              , lastName: lastName
+              , password: password
+            },
         success: function (resp) {
 
             if (resp.success === true) {
