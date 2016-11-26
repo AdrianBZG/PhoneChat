@@ -1,19 +1,19 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 
-import { AlertController, NavController, NavParams } from 'ionic-angular';
+import { AlertController, NavController, NavParams, MenuController } from 'ionic-angular';
 
 @Component({
   selector: 'chat',
   templateUrl: 'template.html',
 })
 export class Chat {
-  user: String
-  // Change to Signup
-  //@Output() onSignup = new EventEmitter<boolean>();
-  //@Output() onLogued = new EventEmitter<any>();  // Send user info session
+  user: String = "Ele Test"
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-    this.user = "Ele Test"; // navParams.data....
+  constructor(
+      public navCtrl: NavController
+    , public navParams: NavParams
+    , menu: MenuController) {
 
+    menu.enable(true);
   };
 }

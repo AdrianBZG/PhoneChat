@@ -5,16 +5,17 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="logo">
+  <ion-icon name="chatbubbles"></ion-icon>
   <ion-list>
     <ion-item>
-      <ion-label color="primary" stacked>Email</ion-label>
-      <ion-input [(ngModel)]="email" type="email" placeholder="Your email"></ion-input>
+      <ion-label color="primary" floating>User name</ion-label>
+      <ion-input [(ngModel)]="userName" type="text"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label color="primary" stacked>Password</ion-label>
-      <ion-input [(ngModel)]="password" type="password" placeholder="Your password"></ion-input>
+      <ion-label color="primary" floating>Password</ion-label>
+      <ion-input [(ngModel)]="password" type="password"></ion-input>
     </ion-item>
   </ion-list>
   <div padding>

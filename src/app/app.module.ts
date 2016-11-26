@@ -3,11 +3,11 @@ import { IonicApp, IonicModule } from 'ionic-angular';
 
 import { MyApp } from './app.component';
 
-// Login sheets
 import { Login as LoginPage } from '../pages/login/pages';
 import { SignUp as SignUpPage } from '../pages/signup/pages';
 import { Chat as ChatPage } from '../pages/chat/pages';
 
+import { AppService } from '../services/app.service';
 
 @NgModule({
   declarations: [
@@ -26,7 +26,9 @@ import { Chat as ChatPage } from '../pages/chat/pages';
     SignUpPage,
     ChatPage,
   ],
-  providers: []
+  providers: [
+    AppService
+  ]
 })
 
 export class AppModule { }

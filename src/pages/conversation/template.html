@@ -1,0 +1,87 @@
+<ion-menu [content]="mycontent">
+
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>{{user}}</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+   <ion-list>
+     <ion-list-header>
+       Chat options
+     </ion-list-header>
+     <button ion-item>
+       <ion-icon name="add-circle"></ion-icon>
+       New Group
+     </button>
+
+     <button ion-item>
+       <ion-icon name="people"></ion-icon>
+       Group
+     </button>
+
+     <button ion-item>
+       <ion-icon name="game-controller-a"></ion-icon>
+       Chat Games
+     </button>
+
+     <ion-list-header>
+       Configurations
+     </ion-list-header>
+     <button ion-item>
+       <ion-icon name="settings"></ion-icon>
+       Account Settings
+     </button>
+
+     <button ion-item>
+       <ion-icon name="code"></ion-icon>
+       Developers Info
+     </button>
+    </ion-list>
+  </ion-content>
+
+</ion-menu>
+
+<ion-header>
+  <ion-navbar #mycontent>
+    <button ion-button menuToggle icon-only>
+      <ion-icon name='menu'></ion-icon>
+    </button>
+    <ion-title>
+      Friends
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-pane class="messaging-view">
+   <ion-content class="content-stable"
+                on-swipe-left="hideTime = false"
+                on-swipe-right="hideTime = true">
+
+     <div ng-repeat="message in messages"
+          ng-class="{other: message.userId != myId}"
+          class="messages">
+
+       <div class="message" ng-class="{'slide-right': hideTime, '': !hideTime}">
+         <span>{{ message.text }}</span>
+       </div>
+
+       <div class="time" ng-class="{'slide-right': hideTime, '': !hideTime}">{{message.time}}</div>
+
+
+     </div>
+
+   </ion-content>
+
+   <ion-footer-bar keyboard-attach class="bar-stable item-input-inset">
+     <label class="item-input-wrapper">
+       <input type="text" placeholder="Type your message" on-return="sendMessage(); closeKeyboard()" ng-model="data.message" on-focus="inputUp()" on-blur="inputDown()" />
+     </label>
+     <button class="button button-clear" ng-click="sendMessage()">
+       Send
+     </button>
+   </ion-footer-bar>
+ </ion-pane>
+</ion-content>
