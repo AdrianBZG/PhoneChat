@@ -29,50 +29,51 @@ export class SignupService {
   constructor(private http : Http, private appService : AppService) {}
 
   signup(userName: string, name: string, lastName: string, password: string, passwordRetype: string, email: string) {
-    console.log("Signup an user" + userName);
     userName = userName.trim();
     if (userName == "") {
-      throw "Empty user name";
+      throw new Error("Empty user name");
     }
     name = name.trim();
     if (name == "") {
-      throw "Empty name";
+      throw new Error("Empty name");
     }
     if (password.length <= 8) {
-      throw "Password too short";
+      throw new Error("Password too short");
     }
     if (password != passwordRetype) {
-      throw "Password Missmatch";
+      throw new Error("Password Missmatch");
     }
     if (!this.emailReg.test(email)) {
-      throw "Not recognise as email";
+      throw new Error("Not recognise as email");
     }
-    this.http.post(this.appService.getRegisterAPI(),
-      { email: email
-      , userName: userName
-      , firstName: name
-      , lastName: lastName
-      , password: password
-      }
-    ).subscribe(resp => {
-      if (resp.ok) {
-        this.signupQuickBlox(userName, password);
-      }
-    });
+
+    return Promise.all([this.http.post(this.appService.getRegisterAPI(),
+        { email: email
+        , userName: userName
+        , firstName: name
+        , lastName: lastName
+        , password: password
+        }
+      ).toPromise().then(() => { console.log("terminaaaaa")}),
+      this.signupQuickBlox(userName, password)
+     ]);
   }
 
   signupQuickBlox(name : string, password : string) {
-    QB.createSession((err, result) => {
-      let params = { 'login': name, 'password': password};
+    return new Promise<any>((resolve, reject) => {
+      QB.createSession((err, result) => {
+        let params = { 'login': name, 'password': password};
 
-      QB.users.create(params, (err, user) => {
-        if (!user) {
-          throw "Oops! PhoneChat had a problem and could not register you.  Please try again in a few minutes.";
-        }
-        else {
-          this.appService.user = name;
-          this.appService.password = password;
-        }
+        QB.users.create(params, (err, user) => {
+          if (!user) {
+            throw "Oops! PhoneChat had a problem and could not register you.  Please try again in a few minutes.";
+          }
+          else {
+            this.appService.user = name;
+            this.appService.password = password;
+            resolve(user);
+          }
+        });
       });
     });
   }

@@ -26,13 +26,13 @@ export class Login {
 
   login() {
     console.log("Login " + this.password + this.userName);
-    try {
-      this.loginService.login(this.userName, this.password);
-      this.navCtrl.setRoot(Chat);
-    }
-    catch (err) {
-      this.showError(err);
-    }
+    this.loginService.login(this.userName, this.password)
+      .then((response) => {
+        this.navCtrl.setRoot(Chat);
+      },
+      (err) => {
+        this.showError(err);
+      });
   }
 
   showError(err : string) {

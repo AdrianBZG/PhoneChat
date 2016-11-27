@@ -36,18 +36,22 @@ export class SignUp {
     console.log(this.userName)
     try {
       this.signupService.signup(
-          this.userName
-        , this.name
-        , this.lastName
-        , this.password
-        , this.passwordRetype
-        , this.email);
-      console.log("Got Chat");
-      this.navCtrl.setRoot(Chat);
-    }
-    catch (err) {
-      this.showError(err);
-    }
+            this.userName
+          , this.name
+          , this.lastName
+          , this.password
+          , this.passwordRetype
+          , this.email)
+          .then((resp) => {
+            console.log("setRoot")
+            this.navCtrl.setRoot(Chat);
+          },
+          (err) => { this.showError(err); }
+        );
+      }
+      catch (err) {
+        this.showError(err);
+      }
   }
 
   showError(err : string) {

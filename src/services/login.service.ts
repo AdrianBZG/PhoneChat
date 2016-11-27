@@ -13,23 +13,21 @@ export class LoginService {
   }
 
   login(userName : string, password : string) {
-    this.http.post(this.app.getLoginURL(), { userName: userName, password: password})
-      .subscribe((response) => {
-        if (response.ok) {
+    let serverLogin : Promise<Response> = this.http.post(this.app.getLoginURL(), { userName: userName, password: password}).toPromise()
+    let qbLogin : Promise<any> = new Promise((resolve, reject) => {
         // Log into quick blox
-          QB.createSession({login: userName, password: password}, (err, res) => {
-            if (err) {
-              throw "Error on create QuickBlox Session";
-            }
-            else {
-              this.app.user = userName;
-              this.app.password = password;
-            }
-          });
-        }
-        else {
-          throw "FAil";
-        }
-    });
-  }
+        QB.createSession({login: userName, password: password}, (err, res) => {
+          if (err) {
+            console.log("error")
+            reject(new Error("Error on create QuickBlox Session"));
+          }
+          else {
+            this.app.user = userName;
+            this.app.password = password;
+            resolve(res);
+          }
+        });
+    })
+    return Promise.all([serverLogin, qbLogin])
+  };
 }
