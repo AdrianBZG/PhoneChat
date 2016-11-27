@@ -1,13 +1,17 @@
 import { Component, ViewChild } from '@angular/core';
 import { MenuController, Platform, Nav } from 'ionic-angular';
 import { StatusBar } from 'ionic-native';
+import { Storage } from '@ionic/storage';
 
 import { Login } from '../pages/login/pages';
-// import { SignUp } from '../pages/signup/pages';
+import { LoginService } from '../services/login.service';
+
+import { Chat } from '../pages/chat/pages';
 
 @Component({
   selector: 'main',
-  templateUrl: 'app.template.html'
+  templateUrl: 'app.template.html',
+  providers: [ LoginService ]
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
@@ -18,8 +22,20 @@ export class MyApp {
 
   constructor(
     public platform: Platform,
-    public menu: MenuController
+    public menu: MenuController,
+    public storage: Storage,
+    private loginService: LoginService,
   ) {
+    Promise
+      .all([storage.get("user"), storage.get("password")])
+      .then(([user, password]) => {
+        if (user!==null && password!==null) {
+          console.log(user+password);
+          this.loginService
+            .login(user, password)
+            .then((resp) => this.nav.setRoot(Chat));
+        }
+    })
     this.initializeApp();
   }
 

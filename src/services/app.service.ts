@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Http, Response } from '@angular/http';
+import { Storage } from '@ionic/storage';
 
 declare var QB;
 
@@ -12,7 +13,7 @@ export class AppService {
   public password : string;
 
 
-  constructor() {
+  constructor(private storage : Storage) {
     // QB Initialization
     let QBApp = {
       appId: 49438,
@@ -42,6 +43,13 @@ export class AppService {
     };
     QB.init(QBApp.appId, QBApp.authKey, QBApp.authSecret, config);
 
+  }
+
+  setUserAndPassword(user : string, password : string) {
+    this.user = user;
+    this.password = password;
+    this.storage.set("user", user);
+    this.storage.set("password", password);
   }
 
   getRegisterAPI() {

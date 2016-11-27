@@ -22,8 +22,7 @@ export class LoginService {
             reject(new Error("Error on create QuickBlox Session"));
           }
           else {
-            this.app.user = userName;
-            this.app.password = password;
+            this.app.setUserAndPassword(userName, password);
             resolve(res);
           }
         });
