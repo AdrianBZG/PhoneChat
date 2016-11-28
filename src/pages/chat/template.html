@@ -53,15 +53,11 @@
     </ion-title>
   </ion-navbar>
 </ion-header>
-
 <ion-content>
-  <ion-list>
+  <ion-list *ngFor="let chat of topicChats"> <!-- it should create new modified components -->
     <ion-item>
-      <ion-avatar item-left>
-        <img src="img/avatar-cher.png">
-      </ion-avatar>
-      <h2>Cher</h2>
-      <p>Ugh. As if.</p>
+      <h2>{{chat.name}}</h2>
+      <ion-badge *ngIf="chat.unread_messages_count!=0" item-right>{{chat.unread_messages_count}}</ion-badge>
     </ion-item>
   </ion-list>
 </ion-content>

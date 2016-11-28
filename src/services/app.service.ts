@@ -10,6 +10,7 @@ const serverURL = "http://localhost:8100/api";
 export class AppService {
   // Indentification of user logued
   public user : string;
+  public userId : number;
   public password : string;
 
 
@@ -45,7 +46,33 @@ export class AppService {
 
   }
 
-  setUserAndPassword(user : string, password : string) {
+  /// Return a Promise of list of dialogs
+  getGroupsDialogs() : Promise<any[]> {
+    return new Promise((resolve, reject) => {
+      // https://quickblox.com/developers/Web_XMPP_Chat_Sample#Dialogs
+      let filters = null;
+      QB.chat.dialog.list(filters, (err, resDialogs : any) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(resDialogs.items);
+        }
+      });
+    })
+  }
+
+  connectToChat() {
+    QB.chat.connect({userId: this.userId, password: this.password },
+      (err, roster) => {
+
+      });
+  }
+
+  disconnectChat() {
+    QB.chat.disconnect();
+  }
+
+  setUserProperties(user : string, password : string, userId : number) {
     this.user = user;
     this.password = password;
     this.storage.set("user", user);

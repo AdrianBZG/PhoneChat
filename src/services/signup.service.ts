@@ -69,7 +69,10 @@ export class SignupService {
             throw "Oops! PhoneChat had a problem and could not register you.  Please try again in a few minutes.";
           }
           else {
-            this.appService.setUserAndPassword(name, password);
+            // TODO: Insecure of what it is user
+            console.log(user);
+            this.appService.setUserProperties(name, password, user.user_id);
+            this.appService.connectToChat();
             resolve(user);
           }
         });

@@ -22,7 +22,8 @@ export class LoginService {
             reject(new Error("Error on create QuickBlox Session"));
           }
           else {
-            this.app.setUserAndPassword(userName, password);
+            this.app.setUserProperties(userName, password, res.user_id);
+            this.app.connectToChat();
             resolve(res);
           }
         });
