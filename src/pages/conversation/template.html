@@ -1,71 +1,29 @@
-<ion-menu [content]="mycontent">
-
-  <ion-header>
-    <ion-toolbar>
-      <ion-title>{{user}}</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <ion-content>
-   <ion-list>
-     <ion-list-header>
-       Chat options
-     </ion-list-header>
-     <button ion-item>
-       <ion-icon name="add-circle"></ion-icon>
-       New Group
-     </button>
-
-     <button ion-item>
-       <ion-icon name="people"></ion-icon>
-       Group
-     </button>
-
-     <button ion-item>
-       <ion-icon name="game-controller-a"></ion-icon>
-       Chat Games
-     </button>
-
-     <ion-list-header>
-       Configurations
-     </ion-list-header>
-     <button ion-item>
-       <ion-icon name="settings"></ion-icon>
-       Account Settings
-     </button>
-
-     <button ion-item>
-       <ion-icon name="code"></ion-icon>
-       Developers Info
-     </button>
-    </ion-list>
-  </ion-content>
-
-</ion-menu>
-
 <ion-header>
-  <ion-navbar #mycontent>
-    <button ion-button menuToggle icon-only>
-      <ion-icon name='menu'></ion-icon>
-    </button>
+  <ion-navbar>
     <ion-title>
       {{title}}
     </ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content>
-  <ion-list *ngFor="let message of lastMessages"> <!-- it should create new modified components -->
+<ion-content #content>
+  <ion-list *ngFor="let message of lastMessages">
+    <!-- it should create new modified components -->
     <!-- Put chat image over here -->
-      <ion-item>
-      <h2>{{lastMessages.name}}</h2>
+    <ion-item>
+      <ion-icon name="leaf" item-left></ion-icon>
+        {{message.message}}
     </ion-item>
   </ion-list>
 </ion-content>
 <ion-footer>
-  <ion-icon name="sticker"></ion-icon> <!-- TODO -->
-  <ion-icon name="emote"></ion-icon> <!-- TODO -->
-  <button class="button button-clear" ng-click="sendMessage()">
-    Send
-  </button>
+  <ion-toolbar>
+    <ion-input type="text" placeholder="Type your message">
+      <ion-icon name="arrow-up"></ion-icon> <!-- Stickers and other settings -->
+      <ion-icon name="happy"></ion-icon>  <!-- Typical Emoticons ? necesary -->
+    </ion-input>
+    <button ion-button (click)="sendMessage()">
+      <ion-icon name="send"></ion-icon>
+    </button>
+  </ion-toolbar>
 </ion-footer>

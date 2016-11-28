@@ -28,6 +28,7 @@ import { AppService } from '../services/app.service';
     LoginPage,
     SignUpPage,
     ChatPage,
+    ConversationApp,
   ],
   providers: [
     AppService,
