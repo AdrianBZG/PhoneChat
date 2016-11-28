@@ -49,39 +49,23 @@
       <ion-icon name='menu'></ion-icon>
     </button>
     <ion-title>
-      Friends
+      {{title}}
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
-  <ion-pane class="messaging-view">
-   <ion-content class="content-stable"
-                on-swipe-left="hideTime = false"
-                on-swipe-right="hideTime = true">
-
-     <div ng-repeat="message in messages"
-          ng-class="{other: message.userId != myId}"
-          class="messages">
-
-       <div class="message" ng-class="{'slide-right': hideTime, '': !hideTime}">
-         <span>{{ message.text }}</span>
-       </div>
-
-       <div class="time" ng-class="{'slide-right': hideTime, '': !hideTime}">{{message.time}}</div>
-
-
-     </div>
-
-   </ion-content>
-
-   <ion-footer-bar keyboard-attach class="bar-stable item-input-inset">
-     <label class="item-input-wrapper">
-       <input type="text" placeholder="Type your message" on-return="sendMessage(); closeKeyboard()" ng-model="data.message" on-focus="inputUp()" on-blur="inputDown()" />
-     </label>
-     <button class="button button-clear" ng-click="sendMessage()">
-       Send
-     </button>
-   </ion-footer-bar>
- </ion-pane>
+  <ion-list *ngFor="let message of lastMessages"> <!-- it should create new modified components -->
+    <!-- Put chat image over here -->
+      <ion-item>
+      <h2>{{lastMessages.name}}</h2>
+    </ion-item>
+  </ion-list>
 </ion-content>
+<ion-footer>
+  <ion-icon name="sticker"></ion-icon> <!-- TODO -->
+  <ion-icon name="emote"></ion-icon> <!-- TODO -->
+  <button class="button button-clear" ng-click="sendMessage()">
+    Send
+  </button>
+</ion-footer>

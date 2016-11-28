@@ -13,7 +13,11 @@ export class LoginService {
   }
 
   login(userName : string, password : string) {
-    let serverLogin : Promise<Response> = this.http.post(this.app.getLoginURL(), { userName: userName, password: password}).toPromise()
+    let serverLogin : Promise<Response> =
+      this.http
+        .post(this.app.getLoginURL(), { userName: userName, password: password})
+        .toPromise();
+
     let qbLogin : Promise<any> = new Promise((resolve, reject) => {
         // Log into quick blox
         QB.createSession({login: userName, password: password}, (err, res) => {

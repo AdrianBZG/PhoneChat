@@ -12,6 +12,7 @@ export class AppService {
   public user : string;
   public userId : number;
   public password : string;
+  public chat : any;
 
 
   constructor(private storage : Storage) {
@@ -59,6 +60,10 @@ export class AppService {
         }
       });
     })
+  }
+
+  setCurrentActiveChat(chat : any) {
+    this.chat = chat;
   }
 
   connectToChat() {
