@@ -84,6 +84,10 @@ export class AppService {
     QB.chat.disconnect();
   }
 
+  unregister() {
+    this.storage.clear();
+  }
+
   setUserProperties(user : string, password : string, userId : number) {
     this.user = user;
     this.password = password;

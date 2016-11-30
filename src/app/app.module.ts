@@ -8,6 +8,7 @@ import { Login as LoginPage } from '../pages/login/pages';
 import { SignUp as SignUpPage } from '../pages/signup/pages';
 import { Chat as ChatPage } from '../pages/chat/pages';
 import { Conversation as ConversationApp } from '../pages/conversation/pages';
+import { Settings as SettingsApp } from '../pages/settings/pages';
 
 import { AppService } from '../services/app.service';
 
@@ -18,6 +19,7 @@ import { AppService } from '../services/app.service';
     SignUpPage,
     ChatPage,
     ConversationApp,
+    SettingsApp,
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -29,6 +31,7 @@ import { AppService } from '../services/app.service';
     SignUpPage,
     ChatPage,
     ConversationApp,
+    SettingsApp,
   ],
   providers: [
     AppService,

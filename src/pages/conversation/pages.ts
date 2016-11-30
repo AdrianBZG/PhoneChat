@@ -3,6 +3,7 @@ import { Component, ViewChild } from '@angular/core';
 import { AlertController, NavController, NavParams, MenuController, Content, List, TextInput } from 'ionic-angular';
 
 import { ConversationService } from '../../services/conversation.service';
+import { AppService } from '../../services/app.service';
 
 @Component({
   selector: 'conversation',
@@ -22,12 +23,14 @@ export class Conversation {
     , public navParams: NavParams
     , public menu: MenuController
     , public conversationService: ConversationService
+    , public appService: AppService
   ) {
     menu.enable(true);
     conversationService.getListOfMessages()
       .then((messages) => {
         this.lastMessages = messages;
-      })
+      });
+    this.title = this.appService.chat.name;
 
     // Como inicialmente scrollToBottom??
     setTimeout(() => {

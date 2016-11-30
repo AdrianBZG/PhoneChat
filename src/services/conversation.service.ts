@@ -43,8 +43,9 @@ export class ConversationService {
 
     // stickerpipe.onUserMessageSent(stickerpipe.isSticker(text));
 
+    console.log(this.appService.chat);
     var msg = {
-      type: this.appService.chat.type === 3 ? 'chat' : 'groupchat',
+      type: this.appService.chat.type ===  3? 'chat' : 'groupchat',
       body: text,
       extension: {
         save_to_history: 1,
@@ -56,21 +57,15 @@ export class ConversationService {
       msg["extension"]["attachments"] = [{id: attachmentFileId, type: 'photo'}];
     }
 
-    if (this.appService.chat.type === 3) {
-      //opponentId = QB.chat.helpers.getRecipientId(currentDialog.occupants_ids, currentUser.id);
-      //QB.chat.send(opponentId, msg);
-
       //$('.list-group-item.active .list-group-item-text').text(stickerpipe.isSticker(msg.body) ? 'Sticker' : msg.body);
 
-      if(attachmentFileId === null){
-        //showMessage(currentUser.id, msg);
-      } else {
-        //showMessage(currentUser.id, msg, attachmentFileId);
-      }
-    } else {
+    if(attachmentFileId === null){
       //showMessage(currentUser.id, msg);
-      ////QB.chat.send(currentDialog.xmpp_room_jid, msg);
+    } else {
+      //showMessage(currentUser.id, msg, attachmentFileId);
     }
+    // TODO Group error
+    QB.chat.send(this.appService.chat.xmpp_room_jid, msg);
 
     // claer timer and send 'stop typing' status
     //clearTimeout(isTypingTimerId);

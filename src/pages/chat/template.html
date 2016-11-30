@@ -11,17 +11,27 @@
      <ion-list-header>
        Chat options
      </ion-list-header>
-     <button ion-item>
+     <button ion-item (click)="newIndividualChat()">
+       <ion-icon name="add-circle"></ion-icon>
+       Individual chat
+     </button>
+
+     <button ion-item (click)="newGroupChat()">
        <ion-icon name="add-circle"></ion-icon>
        New Group
      </button>
 
-     <button ion-item>
+     <button ion-item (click)="seeGroupChat()">
        <ion-icon name="people"></ion-icon>
-       Group
+       Groups
      </button>
 
-     <button ion-item>
+     <button ion-item (click)="seePeopleChat()">
+       <ion-icon name="people"></ion-icon>
+       People
+     </button>
+
+     <button ion-item (click)="games()">
        <ion-icon name="game-controller-a"></ion-icon>
        Chat Games
      </button>
@@ -29,12 +39,13 @@
      <ion-list-header>
        Configurations
      </ion-list-header>
-     <button ion-item (click)="openPage(loginPage)">
+
+     <button ion-item (click)="settings()">
        <ion-icon name="settings"></ion-icon>
        Account Settings
      </button>
 
-     <button ion-item>
+     <button ion-item (click)="devInfo()">
        <ion-icon name="code"></ion-icon>
        Developers Info
      </button>
