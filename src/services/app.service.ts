@@ -67,8 +67,15 @@ export class AppService {
   }
 
   connectToChat() {
+    console.log("User ID CHAT" + this.userId)
     QB.chat.connect({userId: this.userId, password: this.password },
       (err, roster) => {
+        if (err) {
+          console.log(err)
+        }
+        else {
+          console.log(roster);
+        }
 
       });
   }
@@ -80,8 +87,10 @@ export class AppService {
   setUserProperties(user : string, password : string, userId : number) {
     this.user = user;
     this.password = password;
+    this.userId = userId;
     this.storage.set("user", user);
     this.storage.set("password", password);
+    this.storage.set("userId", userId);
   }
 
   getRegisterAPI() {

@@ -26,6 +26,8 @@ export class LoginService {
             reject(new Error("Error on create QuickBlox Session"));
           }
           else {
+            console.log("HERERE")
+            console.log(res.user_id);
             this.app.setUserProperties(userName, password, res.user_id);
             this.app.connectToChat();
             resolve(res);
