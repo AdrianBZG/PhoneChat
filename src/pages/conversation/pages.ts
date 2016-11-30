@@ -48,9 +48,8 @@ export class Conversation {
   }
 
   sendMessage() {
-    console.log("Message sending")
-    this.conversationService.sendMessage(this.inputMessage.value);
-    console.log("Message send")
+    let msg = this.conversationService.sendMessage(this.inputMessage.value);
+    this.lastMessages.push({message: msg.body });
     this.updateScroll()
   }
 }

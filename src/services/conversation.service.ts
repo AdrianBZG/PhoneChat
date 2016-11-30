@@ -16,12 +16,23 @@ export class ConversationService {
                             totalEntries: null};
   constructor(
     private appService : AppService
-  ) {}
+  ) {
+    QB.chat.muc.join(this.appService.chat.xmpp_room_jid, function(resultStanza) {
+      var joined = true;
+
+      for (var i = 0; i < resultStanza.childNodes.length; i++) {
+        var elItem = resultStanza.childNodes.item(i);
+        if (elItem.tagName === 'error'){
+          joined = false;
+        }
+      }
+    });
+  }
 
   /// Return messages from current chat (locate in appService)
   getListOfMessages() : Promise<any[]> {
     // TODO: Adjust params, it should only download new messages.
-    let params = { chat_dialog_id: this.appService.chat._id, sort_desc: 'date_sent', limit: 100, skip: 0};
+    let params = { chat_dialog_id: this.appService.chat._id, sort_asc: 'date_sent', limit: 100, skip: 0};
     return new Promise((resolve, reject) => {
       QB.chat.message.list(params, (err, messages) => {
         if (err) {
@@ -39,42 +50,50 @@ export class ConversationService {
     QB.chat.onMessageListener = fun;
   }
 
-  sendMessage(text : string, attachmentFileId? : string) {
 
-    // stickerpipe.onUserMessageSent(stickerpipe.isSticker(text));
-
-    console.log(this.appService.chat);
-    var msg = {
-      type: this.appService.chat.type ===  3? 'chat' : 'groupchat',
-      body: text,
-      extension: {
-        save_to_history: 1,
-      },
-      senderId: this.appService.userId,
-      markable: 1
+  sendMessage(text, attachmentFileId?) {
+    QB.chat.onSentMessageCallback = function(messageLost, messageSent){
+       console.group('onSentMessageCallback');
+           messageLost ? console.log('Message was lost', messageLost) : console.log('Message was sent successfully', messageSent)
+       console.groupEnd();
     };
-    if(attachmentFileId != null){
-      msg["extension"]["attachments"] = [{id: attachmentFileId, type: 'photo'}];
-    }
+    //stickerpipe.onUserMessageSent(stickerpipe.isSticker(text));
 
-      //$('.list-group-item.active .list-group-item-text').text(stickerpipe.isSticker(msg.body) ? 'Sticker' : msg.body);
+    let msg = {
+        type: this.appService.chat.type === 3 ? 'chat' : 'groupchat',
+        body: text,
+        extension: {
+            save_to_history: 1,
+        },
+        markable: 1
+    };
 
-    if(attachmentFileId === null){
-      //showMessage(currentUser.id, msg);
+    //if(attachmentFileId !== null){
+    //    msg['extension']['attachments'] = [{id: attachmentFileId, type: 'photo'}];
+    //}
+
+    if (this.appService.chat.type === 3) {
+        let opponentId = QB.chat.helpers.getRecipientId(this.appService.chat.occupants_ids, this.appService.userId);
+
+        QB.chat.send(opponentId, msg);
+
+        //$('.list-group-item.active .list-group-item-text')
+        //    .text(stickerpipe.isSticker(msg.body) ? 'Sticker' : msg.body);
+
+        if(attachmentFileId === null){
+          return msg;
+        } else {
+          return msg // attachmentFileId;
+        }
     } else {
-      //showMessage(currentUser.id, msg, attachmentFileId);
+        QB.chat.send(this.appService.chat.xmpp_room_jid, msg);
     }
-    // TODO Group error
-    QB.chat.send(this.appService.chat.xmpp_room_jid, msg);
 
     // claer timer and send 'stop typing' status
     //clearTimeout(isTypingTimerId);
     //isTypingTimeoutCallback();
-
-    // TODO:
-    // dialogsMessages.push(msg);
+    return msg;
   }
-
 
   retrieveUsersForDialogCreation(callback) {
     this.retrieveUsers(this.usersForDialogCreationStats, callback);
