@@ -8,6 +8,7 @@ import { AppService } from '../../services/app.service';
 @Component({
   selector: 'conversation',
   templateUrl: 'template.html',
+  //styleUrls: ['pages/conversation/style.css'],
   providers: [ ConversationService ],
 })
 export class Conversation {

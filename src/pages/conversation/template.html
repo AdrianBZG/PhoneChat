@@ -11,19 +11,22 @@
     <!-- it should create new modified components -->
     <!-- Put chat image over here -->
     <ion-item>
-      <ion-icon name="leaf" item-left></ion-icon>
+      <p class="bubble">
         {{message.message}}
+      </p>
+      <ion-icon name="leaf" item-left></ion-icon>
     </ion-item>
   </ion-list>
 </ion-content>
 <ion-footer>
   <ion-toolbar>
-    <ion-input type="text" placeholder="Type your message">
-      <ion-icon name="arrow-up"></ion-icon> <!-- Stickers and other settings -->
-      <ion-icon name="happy"></ion-icon>  <!-- Typical Emoticons ? necesary -->
-    </ion-input>
-    <button ion-button (click)="sendMessage()">
-      <ion-icon name="send"></ion-icon>
-    </button>
+    <ion-item>
+      <ion-icon item-left name="arrow-up"></ion-icon> <!-- Stickers and other settings -->
+      <ion-input item-left type="text" placeholder="Type your message">
+      </ion-input>
+      <button ion-button item-right (click)="sendMessage()">
+        <ion-icon name="send"></ion-icon>
+      </button>
+    </ion-item>
   </ion-toolbar>
 </ion-footer>
