@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { AlertController, NavController, NavParams, MenuController } from 'ionic-angular';
 
@@ -13,7 +13,10 @@ import { AppService } from '../../services/app.service';
 export class Chat {
   user: String = ""
   topicChats : any[] = [];
-
+  
+  /**
+   * This class controll the diferents chat that an user can access.
+   */
   constructor(
       public navCtrl: NavController
     , public navParams: NavParams
@@ -29,13 +32,18 @@ export class Chat {
       .then((chats) => { this.topicChats = chats; })
   };
 
-  /// Receive a chat form list of topicChats
+  /**
+   * Push new screen with chat selected
+   */
   openChat(chat : any) {
-    console.log("Opening Chat");
     this.appService.setCurrentActiveChat(chat);
-    console.log("Push Conversation");
     this.navCtrl.push(Conversation);
   }
+
+  /**
+   * Chat with a specific person in your list of contacts?
+   * TODO: This need a some
+   */
   newIndividualChat() {
 
     let prompt = this.alertCtrl.create({
@@ -106,7 +114,10 @@ export class Chat {
     console.log("HERE Rudolf's game // it could be access from chat")
   }
 
-  // Go to settings page
+
+  /**
+   * Go to settings page 
+   */
   settings() {
     this.navCtrl.push(Settings);
   }

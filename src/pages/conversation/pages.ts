@@ -1,14 +1,16 @@
 import { Component, ViewChild } from '@angular/core';
 
-import { AlertController, NavController, NavParams, MenuController, Content, List, TextInput } from 'ionic-angular';
+import { NavController, NavParams, MenuController, Content, List, TextInput } from 'ionic-angular';
 
 import { ConversationService } from '../../services/conversation.service';
 import { AppService } from '../../services/app.service';
 
+import { ChatBubbleI } from '../chat-bubble/pages';
+
+
 @Component({
   selector: 'conversation',
   templateUrl: 'template.html',
-  //styleUrls: ['pages/conversation/style.css'],
   providers: [ ConversationService ],
 })
 export class Conversation {
@@ -17,7 +19,7 @@ export class Conversation {
   @ViewChild(TextInput) inputMessage : TextInput;
 
   title: String = "No title"
-  lastMessages : any[];
+  lastMessages : ChatBubbleI[];
 
   constructor(
       public navCtrl: NavController
@@ -27,12 +29,24 @@ export class Conversation {
     , public appService: AppService
   ) {
     menu.enable(true);
+
+    // Update conversation with last messages
     conversationService.getListOfMessages()
       .then((messages) => {
-        this.lastMessages = messages;
+        console.log(messages);
+        let newMessages = messages.map((msg) => {
+          return { content: msg.message
+          , position: msg.sender_id==this.appService.userId? 'right' : ' left'
+          , time: msg.created_at
+          , senderName: "TODO:Name"
+          , img: "TODO:Image Source"
+          };});
+        this.lastMessages = newMessages;
       });
+      
     this.title = this.appService.chat.name;
 
+    // this.conversationService.retrieveUsers();
     // Como inicialmente scrollToBottom??
     setTimeout(() => {
       this.content.scrollToBottom();
@@ -40,6 +54,7 @@ export class Conversation {
 
     this.conversationService.registerNewMessages((dialog, message) => {
       console.log(message);
+      // TODO: see new message definition
       this.lastMessages.push(message);
     });
   };
@@ -50,7 +65,19 @@ export class Conversation {
 
   sendMessage() {
     let msg = this.conversationService.sendMessage(this.inputMessage.value);
-    this.lastMessages.push({message: msg.body });
+    this.lastMessages.push(
+      { content: msg.body as string
+      , position: (this.appService.userId==msg.body.id ? 'left' : 'right')
+      , time: ""
+      , senderName: ""
+      , img: "TODO:IMAGESOURCE"
+      });
+
     this.updateScroll()
+  }
+
+  getUserName(user) {
+    console.log(user);
+    return this.conversationService.getUserLoginById(user);
   }
 }

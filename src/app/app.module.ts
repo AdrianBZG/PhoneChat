@@ -9,6 +9,7 @@ import { SignUp as SignUpPage } from '../pages/signup/pages';
 import { Chat as ChatPage } from '../pages/chat/pages';
 import { Conversation as ConversationApp } from '../pages/conversation/pages';
 import { Settings as SettingsApp } from '../pages/settings/pages';
+import { ChatBubble } from '../pages/chat-bubble/pages';
 
 import { AppService } from '../services/app.service';
 
@@ -18,6 +19,7 @@ import { AppService } from '../services/app.service';
     LoginPage,
     SignUpPage,
     ChatPage,
+    ChatBubble,
     ConversationApp,
     SettingsApp,
   ],
@@ -30,6 +32,7 @@ import { AppService } from '../services/app.service';
     LoginPage,
     SignUpPage,
     ChatPage,
+    ChatBubble,
     ConversationApp,
     SettingsApp,
   ],

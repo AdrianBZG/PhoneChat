@@ -3,15 +3,41 @@ import { AppService } from "./app.service";
 
 declare var QB;
 
+interface DialogI {
+  _id : string,
+  created_at: string,  // date
+  updated_at: string,  // date
+  last_message : string,
+  last_message_date_sent : number, // in milisecons?
+  last_message_user_id : number,  // user id
+  name : string | null,  
+  photo : string | null,
+  occupants_ids : number[],
+  type : number,
+  unread_messages_count: number,
+  xmpp_room_jid: string | null
+}
+
+export interface MessageI {
+  _id: string,
+  created_at: string,
+  updated_at: string,
+  attachments: any[],
+  read_ids: number[],
+  delivered_ids: number[],
+  chat_dialog_id: string,
+  date_sent: number,
+  message: string | null,
+  recipient_id: string | null,
+  sender_id: number,
+  read: number
+}
+
 @Injectable()
 export class ConversationService {
   public users : any[];
 
-  usersForDialogCreationStats = {currentPage: 0,
-                              retrievedCount: 0,
-                              totalEntries: null};
-
-  usersForDialogUpdateStats = {currentPage: 0,
+  usersForDialogs = {currentPage: 0,
                             retrievedCount: 0,
                             totalEntries: null};
   constructor(
@@ -29,8 +55,10 @@ export class ConversationService {
     });
   }
 
-  /// Return messages from current chat (locate in appService)
-  getListOfMessages() : Promise<any[]> {
+  /**
+   * Return messages from current chat (locate in appService)
+   */
+  getListOfMessages() : Promise<MessageI[]> {
     // TODO: Adjust params, it should only download new messages.
     let params = { chat_dialog_id: this.appService.chat._id, sort_asc: 'date_sent', limit: 100, skip: 0};
     return new Promise((resolve, reject) => {
@@ -95,28 +123,19 @@ export class ConversationService {
     return msg;
   }
 
-  retrieveUsersForDialogCreation(callback) {
-    this.retrieveUsers(this.usersForDialogCreationStats, callback);
-  }
-
-  retrieveUsersForDialogUpdate(callback) {
-    this.retrieveUsers(this.usersForDialogUpdateStats, callback);
-  }
-
-  retrieveUsers(usersStorage, callback) {
+  retrieveUsers() {
 
     // we got all users
-    if (usersStorage.totalEntries != null && usersStorage.retrievedCount >= usersStorage.totalEntries) {
-      callback(null);
+    if (this.usersForDialogs.totalEntries != null && this.usersForDialogs.retrievedCount >= this.usersForDialogs.totalEntries) {
       return;
     }
 
     // $("#load-users").show(0);
-    usersStorage.currentPage = usersStorage.currentPage + 1;
+    this.usersForDialogs.currentPage = this.usersForDialogs.currentPage + 1;
 
     // Load users, 10 per request
     //
-    QB.users.listUsers({page: usersStorage.currentPage, per_page: '10'}, function(err, result) {
+    QB.listUsers({page: this.usersForDialogs.currentPage, per_page: '10'}, function(err, result) {
       if (err) {
         console.log(err);
       } else {
@@ -124,12 +143,8 @@ export class ConversationService {
 
         this.mergeUsers(result.items);
 
-        callback(result.items);
-
-        //$("#load-users").delay(100).fadeOut(500);
-
-        usersStorage.totalEntries = result.total_entries;
-        usersStorage.retrievedCount = usersStorage.retrievedCount + result.items.length;
+        this.usersForDialogs.totalEntries = result.total_entries;
+        this.usersForDialogs.retrievedCount = this.usersForDialogs.retrievedCount + result.items.length;
       }
     });
   }
@@ -151,15 +166,12 @@ export class ConversationService {
     usersItems.forEach(function(item, i, arr) {
       newUsers[item.user.id] = item.user;
     });
-    // TODO:
-    // this.users = $.extend(this.users, newUsers);
+    Object.assign(this.users, newUsers);
   }
 
   getUserLoginById(byId) {
-  	var userLogin;
   	if (this.users[byId]) {
-  		userLogin = this.users[byId].login;
-  		return userLogin;
+  		return this.users[byId].login;
   	}
   }
 }
