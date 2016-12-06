@@ -32,7 +32,8 @@ export class Conversation {
     // Update conversation with last messages
     conversationService.getListOfMessages()
       .then((messages) => {
-        this.lastMessages = messages.map((msg) => this.makeBubbleMsg(msg, appService.userId));
+        this.lastMessages = messages.map((msg) => 
+          this.makeBubbleMsg(msg, appService.userId));
       });
 
     this.title = appService.chat.name;

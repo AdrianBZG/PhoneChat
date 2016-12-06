@@ -30,8 +30,11 @@ export class Chat {
     this.appService
       .getGroupsDialogs()
       .subscribe(
-        (dialogs) => {
-          this.topicChats = dialogs;
+        (dialogs) => { 
+          this.topicChats = dialogs.map((dialog) => {
+            dialog.photo = this.appService.getURLImage(dialog.photo);
+            return dialog;
+          });
         },
         (error) => {
           console.log("ERROR ON LOAD DIALOGS:");

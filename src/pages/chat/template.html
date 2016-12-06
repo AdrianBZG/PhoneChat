@@ -68,6 +68,9 @@
   <ion-list *ngFor="let chat of topicChats"> <!-- it should create new modified components -->
     <!-- Put chat image over here -->
     <ion-item (click)="openChat(chat)">
+      <ion-avatar item-left>
+        <img src={{chat.photo}}>
+      </ion-avatar>
       <h2>{{chat.name}}</h2>
       <ion-badge *ngIf="chat.unread_messages_count!=0" item-right>{{chat.unread_messages_count}}</ion-badge>
     </ion-item>

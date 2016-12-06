@@ -49,6 +49,14 @@ export class AppService {
 
   }
 
+
+  /**
+   * Get URL to content from uid
+   */
+  getURLImage(fileUID): string {
+     return QB.content.privateUrl(fileUID);
+  }
+
   /**
    * Return a Promise of list of dialogs
    */
