@@ -7,7 +7,7 @@
 </ion-header>
 
 <ion-content #content>
-  <ion-list #list *ngFor="let msg of lastMessages" [scrollTop]="list.scrollHeight">
+  <ion-list #list *ngFor="let msg of lastMessages">
     <!-- it should create new modified components -->
     <!-- Put chat image over here -->
     <chat-bubble [message]="msg"></chat-bubble>

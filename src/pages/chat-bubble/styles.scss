@@ -5,13 +5,16 @@
   // :last-child {
   //   margin-bottom: 10px;
   // }
+  display: inline-block;
+  position: relative;
+  max-width: 100%;
 
   img.profile-pic {
     width: 40px;
     height: 40px;
     border-radius: 50%;
     position: absolute;
-    bottom: 10px;
+    bottom: -20px;
   }
 
   img.profile-pic.left {

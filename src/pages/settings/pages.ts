@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { AlertController, NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
+
+import { Login } from '../login/pages';
 
 import { AppService } from '../../services/app.service';
 
@@ -17,5 +19,6 @@ export class Settings {
   disconnect() {
     this.appService.disconnectChat();
     this.appService.unregister();
+    this.navCtrl.setRoot(Login)
   }
 }

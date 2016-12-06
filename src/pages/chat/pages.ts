@@ -12,7 +12,7 @@ import { AppService } from '../../services/app.service';
 })
 export class Chat {
   user: String = ""
-  topicChats : any[] = [];
+  topicChats : DialogMsg[] = [];
   
   /**
    * This class controll the diferents chat that an user can access.
@@ -29,13 +29,22 @@ export class Chat {
 
     this.appService
       .getGroupsDialogs()
-      .then((chats) => { this.topicChats = chats; })
+      .subscribe(
+        (dialogs) => {
+          this.topicChats = dialogs;
+        },
+        (error) => {
+          console.log("ERROR ON LOAD DIALOGS:");
+          console.log(error);
+          this.navCtrl.pop();
+        }
+      )
   };
 
   /**
    * Push new screen with chat selected
    */
-  openChat(chat : any) {
+  openChat(chat : DialogMsg) {
     this.appService.setCurrentActiveChat(chat);
     this.navCtrl.push(Conversation);
   }

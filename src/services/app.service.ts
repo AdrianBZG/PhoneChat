@@ -1,8 +1,11 @@
+/// <reference path="../../.vscode/typings/quickblox/quickblox.d.ts" />
 import { Injectable } from "@angular/core";
-import { Http, Response } from '@angular/http';
 import { Storage } from '@ionic/storage';
 
-declare var QB;
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
+import 'rxjs/add/operator/map';
+
 
 const serverURL = "http://localhost:8100/api";
 
@@ -12,8 +15,7 @@ export class AppService {
   public user : string;
   public userId : number;
   public password : string;
-  public chat : any;
-
+  public chat : DialogMsg;
 
   constructor(private storage : Storage) {
     // QB Initialization
@@ -47,17 +49,20 @@ export class AppService {
 
   }
 
-  /// Return a Promise of list of dialogs
-  getGroupsDialogs() : Promise<any[]> {
-    return new Promise((resolve, reject) => {
+  /**
+   * Return a Promise of list of dialogs
+   */
+  getGroupsDialogs(): Observable<DialogMsg[]> {
+    return Observable.create((observer) => {
       // https://quickblox.com/developers/Web_XMPP_Chat_Sample#Dialogs
       let filters = null;
-      QB.chat.dialog.list(filters, (err, resDialogs : any) => {
+      QB.chat.dialog.list(filters, (err, resDialogs) => {
         if (err) {
-          reject(err);
+          observer.error(err);
         } else {
-          resolve(resDialogs.items);
+          observer.next(resDialogs.items as DialogMsg[]);
         }
+        observer.complete();
       });
     })
   }
@@ -66,18 +71,22 @@ export class AppService {
     this.chat = chat;
   }
 
-  connectToChat() {
-    console.log("User ID CHAT" + this.userId)
-    QB.chat.connect({userId: this.userId, password: this.password },
-      (err, roster) => {
-        if (err) {
-          console.log(err)
-        }
-        else {
-          console.log(roster);
-        }
-
-      });
+  /**
+   * Connect to chat
+   */
+  connectToChat(): Observable<RosterMsg> {
+    return Observable.create((observer) => {
+      QB.chat.connect({userId: this.userId, password: this.password },
+        (err, roster) => {
+          if (err) {
+            observer.error(err);
+          }
+          else {
+            observer.next(roster);
+          }
+          observer.complete();
+        });
+    });
   }
 
   disconnectChat() {
@@ -109,4 +118,57 @@ export class AppService {
     return serverURL;
   }
 
+  startChat() {
+    this.subscribeContactListener();
+    this.subscribeDeliveredStatusListener();
+    this.subscribeMessageListener();
+    this.subscribeMessageTypingListener();
+    this.subscribeReadStatusListener();
+  }
+
+  /**
+   * Recieve status of users in personal contact list
+   */
+  subscribeContactListener() {
+    QB.chat.onContactListListener = (userid, type) => {};
+  }
+
+  /**
+   * Is received your message in dialog, by userid
+   * 
+   */
+  subscribeDeliveredStatusListener() {
+    QB.chat.onDeliveredStatusListener = (messageId, dialogId, userId) => {
+
+    };
+  }
+
+  /**
+   * Receive a message
+   */
+  subscribeMessageListener() {
+    QB.chat.onMessageListener = (error, message) => {
+
+    };
+  }
+
+  /**
+   * User is typing in dialog
+   */
+  subscribeMessageTypingListener() {
+    QB.chat.onMessageTypingListener = (isTyping, userId, dialogId) => {
+
+    };
+  }
+
+  /**
+   * Notify on user read message
+   * The message should have markable option
+   * https://quickblox.com/developers/Web_XMPP_Chat_Sample#Read_status
+   */
+  subscribeReadStatusListener() {
+    QB.chat.onReadStatusListener = (messageId, dialogId, userId) => {
+
+    };
+  }
 }

@@ -1,22 +1,6 @@
+/// <reference path="../../.vscode/typings/quickblox/quickblox.d.ts" />
 import { Injectable } from "@angular/core";
 import { AppService } from "./app.service";
-
-declare var QB;
-
-interface DialogI {
-  _id : string,
-  created_at: string,  // date
-  updated_at: string,  // date
-  last_message : string,
-  last_message_date_sent : number, // in milisecons?
-  last_message_user_id : number,  // user id
-  name : string | null,  
-  photo : string | null,
-  occupants_ids : number[],
-  type : number,
-  unread_messages_count: number,
-  xmpp_room_jid: string | null
-}
 
 export interface MessageI {
   _id: string,
@@ -43,7 +27,9 @@ export class ConversationService {
   constructor(
     private appService : AppService
   ) {
+    console.log(this.appService.chat);
     QB.chat.muc.join(this.appService.chat.xmpp_room_jid, function(resultStanza) {
+      console.log(resultStanza);
       var joined = true;
 
       for (var i = 0; i < resultStanza.childNodes.length; i++) {
@@ -53,6 +39,16 @@ export class ConversationService {
         }
       }
     });
+    console.log("BUILD");
+  }
+
+  leave() {
+    QB.chat.muc.leave(this.appService.chat.xmpp_room_jid, (err, fine) => {
+      if (err) {
+        console.log("ON LEAVE CONVERSATION ERROR: ");
+        console.log(err);
+      }
+    })
   }
 
   /**
@@ -74,7 +70,7 @@ export class ConversationService {
     });
   }
 
-  registerNewMessages(fun : (dialog: any, msg : any) => void) {
+  registerNewMessages(fun : (dialog: any, msg : MessageI) => void) {
     QB.chat.onMessageListener = fun;
   }
 
@@ -117,14 +113,11 @@ export class ConversationService {
         QB.chat.send(this.appService.chat.xmpp_room_jid, msg);
     }
 
-    // claer timer and send 'stop typing' status
-    //clearTimeout(isTypingTimerId);
-    //isTypingTimeoutCallback();
+    QB.chat.sendIsStopTypingStatus(this.appService.userId);
     return msg;
   }
 
   retrieveUsers() {
-
     // we got all users
     if (this.usersForDialogs.totalEntries != null && this.usersForDialogs.retrievedCount >= this.usersForDialogs.totalEntries) {
       return;
@@ -135,7 +128,7 @@ export class ConversationService {
 
     // Load users, 10 per request
     //
-    QB.listUsers({page: this.usersForDialogs.currentPage, per_page: '10'}, function(err, result) {
+    QB.users.listUsers({page: this.usersForDialogs.currentPage, per_page: '10'}, function(err, result) {
       if (err) {
         console.log(err);
       } else {

@@ -29,8 +29,16 @@ export class LoginService {
             console.log("HERERE")
             console.log(res.user_id);
             this.app.setUserProperties(userName, password, res.user_id);
-            this.app.connectToChat();
-            resolve(res);
+            this.app.connectToChat()
+              .subscribe(
+                // TODO See users
+                (roster) => {
+                  console.log("ROSETERR");
+                  console.log(JSON.stringify(roster))
+                },
+                (error) => { reject(error) },
+                () => { resolve(res); }
+              );
           }
         });
     })
