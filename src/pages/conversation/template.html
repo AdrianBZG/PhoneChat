@@ -1,13 +1,16 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar swipeBackEnabled="false"> 
     <ion-title>
       {{title}}
     </ion-title>
+    <button ion-button (click)="presentPopover($event)">
+      <ion-icon name="more"></ion-icon>
+    </button>
   </ion-navbar>
 </ion-header>
 
 <ion-content #content>
-  <ion-list #list *ngFor="let msg of lastMessages">
+  <ion-list #list *ngFor="let msg of lastMessages" no-lines>
     <!-- it should create new modified components -->
     <!-- Put chat image over here -->
     <chat-bubble [message]="msg"></chat-bubble>

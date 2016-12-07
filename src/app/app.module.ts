@@ -10,6 +10,7 @@ import { Chat as ChatPage } from '../pages/chat/pages';
 import { Conversation as ConversationApp } from '../pages/conversation/pages';
 import { Settings as SettingsApp } from '../pages/settings/pages';
 import { ChatBubble } from '../pages/chat-bubble/pages';
+import { ConversationSettings } from '../pages/conversation-settings/pages';
 
 import { AppService } from '../services/app.service';
 
@@ -22,6 +23,7 @@ import { AppService } from '../services/app.service';
     ChatBubble,
     ConversationApp,
     SettingsApp,
+    ConversationSettings,
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -35,6 +37,7 @@ import { AppService } from '../services/app.service';
     ChatBubble,
     ConversationApp,
     SettingsApp,
+    ConversationSettings,
   ],
   providers: [
     AppService,

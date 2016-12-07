@@ -7,7 +7,7 @@ import { AppService } from '../../services/app.service';
 
 
 @Component({
-  selector: 'conversation',
+  selector: 'conversation-settings',
   templateUrl: 'template.html',
   providers: [ ConversationService ],
 })
@@ -37,7 +37,9 @@ export class ConversationSettings {
    */
   changeGroupName(newName: string) {
     let params = {name: "My school friends"};
-    QB.chat.dialog.update(dialogId, params, callback);
+    QB.chat.dialog.update(this.appService.chat._id, params, (err, response) => {
+
+    });
   }
 
   /**
@@ -46,7 +48,9 @@ export class ConversationSettings {
    */
   addPeople(uids:number[]) {
     let params = {push_all: {occupants_ids: uids}};
-    QB.chat.dialog.update(dialogId, params, callback)
+    QB.chat.dialog.update(this.appService.chat._id, params, (err, response) => {
+
+    });
   }
 
   /**
@@ -54,7 +58,9 @@ export class ConversationSettings {
    */
   removePeople(uids:number[]) {
     let params = {pull_all: {occupants_ids: uids}};
-    QB.chat.dialog.update(dialogId, params, callback)
+    QB.chat.dialog.update(this.appService.chat._id, params, (err, reponse) => {
+
+    });
   }
 }
 
