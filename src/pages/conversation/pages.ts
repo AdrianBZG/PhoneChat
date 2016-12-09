@@ -32,7 +32,7 @@ export class Conversation {
     // Update conversation with last messages
     conversationService.getListOfMessages()
       .then((messages) => {
-        this.lastMessages = messages.map((msg) => 
+        this.lastMessages = messages.map((msg) =>
           this.makeBubbleMsg(msg, appService.userId));
       });
 
@@ -45,7 +45,7 @@ export class Conversation {
 
     conversationService.registerNewMessages((dialog, message) => {
       console.log("RegisterNewMessage");
-      console.log(message); 
+      console.log(message);
       this.lastMessages.push(this.makeBubbleMsg(message, appService.userId));
     })
   }
@@ -60,7 +60,7 @@ export class Conversation {
 
   sendMessage() {
     this.conversationService.sendMessage(this.inputMessage.value);
-    // TODO: Make a temporal sending message 
+    // TODO: Make a temporal sending message
 /*    this.lastMessages.push(
       { content: msg.body as string
       , position: (this.appService.userId==msg.body.id ? 'left' : 'right')
@@ -78,7 +78,8 @@ export class Conversation {
   }
 
   makeBubbleMsg(msg: MessageI, userId: number) {
-    
+    let info = this.appService.getUserInfo(userId);
+    info.subscribe((result) => {console.log(result);});
     return { content: msg.message
            , position: msg.sender_id == userId? 'right' : ' left'
            , time: msg.created_at

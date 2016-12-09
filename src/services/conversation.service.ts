@@ -19,11 +19,8 @@ export interface MessageI {
 
 @Injectable()
 export class ConversationService {
-  public users : any[];
+  public users = {};
 
-  usersForDialogs = {currentPage: 0,
-                            retrievedCount: 0,
-                            totalEntries: null};
   constructor(
     private appService : AppService
   ) {
@@ -57,6 +54,8 @@ export class ConversationService {
   getListOfMessages() : Promise<MessageI[]> {
     // TODO: Adjust params, it should only download new messages.
     let params = { chat_dialog_id: this.appService.chat._id, sort_asc: 'date_sent', limit: 100, skip: 0};
+    //this.retrieveUsers();
+    console.log(this.users);
     return new Promise((resolve, reject) => {
       QB.chat.message.list(params, (err, messages) => {
         if (err) {
@@ -119,22 +118,22 @@ export class ConversationService {
 
   retrieveUsers() {
     // we got all users
-    if (this.usersForDialogs.totalEntries != null && this.usersForDialogs.retrievedCount >= this.usersForDialogs.totalEntries) {
-      return;
-    }
+    // if (this.usersForDialogs.totalEntries != null && this.usersForDialogs.retrievedCount >= this.usersForDialogs.totalEntries) {
+    //   return;
+    // }
 
-    // $("#load-users").show(0);
-    this.usersForDialogs.currentPage = this.usersForDialogs.currentPage + 1;
+    // // $("#load-users").show(0);
+    // this.usersForDialogs.currentPage = this.usersForDialogs.currentPage + 1;
 
     // Load users, 10 per request
     //
-    QB.users.listUsers({page: this.usersForDialogs.currentPage, per_page: '10'}, function(err, result) {
+
+    this.mergeUsers([]);
+    QB.users.listUsers({page: 1, per_page: '10'}, function(err, result) {
       if (err) {
         console.log(err);
       } else {
         console.log(result);
-
-        this.mergeUsers(result.items);
 
         this.usersForDialogs.totalEntries = result.total_entries;
         this.usersForDialogs.retrievedCount = this.usersForDialogs.retrievedCount + result.items.length;
@@ -143,7 +142,7 @@ export class ConversationService {
   }
 
   updateDialogsUsersStorage(usersIds, callback){
-    var params = {filter: {field: 'id', param: 'in', value: usersIds}, per_page: 100};
+    let params = {filter: {field: 'id', param: 'in', value: usersIds}, per_page: 100};
 
     QB.users.listUsers(params, function(err, result){
       if (result) {

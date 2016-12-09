@@ -1,5 +1,8 @@
 # PhoneChat
 
+/// Los usuarios tienen su propia localstorege  de qB custom
+
+
 Pages:
 - Login
 - Signup

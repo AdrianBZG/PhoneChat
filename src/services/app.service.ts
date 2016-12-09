@@ -51,6 +51,77 @@ export class AppService {
 
 
   /**
+   * Get user Info from id
+   */
+  getUserInfo(userId : number) {
+    return Observable.create((observer) => {
+      QB.users.get(userId, (err, result) => {
+        if (err) {
+          observer.reject(err)
+        }
+        else {
+          console.log("RESULT GET USER INFO");
+          console.log(result);
+          observer.resolve(result);
+        }
+      });
+    });
+  }
+
+  /**
+   * Brocolito user puntuation upload
+   */
+  uploadBrocolitoPoint(points: number) {
+    QB.users.update(this.userId, {custom_data: JSON.stringify({points_brocolito: points})}, (err, result) => {
+      if (result) {
+        console.log("Save points");
+      }
+      else {
+        console.log("fail");
+      }
+    });
+  }
+
+  /**
+   * Upload files
+   */
+  uploadFile(filePath) {
+    QB.content.createAndUpload({file: filePath, 'public': false}, (err, blob) => {
+      if (blob) {
+        QB.users.update(this.userId, {blob_id: blob.id}, (err, user) => {
+          if (user) {
+            console.log(user);
+          }
+          else {
+
+          }
+        })
+      }
+    });
+  }
+
+  /**
+   * Get file photo
+   */
+  getPhoto(fileId) {
+    QB.content.getInfo(fileId, (err, fileInfo) => {
+      if (fileInfo) {
+        QB.content.getFile(fileInfo.uid, (err, file) => {
+          if (file) {
+            console.log(file);
+          }
+          else {
+            console.log(err);
+          }
+        })
+      }
+      else {
+        console.log(err);
+      }
+    });
+  }
+
+  /**
    * Get URL to content from uid
    */
   getURLImage(fileUID): string {
@@ -143,7 +214,7 @@ export class AppService {
 
   /**
    * Is received your message in dialog, by userid
-   * 
+   *
    */
   subscribeDeliveredStatusListener() {
     QB.chat.onDeliveredStatusListener = (messageId, dialogId, userId) => {
