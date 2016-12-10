@@ -1,6 +1,7 @@
 /// <reference path="../../.vscode/typings/quickblox/quickblox.d.ts" />
 import { Injectable } from "@angular/core";
 import { AppService } from "./app.service";
+import { Observable } from "rxjs";
 
 export interface MessageI {
   _id: string,
@@ -17,9 +18,31 @@ export interface MessageI {
   read: number
 }
 
+export interface User {
+  [userId: number] : {
+    blob_id: number | null,
+    created_at: string,
+    custom_data: any,
+    email: null | string,
+    external_user_id: any,
+    facebook_id: any,
+    full_name: null
+    id: number,
+    last_request_at: string,
+    login: string,
+    owner_id: number,
+    phone: any,
+    twitter_digits_id: any,
+    twitter_id: any,
+    updated_at: string,
+    user_tags: any,
+    website: any
+  }
+}
+
 @Injectable()
 export class ConversationService {
-  public users = {};
+  public users: User = {};
 
   constructor(
     private appService : AppService
@@ -39,6 +62,9 @@ export class ConversationService {
     console.log("BUILD");
   }
 
+  /**
+   * Leave chat to let to others know that no are "online"
+   */
   leave() {
     QB.chat.muc.leave(this.appService.chat.xmpp_room_jid, (err, fine) => {
       if (err) {
@@ -49,21 +75,30 @@ export class ConversationService {
   }
 
   /**
-   * Return messages from current chat (locate in appService)
+   * Return all messages from opened chat in stream continous
    */
-  getListOfMessages() : Promise<MessageI[]> {
-    // TODO: Adjust params, it should only download new messages.
+  getListOfMessages() : Observable<MessageI> {
     let params = { chat_dialog_id: this.appService.chat._id, sort_asc: 'date_sent', limit: 100, skip: 0};
-    //this.retrieveUsers();
-    console.log(this.users);
-    return new Promise((resolve, reject) => {
+
+    return Observable.create((observer) => {
       QB.chat.message.list(params, (err, messages) => {
         if (err) {
           console.log(err);
-          reject(err);
+          observer.error(err);
         }
         else {
-          resolve(messages.items);
+          for (let msg of messages.items) {
+            observer.next(msg);
+          }
+        }
+      });
+      // Keep listening messages
+      QB.chat.onMessageListener = ((err, msg) => {
+        if (err) {
+          observer.error(err);
+        }
+        else {
+          observer.next(msg);
         }
       });
     });
@@ -116,54 +151,29 @@ export class ConversationService {
     return msg;
   }
 
-  retrieveUsers() {
-    // we got all users
-    // if (this.usersForDialogs.totalEntries != null && this.usersForDialogs.retrievedCount >= this.usersForDialogs.totalEntries) {
-    //   return;
-    // }
-
-    // // $("#load-users").show(0);
-    // this.usersForDialogs.currentPage = this.usersForDialogs.currentPage + 1;
-
-    // Load users, 10 per request
-    //
-
-    this.mergeUsers([]);
-    QB.users.listUsers({page: 1, per_page: '10'}, function(err, result) {
-      if (err) {
-        console.log(err);
-      } else {
-        console.log(result);
-
-        this.usersForDialogs.totalEntries = result.total_entries;
-        this.usersForDialogs.retrievedCount = this.usersForDialogs.retrievedCount + result.items.length;
-      }
-    });
-  }
-
-  updateDialogsUsersStorage(usersIds, callback){
-    let params = {filter: {field: 'id', param: 'in', value: usersIds}, per_page: 100};
-
-    QB.users.listUsers(params, function(err, result){
-      if (result) {
-        this.mergeUsers(result.items);
-      }
-
-      callback();
-    });
+  /**
+   * Try get user from local list of user else fetch with server quickblox
+   */
+  getUser(userId: number): Observable<User> {
+    let user = this.users[userId];
+    if (user) {
+      return Observable.of(user);
+    }
+    else {
+      return this.appService
+        .getUserInfo(userId)
+        .map((user) => {
+          this.mergeUsers([user]);
+          return user;
+      });
+    }
   }
 
   mergeUsers(usersItems){
     var newUsers = {};
-    usersItems.forEach(function(item, i, arr) {
-      newUsers[item.user.id] = item.user;
-    });
+    for (let user of usersItems) {
+      newUsers[user.id] = user;
+    }
     Object.assign(this.users, newUsers);
-  }
-
-  getUserLoginById(byId) {
-  	if (this.users[byId]) {
-  		return this.users[byId].login;
-  	}
   }
 }

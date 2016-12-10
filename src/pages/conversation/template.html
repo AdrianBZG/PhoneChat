@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar swipeBackEnabled="false"> 
+  <ion-navbar swipeBackEnabled="false">
     <ion-title>
       {{title}}
     </ion-title>
@@ -10,19 +10,20 @@
 </ion-header>
 
 <ion-content #content>
-  <ion-list #list *ngFor="let msg of lastMessages" no-lines>
-    <!-- it should create new modified components -->
-    <!-- Put chat image over here -->
+  <ion-list #list *ngFor="let msg of lastMessages | async">
     <chat-bubble [message]="msg"></chat-bubble>
   </ion-list>
 </ion-content>
+
+
+
 <ion-footer>
   <ion-toolbar>
     <ion-item>
       <ion-icon item-left name="arrow-up"></ion-icon> <!-- Stickers and other settings -->
-      <ion-input item-left type="text" placeholder="Type your message">
+      <ion-input item-left #inputMessage type="text" placeholder="Type your message">
       </ion-input>
-      <button ion-button item-right (click)="sendMessage()">
+      <button ion-button #sendBtn item-right>
         <ion-icon name="send"></ion-icon>
       </button>
     </ion-item>

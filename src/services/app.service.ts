@@ -30,7 +30,7 @@ export class AppService {
         active: 2
       },
       debug: {
-        mode: 1,
+        mode: 0 ,
         file: null
       },
       stickerpipe: {
@@ -53,18 +53,36 @@ export class AppService {
   /**
    * Get user Info from id
    */
-  getUserInfo(userId : number) {
+  getUserInfo(userId : number): Observable<any> {
     return Observable.create((observer) => {
       QB.users.get(userId, (err, result) => {
         if (err) {
-          observer.reject(err)
+          //observer.error(err)
+          observer.next({
+            blob_id: 0,
+            created_at: "ErrorUser",
+            custom_data: null,
+            email: null,
+            external_user_id: null,
+            facebook_id: null,
+            full_name: null,
+            id: 0,
+            last_request_at: "ErrorUser",
+            login: "ErrorUser",
+            owner_id: 0,
+            phone: null,
+            twitter_digits_id: null,
+            twitter_id: null,
+            updated_at: "ErrorUser",
+            user_tags: null,
+            website: null
+          })
         }
         else {
-          console.log("RESULT GET USER INFO");
-          console.log(result);
-          observer.resolve(result);
+          observer.next(result);
         }
       });
+      //observer.complete();
     });
   }
 
@@ -85,39 +103,53 @@ export class AppService {
   /**
    * Upload files
    */
-  uploadFile(filePath) {
-    QB.content.createAndUpload({file: filePath, 'public': false}, (err, blob) => {
-      if (blob) {
-        QB.users.update(this.userId, {blob_id: blob.id}, (err, user) => {
-          if (user) {
-            console.log(user);
-          }
-          else {
-
-          }
-        })
-      }
+  uploadFile(filePath): Observable<any> {
+    return Observable.create((observer) => {
+      QB.content.createAndUpload({file: filePath, 'public': false}, (err, blob) => {
+        if (blob) {
+          QB.users.update(this.userId, {blob_id: blob.id}, (err, user) => {
+            if (user) {
+              console.log(user);
+              observer.next(user);
+            }
+            else {
+              observer.error(err);
+            }
+          })
+        }
+        else {
+          observer.error(err);
+        }
+      });
+      observer.complete();
     });
   }
 
   /**
    * Get file photo
    */
-  getPhoto(fileId) {
-    QB.content.getInfo(fileId, (err, fileInfo) => {
-      if (fileInfo) {
-        QB.content.getFile(fileInfo.uid, (err, file) => {
-          if (file) {
-            console.log(file);
-          }
-          else {
-            console.log(err);
-          }
-        })
-      }
-      else {
-        console.log(err);
-      }
+  getPhoto(fileId): Observable<any> {
+    return Observable.create((observer) => {
+      QB.content.getInfo(fileId, (err, fileInfo) => {
+        if (fileInfo) {
+          QB.content.getFile(fileInfo.uid, (err, file) => {
+            if (file) {
+              observer.next(file);
+              console.log("GET PHOTO");
+              console.log(file);
+            }
+            else {
+              observer.error(err);
+              console.log(err);
+            }
+          })
+        }
+        else {
+          observer.error(err);
+          console.log(err);
+        }
+        observer.complete();
+      });
     });
   }
 
@@ -132,9 +164,12 @@ export class AppService {
    * Return a Promise of list of dialogs
    */
   getGroupsDialogs(): Observable<DialogMsg[]> {
+    // https://quickblox.com/developers/Web_XMPP_Chat_Sample#Dialogs
+    let filters = null;
+    // return this.makeObservable((callback) =>
+    //   QB.chat.dialog.list(filters, callback)
+    // ).map((value) => { return value.items as DialogMsg[];});
     return Observable.create((observer) => {
-      // https://quickblox.com/developers/Web_XMPP_Chat_Sample#Dialogs
-      let filters = null;
       QB.chat.dialog.list(filters, (err, resDialogs) => {
         if (err) {
           observer.error(err);
@@ -154,18 +189,8 @@ export class AppService {
    * Connect to chat
    */
   connectToChat(): Observable<RosterMsg> {
-    return Observable.create((observer) => {
-      QB.chat.connect({userId: this.userId, password: this.password },
-        (err, roster) => {
-          if (err) {
-            observer.error(err);
-          }
-          else {
-            observer.next(roster);
-          }
-          observer.complete();
-        });
-    });
+    return this.makeObservable((callback) =>
+      QB.chat.connect({userId: this.userId, password: this.password }, callback));
   }
 
   disconnectChat() {
@@ -249,5 +274,20 @@ export class AppService {
     QB.chat.onReadStatusListener = (messageId, dialogId, userId) => {
 
     };
+  }
+
+
+  makeObservable<Res>(fun: (callback: (err, res: Res) => void) => void): Observable<Res> {
+    return Observable.create((observer) => {
+      fun((err, res) => {
+        if (err) {
+          observer.error(err);
+        }
+        else {
+          observer.next(res);
+        }
+        observer.complete();
+      })
+    });
   }
 }
