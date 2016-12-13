@@ -8,6 +8,7 @@ import 'rxjs/add/operator/map';
 
 
 const serverURL = "http://localhost:8100/api";
+// const serverURL = "http://phonechat.herokuapp.com/api"; // Uncomment when build to android
 
 @Injectable()
 export class AppService {
@@ -189,8 +190,26 @@ export class AppService {
    * Connect to chat
    */
   connectToChat(): Observable<RosterMsg> {
-    return this.makeObservable((callback) =>
-      QB.chat.connect({userId: this.userId, password: this.password }, callback));
+    return Observable.create((observer) => {
+      QB.chat.connect({userId: this.userId, password: this.password }, (err, res) => {
+        console.log("LOGGUED");
+
+        if (err) {
+          console.log("Ey a error")
+          console.log(err);
+
+          observer.error(err);
+        }
+        else {
+          console.log("YEs yse" + res)
+          console.log(res);
+
+          observer.next(res);
+        }
+        observer.complete();
+      })
+
+    });
   }
 
   disconnectChat() {
@@ -274,20 +293,5 @@ export class AppService {
     QB.chat.onReadStatusListener = (messageId, dialogId, userId) => {
 
     };
-  }
-
-
-  makeObservable<Res>(fun: (callback: (err, res: Res) => void) => void): Observable<Res> {
-    return Observable.create((observer) => {
-      fun((err, res) => {
-        if (err) {
-          observer.error(err);
-        }
-        else {
-          observer.next(res);
-        }
-        observer.complete();
-      })
-    });
   }
 }

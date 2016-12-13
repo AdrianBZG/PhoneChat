@@ -186,5 +186,22 @@
         },
         "is_top_level": true,
         "variables": {}
+    },
+    "com.mbppower.camerapreview": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-camera-preview"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "com.megster.cordova.FileChooser": {
+        "source": {
+            "type": "git",
+            "url": "http://github.com/don/cordova-filechooser.git",
+            "subdir": "."
+        },
+        "is_top_level": true,
+        "variables": {}
     }
 }

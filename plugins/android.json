@@ -1,0 +1,24 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "cordova-plugin-geolocation": {
+            "PACKAGE_NAME": "com.phonegap.helloworld"
+        },
+        "com.mbppower.camerapreview": {
+            "PACKAGE_NAME": "com.phonegap.helloworld"
+        },
+        "cordova-plugin-device-orientation": {
+            "PACKAGE_NAME": "com.phonegap.helloworld"
+        },
+        "com.megster.cordova.FileChooser": {
+            "PACKAGE_NAME": "com.phonegap.helloworld"
+        }
+    },
+    "dependent_plugins": {}
+}

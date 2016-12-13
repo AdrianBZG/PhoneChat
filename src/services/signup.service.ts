@@ -72,8 +72,10 @@ export class SignupService {
             // TODO: Insecure of what it is user
             console.log(user);
             this.appService.setUserProperties(name, password, user.user_id);
-            this.appService.connectToChat();
-            resolve(user);
+            this.appService.connectToChat()
+              .subscribe(
+                (conneted) => resolve(user),
+                (error) => reject("To Login"));  // TODO this very wrong
           }
         });
       });
