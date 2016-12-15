@@ -4,6 +4,7 @@ import { AlertController, NavController, NavParams, MenuController } from 'ionic
 
 import { Conversation } from '../conversation/pages';
 import { Settings } from '../settings/pages';
+import { Sensors } from '../sensors/pages';
 import { AppService } from '../../services/app.service';
 
 @Component({
@@ -13,7 +14,7 @@ import { AppService } from '../../services/app.service';
 export class Chat {
   user: String = ""
   topicChats : DialogMsg[] = [];
-  
+
   /**
    * This class controll the diferents chat that an user can access.
    */
@@ -30,7 +31,7 @@ export class Chat {
     this.appService
       .getGroupsDialogs()
       .subscribe(
-        (dialogs) => { 
+        (dialogs) => {
           this.topicChats = dialogs.map((dialog) => {
             dialog.photo = this.appService.getURLImage(dialog.photo);
             return dialog;
@@ -123,12 +124,13 @@ export class Chat {
   }
 
   games() {
+    this.navCtrl.push(Sensors)
     console.log("HERE Rudolf's game // it could be access from chat")
   }
 
 
   /**
-   * Go to settings page 
+   * Go to settings page
    */
   settings() {
     this.navCtrl.push(Settings);

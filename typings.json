@@ -1,5 +1,6 @@
 {
   "globalDependencies": {
-    "jquery": "registry:dt/jquery#1.10.0+20160929162922"
+    "jquery": "registry:dt/jquery#1.10.0+20160929162922",
+    "leaflet": "registry:dt/leaflet#1.0.2+20161213232557"
   }
 }
