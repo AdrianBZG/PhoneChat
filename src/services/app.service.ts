@@ -7,8 +7,10 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/map';
 
 
-const serverURL = "http://localhost:8100/api";
-// const serverURL = "http://phonechat.herokuapp.com/api"; // Uncomment when build to android
+declare var annyang;
+
+//const serverURL = "http://localhost:8100/api";
+const serverURL = "http://phonechat.herokuapp.com/api"; // Uncomment when build to android
 
 @Injectable()
 export class AppService {
@@ -48,6 +50,22 @@ export class AppService {
     };
     QB.init(QBApp.appId, QBApp.authKey, QBApp.authSecret, config);
 
+
+    let commands = {
+      'hello': function() { console.log('Hello world!'); }
+    };
+
+    if (annyang) {
+      // Add our commands to annyang
+      annyang.addCommands(commands);
+
+      // Start listening.
+      annyang.start();
+    }
+    else {
+      console.log("ERRORORO");
+
+    }
   }
 
 
