@@ -11,6 +11,7 @@ import { Conversation as ConversationApp } from '../pages/conversation/pages';
 import { Settings as SettingsApp } from '../pages/settings/pages';
 import { ChatBubble } from '../pages/chat-bubble/pages';
 import { ConversationSettings } from '../pages/conversation-settings/pages';
+import { Sensors as SensorsPage } from '../pages/sensors/pages';
 
 import { AppService } from '../services/app.service';
 
@@ -24,6 +25,7 @@ import { AppService } from '../services/app.service';
     ConversationApp,
     SettingsApp,
     ConversationSettings,
+    SensorsPage,
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -38,6 +40,7 @@ import { AppService } from '../services/app.service';
     ConversationApp,
     SettingsApp,
     ConversationSettings,
+    SensorsPage,
   ],
   providers: [
     AppService,

@@ -1,0 +1,36 @@
+<ion-menu [content]="mycontent">
+
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>{{user}}</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+   <ion-list>
+     <ion-list-header>
+       Map options
+     </ion-list-header>
+     <button ion-item (click)="initializeGenericMap()">
+       <ion-icon name="add-circle"></ion-icon>
+       Toggle/update map
+     </button>
+    </ion-list>
+  </ion-content>
+
+</ion-menu>
+
+<ion-header>
+  <ion-navbar #mycontent>
+    <button ion-button menuToggle icon-only>
+      <ion-icon name='menu'></ion-icon>
+    </button>
+    <ion-title>
+      Groups
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+    <button id="toggleMapButton" onClick="initializeGenericMap()">Toggle map</button><br><br>
+    <div id="mapid" style="width: 600px; height: 400px;"></div>
+</ion-content>
