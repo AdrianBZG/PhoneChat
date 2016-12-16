@@ -52,7 +52,27 @@ export class AppService {
 
 
     let commands = {
-      'hello': function() { console.log('Hello world!'); }
+      'show test': function() {
+				alert('test');
+			},
+			'show teacher': function() {
+				alert('hello teacher');
+			},
+			'show superman': function() {
+				alert('my name is superman');
+			},
+			'move developers': function() {
+				//$.mobile.navigate("#developers");
+			},
+			'move login': function() {
+				//showLoginModal();
+			},
+			'move chat': function() {
+				//$.mobile.navigate("#chat");
+			},
+			'show menu': function() {
+				//$('#showMenuBtn').click();
+			}
     };
 
     if (annyang) {
