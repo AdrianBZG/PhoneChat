@@ -4,6 +4,7 @@ import { AlertController, NavController, NavParams, MenuController } from 'ionic
 
 import { Conversation } from '../conversation/pages';
 import { Settings } from '../settings/pages';
+import { EventList } from '../event-list/pages';
 import { Sensors } from '../sensors/pages';
 import { AppService } from '../../services/app.service';
 
@@ -124,10 +125,17 @@ export class Chat {
   }
 
   games() {
-    this.navCtrl.push(Sensors)
+    //this.navCtrl.push(Sensors)
     console.log("HERE Rudolf's game // it could be access from chat")
   }
 
+  eventListPage() {
+    this.navCtrl.push(EventList)
+  }
+
+  sensorsInfoPage() {
+    this.navCtrl.push(Sensors)
+  }
 
   /**
    * Go to settings page

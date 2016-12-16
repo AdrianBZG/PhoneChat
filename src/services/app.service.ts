@@ -9,8 +9,8 @@ import 'rxjs/add/operator/map';
 
 declare var annyang;
 
-//const serverURL = "http://localhost:8100/api";
-const serverURL = "http://phonechat.herokuapp.com/api"; // Uncomment when build to android
+const serverURL = "http://localhost:8100/api";
+//const serverURL = "http://phonechat.herokuapp.com/api"; // Uncomment when build to android
 
 @Injectable()
 export class AppService {

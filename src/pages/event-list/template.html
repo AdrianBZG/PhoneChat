@@ -1,0 +1,58 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      MAP
+    </ion-title>
+    <ion-buttons end>
+      <button ion-item (click)="newEvent()">
+        <ion-icon name="code"></ion-icon>
+        Create Event
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content class="geofence-details-page">
+  <div class="map-container">
+    <div id="map" style="width: 100%; height: 100%">
+    </div>
+  </div>
+</ion-content>
+
+
+<!--
+<ion-menu [content]="mycontent">
+
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>{{user}}</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+   <ion-list>
+     <ion-list-header>
+       Map options
+     </ion-list-header>
+     <button ion-item (click)="initializeGenericMap()">
+       <ion-icon name="add-circle"></ion-icon>
+       Toggle/update map
+     </button>
+    </ion-list>
+  </ion-content>
+
+</ion-menu>
+
+<ion-header>
+  <ion-navbar #mycontent>
+    <button ion-button menuToggle icon-only>
+      <ion-icon name='menu'></ion-icon>
+    </button>
+    <ion-title>
+      Groups
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+    <button ion-button #toggleMapButton (click)="initializeGenericMap()">Toggle map</button><br><br>
+    <div id="mapid" style="width: 100%; height: 100%"></div>
+</ion-content>-->
