@@ -25,6 +25,7 @@ export class EventList {
   private user: String = "";
   private eventArray: any[];
   private markerArray: any[];
+  private timer;
 
   constructor(
     private nav: NavController,
@@ -48,9 +49,9 @@ export class EventList {
 
   ionViewDidLoad() {
     this.menu.enable(false);
-    // workaround map is not correctly displayed
-    // maybe this should be done in some other event
-    //this.loadMap();
+
+    this.timer = setInterval(() => (this.refreshEvents()), 60000);
+
     Geolocation.getCurrentPosition().then((geoposition) => {
       this._latLng = Leaflet.latLng(geoposition.coords.latitude, geoposition.coords.longitude);
 
@@ -68,10 +69,8 @@ export class EventList {
     Leaflet.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png")
       .addTo(this.map);
 
-    this.marker = Leaflet
-      .marker(this.latLng, { draggable: true })
-      .on("dragend", this.onMarkerPositionChanged.bind(this))
-      .addTo(this.map);
+
+    this.refreshEvents();
   }
 
   onMapClicked(e) {
@@ -80,9 +79,9 @@ export class EventList {
   }
 
   onMarkerPositionChanged(e) {
-    const latlng = e.target.getLatLng();
+    //const latlng = e.target.getLatLng();
 
-    this.latLng = latlng;
+    //this.latLng = latlng;
   }
 
   newEvent(latLng?: any) {
@@ -182,6 +181,14 @@ export class EventList {
   * Refresh the map with the events markers
   */
   refreshEvents() {
+    this.clearEventMarkers();
+    this.loadEvents();
 
+    let marker = Leaflet
+      .marker(this.latLng, { draggable: true })
+      .on("dragend", this.onMarkerPositionChanged.bind(this))
+      .addTo(this.map);
+
+    this.markerArray.push(marker);
   }
 }
