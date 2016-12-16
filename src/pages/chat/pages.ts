@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 import { AlertController, NavController, NavParams, MenuController } from 'ionic-angular';
+import { Geolocation } from 'ionic-native';
 
 import { Conversation } from '../conversation/pages';
 import { Settings } from '../settings/pages';
@@ -13,7 +14,7 @@ import { AppService } from '../../services/app.service';
   templateUrl: 'template.html',
 })
 export class Chat {
-  user: String = ""
+  user: String = "";
   topicChats : DialogMsg[] = [];
 
   /**
@@ -146,5 +147,56 @@ export class Chat {
 
   devInfo() {
     // TODO: Show info about ourself and github project location
+  }
+
+  newEvent(latLng?: any) {
+    let prompt = this.alertCtrl.create({
+      title: 'Create an event',
+      message: "Fill the event data",
+      inputs: [
+        {
+          name: 'name',
+          placeholder: 'Name'
+        },
+        {
+          name: 'description',
+          placeholder: 'Description'
+        },
+        {
+          name: 'date',
+          placeholder: 'Date',
+          type: 'date'
+        },
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Create',
+          handler: data => {
+            console.log('Create event clicked');
+            console.log(data);
+            if(latLng) {
+              console.log(latLng.lat);
+              console.log(latLng.lng);
+              console.log('owner: ' + this.user);
+              console.log('participants: ' + this.user);
+            } else {
+              Geolocation.getCurrentPosition().then((geoposition) => {
+                console.log(geoposition.coords.latitude);
+                console.log(geoposition.coords.longitude);
+                console.log('owner: ' + this.user);
+                console.log('participants: ' + this.user);
+              });
+            }
+          }
+        }
+      ]
+    });
+    prompt.present();
   }
 }

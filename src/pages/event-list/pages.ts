@@ -1,8 +1,9 @@
 import { Component } from "@angular/core";
-import { NavController, NavParams, MenuController } from "ionic-angular";
+import { AlertController, NavController, NavParams, MenuController } from "ionic-angular";
 import { Geolocation } from 'ionic-native';
 import * as Leaflet from "leaflet";
 import { AppService } from '../../services/app.service';
+import { EventService } from '../../services/event.service';
 
 
 interface MapEvent {
@@ -21,13 +22,19 @@ export class EventList {
   private _latLng: any;
   private marker: any;
   private map: any  ;
+  private user: String = "";
+  private eventArray: any[];
 
   constructor(
     private nav: NavController,
     navParams: NavParams,
     private menu: MenuController,
-    public appService: AppService
-  ) {}
+    public alertCtrl: AlertController,
+    public appService: AppService,
+    public eventService: EventService
+  ) {
+    this.user = appService.user;
+  }
 
   set latLng(value) {
     this._latLng = value;
@@ -67,7 +74,8 @@ export class EventList {
   }
 
   onMapClicked(e) {
-    this.latLng = e.latlng;
+    //this.latLng = e.latlng;
+    this.newEvent(e.latlng);
   }
 
   onMarkerPositionChanged(e) {
@@ -76,14 +84,99 @@ export class EventList {
     this.latLng = latlng;
   }
 
-  /**
-   * Load events from server(mongodb)
-   */
-  loadEvents() {
-
+  newEvent(latLng?: any) {
+    let prompt = this.alertCtrl.create({
+      title: 'Create an event',
+      message: "Fill the event data",
+      inputs: [
+        {
+          name: 'name',
+          placeholder: 'Name'
+        },
+        {
+          name: 'description',
+          placeholder: 'Description'
+        },
+        {
+          name: 'date',
+          placeholder: 'Date',
+          type: 'date'
+        },
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Create',
+          handler: data => {
+            console.log('Create event clicked');
+            console.log(data);
+            if(latLng) {
+              console.log(latLng.lat);
+              console.log(latLng.lng);
+              console.log('owner: ' + this.user);
+              console.log('participants: ' + this.user);
+            } else {
+              Geolocation.getCurrentPosition().then((geoposition) => {
+                console.log(geoposition.coords.latitude);
+                console.log(geoposition.coords.longitude);
+                console.log('owner: ' + this.user);
+                console.log('participants: ' + this.user);
+              });
+            }
+          }
+        }
+      ]
+    });
+    prompt.present();
   }
 
-  saveEvent() {
+  createEvent(name: string, description: string, latitude: string, longitude: string, creator: string, participants: number[], date: Date) {
+    try {
+      this.eventService.saveEvent(
+            name
+          , description
+          , latitude
+          , longitude
+          , creator
+          , participants
+          , date)
+          .then((resp) => {
+            console.log("Event added, now reloading the map");
+            this.loadEvents();
+          },
+          (err) => { this.showError(err); }
+        );
+      }
+      catch (err) {
+        this.showError(err);
+      }
+  }
+
+  showError(err : string) {
+    let alert = this.alertCtrl.create({
+        title: 'Invalid input',
+        message: err,
+        buttons: ['OK']
+      });
+    alert.present();
+  }
+
+  /**
+   * Load events from server (MongoDB)
+   */
+  loadEvents() {
+    this.eventArray.push([1,2]);
+  }
+
+  /**
+  * Refresh the map with the events markers
+  */
+  refreshEvents() {
 
   }
 }
