@@ -41,3 +41,14 @@ platforms
 www/build/*
 
 .tmp
+
+# Ignore temp JS files
+
+index.js
+index.d.ts
+src/*/*/*.js
+src/*/*/*.d.ts
+src/*/*.js
+src/*/*.d.ts
+src/*.js
+src/*.d.ts
