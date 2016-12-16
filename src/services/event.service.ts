@@ -45,4 +45,13 @@ export class EventService {
       ).toPromise().then(() => { console.log("crea un evento")})
      ]);
   }
+
+  getEventList() {
+    let eventArray : Promise<Response> =
+      this.http
+        .get(this.appService.getEventListURL(), {})
+        .toPromise();
+
+    return eventArray;
+  }
 }

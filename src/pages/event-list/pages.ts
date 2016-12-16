@@ -170,7 +170,7 @@ export class EventList {
    * Load events from server (MongoDB)
    */
   loadEvents() {
-    this.eventArray.push([1,2]);
+    this.eventArray = this.eventService.getEventList();
   }
 
   /**

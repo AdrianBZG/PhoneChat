@@ -275,6 +275,10 @@ export class AppService {
     return serverURL + "/event/addEvent";
   }
 
+  getEventListURL() {
+    return serverURL + "/event/getEvents";
+  }
+
   getLoginURL() {
     return serverURL + "/account/logon";
   }
