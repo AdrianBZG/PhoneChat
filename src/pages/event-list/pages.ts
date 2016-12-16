@@ -24,6 +24,7 @@ export class EventList {
   private map: any  ;
   private user: String = "";
   private eventArray: any[];
+  private markerArray: any[];
 
   constructor(
     private nav: NavController,
@@ -170,7 +171,11 @@ export class EventList {
    * Load events from server (MongoDB)
    */
   loadEvents() {
-    this.eventArray = this.eventService.getEventList();
+    this.eventService.getEventList().then((array) => {this.eventArray = array;})
+  }
+
+  clearEventMarkers() {
+    this.markerArray = [];
   }
 
   /**

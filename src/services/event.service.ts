@@ -3,6 +3,10 @@ import { Http, Response } from '@angular/http';
 
 import { AppService } from './app.service';
 
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
+import 'rxjs/add/operator/map';
+
 @Injectable()
 export class EventService {
   constructor(private http : Http, private appService : AppService) {}
@@ -47,11 +51,10 @@ export class EventService {
   }
 
   getEventList() {
-    let eventArray : Promise<Response> =
+    let eventArray : Promise<any[]> =
       this.http
         .get(this.appService.getEventListURL(), {})
-        .toPromise();
-
+        .map((resp) => resp.json() as any []).toPromise();
     return eventArray;
   }
 }
