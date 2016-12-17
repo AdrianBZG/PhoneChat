@@ -15,6 +15,7 @@ import { EventList as EventList } from '../pages/event-list/pages';
 import { Sensors as Sensors } from '../pages/sensors/pages';
 
 import { AppService } from '../services/app.service';
+import { EventService } from '../services/event.service';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { AppService } from '../services/app.service';
   ],
   providers: [
     AppService,
+    EventService,
     Storage
   ]
 })

@@ -11,13 +11,13 @@ import 'rxjs/add/operator/map';
 export class EventService {
   constructor(private http : Http, private appService : AppService) {}
 
-  saveEvent(name: string, description: string, latitude: string, longitude: string, creator: string, participants: number[], date: Date) {
+  saveEvent(name: string, description: string, latitude: string, longitude: string, creator: Number, participants: Number[], date: Date) {
     // TO-DO: Date, missing on MongoDB model
     let nameVar = name.trim();
     let descriptionVar = description.trim();
     let latitudeVar = latitude.trim();
     let longitudeVar = longitude.trim();
-    let creatorVar = creator.trim();
+    let creatorVar = creator;
     let participantsVar = participants;
     let dateVar = date;
 
@@ -33,8 +33,11 @@ export class EventService {
     if (longitudeVar == "") {
       throw new Error("Empty longitude");
     }
-    if (creatorVar == "") {
+    if (creatorVar == null) {
       throw new Error("Empty creator");
+    }
+    if (participantsVar == null) {
+      throw new Error("Empty participants");
     }
 
     return Promise.all([this.http.post(this.appService.getAddEventAPI(),

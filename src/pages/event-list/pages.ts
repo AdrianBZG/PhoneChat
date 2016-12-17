@@ -23,6 +23,7 @@ export class EventList {
   private marker: any;
   private map: any  ;
   private user: String = "";
+  private userId: Number;
   private eventArray: any[];
   private markerArray: any[];
   private timer;
@@ -36,6 +37,7 @@ export class EventList {
     public eventService: EventService
   ) {
     this.user = appService.user;
+    this.userId = appService.userId;
   }
 
   set latLng(value) {
@@ -118,8 +120,9 @@ export class EventList {
             if(latLng) {
               console.log(latLng.lat);
               console.log(latLng.lng);
-              console.log('owner: ' + this.user);
+              console.log('owner: ' + this.userId);
               console.log('participants: ' + this.user);
+              this.createEvent(data.name, data.description, latLng.lat, latLng.lng, this.userId, [this.userId], data.date);
             } else {
               Geolocation.getCurrentPosition().then((geoposition) => {
                 console.log(geoposition.coords.latitude);
@@ -135,7 +138,7 @@ export class EventList {
     prompt.present();
   }
 
-  createEvent(name: string, description: string, latitude: string, longitude: string, creator: string, participants: number[], date: Date) {
+  createEvent(name: string, description: string, latitude: string, longitude: string, creator: Number, participants: Number[], date: Date) {
     try {
       this.eventService.saveEvent(
             name
