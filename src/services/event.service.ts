@@ -15,8 +15,8 @@ export class EventService {
     // TO-DO: Date, missing on MongoDB model
     let nameVar = name.trim();
     let descriptionVar = description.trim();
-    let latitudeVar = latitude.trim();
-    let longitudeVar = longitude.trim();
+    let latitudeVar = latitude;
+    let longitudeVar = longitude;
     let creatorVar = creator;
     let participantsVar = participants;
     let dateVar = date;
@@ -58,6 +58,18 @@ export class EventService {
       this.http
         .get(this.appService.getEventListURL(), {})
         .map((resp) => resp.json() as any []).toPromise();
+
     return eventArray;
   }
+
+  /*
+  getEventList() {
+    let eventArray : Promise<any[]> =
+      this.http
+        .get(this.appService.getEventListURL(), {})
+        .map((resp) => resp.json() as any []).toPromise();
+
+    return eventArray;
+  }
+  */
 }
