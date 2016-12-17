@@ -129,6 +129,9 @@ export class EventList {
                 console.log(geoposition.coords.longitude);
                 console.log('owner: ' + this.user);
                 console.log('participants: ' + this.user);
+                let latitudeAsString = geoposition.coords.latitude+"";
+                let longitudeAsString = geoposition.coords.longitude+"";
+                this.createEvent(data.name, data.description, latitudeAsString, longitudeAsString, this.userId, [this.userId], data.date);
               });
             }
           }
