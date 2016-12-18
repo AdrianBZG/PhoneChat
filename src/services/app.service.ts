@@ -267,6 +267,14 @@ export class AppService {
     this.storage.set("userId", userId);
   }
 
+  setPrivacyGeolocationProperty(value: number) {
+    this.storage.set("privacyGeolocationProperty", value);
+  }
+
+  getPrivacyGetlocationProperty() {
+    return this.storage.get("privacyGeolocationProperty");
+  }
+
   getRegisterAPI() {
     return serverURL + "/account/register";
   }
