@@ -9,16 +9,16 @@
   <ion-content>
    <ion-list>
      <ion-list-header>
-       Chat options
+       Chat
      </ion-list-header>
      <button ion-item (click)="newIndividualChat()">
        <ion-icon name="add-circle"></ion-icon>
-       Individual chat
+       New individual chat
      </button>
 
      <button ion-item (click)="newGroupChat()">
        <ion-icon name="add-circle"></ion-icon>
-       New Group
+       New group chat
      </button>
 
      <button ion-item (click)="seeGroupChat()">
@@ -33,37 +33,47 @@
 
      <button ion-item (click)="games()">
        <ion-icon name="game-controller-a"></ion-icon>
-       Chat Games
+       Games
      </button>
 
      <ion-list-header>
        Meeting System
      </ion-list-header>
      <button ion-item (click)="eventListPage()">
-       <ion-icon name="code"></ion-icon>
+       <ion-icon name="flag"></ion-icon>
        Event List
+     </button>
+
+     <ion-list-header>
+       Settings
+     </ion-list-header>
+
+     <button ion-item (click)="settingsPage()">
+       <ion-icon name="settings"></ion-icon>
+       Session
+     </button>
+
+     <button ion-item (click)="privacyPage()">
+       <ion-icon name="eye"></ion-icon>
+       Privacy
      </button>
 
      <ion-list-header>
        Device
      </ion-list-header>
+
      <button ion-item (click)="sensorsInfoPage()">
-       <ion-icon name="code"></ion-icon>
+       <ion-icon name="information-circle"></ion-icon>
        Sensors overview
      </button>
 
      <ion-list-header>
-       Configurations
+       Other
      </ion-list-header>
-
-     <button ion-item (click)="settings()">
-       <ion-icon name="settings"></ion-icon>
-       Account Settings
-     </button>
 
      <button ion-item (click)="devInfo()">
        <ion-icon name="code"></ion-icon>
-       Developers Info
+       Developers
      </button>
     </ion-list>
   </ion-content>
@@ -76,7 +86,7 @@
       <ion-icon name='menu'></ion-icon>
     </button>
     <ion-title>
-      Groups
+      PhoneChat
     </ion-title>
   </ion-navbar>
 </ion-header>

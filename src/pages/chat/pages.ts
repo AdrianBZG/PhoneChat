@@ -141,7 +141,14 @@ export class Chat {
   /**
    * Go to settings page
    */
-  settings() {
+  settingsPage() {
+    this.navCtrl.push(Settings);
+  }
+
+  /**
+   * Go to privacy page
+   */
+  privacyPage() {
     this.navCtrl.push(Settings);
   }
 
