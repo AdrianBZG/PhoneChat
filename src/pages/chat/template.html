@@ -95,7 +95,8 @@
     <!-- Put chat image over here -->
     <ion-item (click)="openChat(chat)">
       <ion-avatar item-left>
-        <img src={{chat.photo}}>
+        <!--<img src={{chat.photo}}> -->
+        <img src="https://maxcdn.icons8.com/Share/icon/Messaging//chat1600.png">
       </ion-avatar>
       <h2>{{chat.name}}</h2>
       <ion-badge *ngIf="chat.unread_messages_count!=0" item-right>{{chat.unread_messages_count}}</ion-badge>

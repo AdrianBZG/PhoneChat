@@ -5,7 +5,7 @@ import { Observable } from "rxjs";
 
 export interface MessageI {
   _id: string,
-  created_at: string,
+  created_at: Date,
   updated_at: string,
   attachments: any[],
   read_ids: number[],

@@ -4,6 +4,8 @@ import { Geolocation } from 'ionic-native';
 import { AppService } from '../../services/app.service';
 import { EventList } from '../event-list/pages';
 
+declare var $;
+
 @Component({
   selector: 'sensors',
   templateUrl: 'template.html',
@@ -13,6 +15,7 @@ export class Sensors {
   public longitude: any;
   private number: any = 0;
   private timer;
+  public cityName: string;
 
   constructor(
     private navCtrl: NavController,
@@ -29,14 +32,22 @@ export class Sensors {
       this.latitude = geoposition.coords.latitude;
       this.longitude = geoposition.coords.longitude;
     }), 500);
-    /*Geolocation.getCurrentPosition().then((geoposition) => {
-      this.latitude = geoposition.coords.latitude;
-      this.longitude = geoposition.coords.longitude;
-    });*/
+
+    this.getCityName();
   }
 
   eventListPage() {
     this.navCtrl.push(EventList)
+  }
+
+  getCityName() {
+    Geolocation.getCurrentPosition().then((geoposition) => {
+      //this.mymap = L.map('mapid').setView([geoposition.coords.latitude, geoposition.coords.longitude], 15);
+      $.getJSON('//nominatim.openstreetmap.org/reverse?json_callback=?&format=json', {lat: geoposition.coords.latitude, lon: geoposition.coords.longitude}, function(data) {
+        console.log('City: ' + data.address.city);
+        this.cityName = 'City: ' + data.address.city;
+      });
+    });
   }
 }
 

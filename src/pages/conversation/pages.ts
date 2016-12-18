@@ -8,6 +8,7 @@ import 'rxjs/add/operator/scan';
 
 import { ConversationService, MessageI } from '../../services/conversation.service';
 import { AppService } from '../../services/app.service';
+import { SensorsService } from '../../services/sensors.service';
 
 import { ChatBubbleI } from '../chat-bubble/pages';
 
@@ -33,6 +34,7 @@ export class Conversation {
     , public menu: MenuController
     , public conversationService: ConversationService
     , public appService: AppService
+    , public sensorsService : SensorsService
   ) {
     menu.enable(true);
 
@@ -58,10 +60,10 @@ export class Conversation {
     this.lastMessages
         .subscribe(
           (value) => {
-            console.log("SEE NEW VALUE")
+            //console.log("SEE NEW VALUE")
           },
           (error) => {
-            console.log("ERRORO");
+            console.log("ERROR");
             console.log(error);
           },
           () => {
@@ -89,13 +91,20 @@ export class Conversation {
     //console.log(this.appService.getPhoto(this.conversationService.getUser(this.appService.userId).blob_id));
     return btnEvents.merge(inputEvents).map((ev:any) => {
       let bodyMsg = this.inputMessage.value;
+      let dateValue = new Date();
+      let dateDay = dateValue.getDate()  + "/"  + (dateValue.getMonth()+1) +  "/" +  dateValue.getFullYear();
+      let dateHour = dateValue.getHours() + ":" + dateValue.getMinutes()  + ":"  + dateValue.getSeconds();
+      let finalDate = dateDay + " " + dateHour;
       this.inputMessage.setValue("");
       this.conversationService.sendMessage(bodyMsg);
+      console.log(this.sensorsService.getCityName());
+
       return { content: bodyMsg as string
              , position: 'right'
-             , time: new Date().toString()
+             , time: dateValue
              , senderName: this.appService.user
-             , img: "http://ionicframework.com/img/docs/mcfly.jpg"
+             , img: "http://www.free-icons-download.net/images/user-icon-44709.png"
+             , countryFlag: "https://disco.uv.es/disco_docs/wikibase/pdi/images/es.png"
              }
     });
   }
@@ -106,7 +115,9 @@ export class Conversation {
            , position: msg.sender_id == this.appService.userId? 'right' : ' left'
            , time: msg.created_at
            , senderName: userInfo.login
-           , img: "http://ionicframework.com/img/docs/mcfly.jpg"
+           , //img: "http://ionicframework.com/img/docs/mcfly.jpg"
+           img: "http://www.free-icons-download.net/images/user-icon-44709.png"
+           , countryFlag: "https://disco.uv.es/disco_docs/wikibase/pdi/images/es.png"
           };
   }
 }

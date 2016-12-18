@@ -16,6 +16,7 @@ import { Sensors as Sensors } from '../pages/sensors/pages';
 
 import { AppService } from '../services/app.service';
 import { EventService } from '../services/event.service';
+import { SensorsService } from '../services/sensors.service';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { EventService } from '../services/event.service';
   providers: [
     AppService,
     EventService,
+    SensorsService,
     Storage
   ]
 })
