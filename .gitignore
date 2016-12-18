@@ -52,3 +52,6 @@ src/*/*.js
 src/*/*.d.ts
 src/*.js
 src/*.d.ts
+
+# vscode
+.vscode
