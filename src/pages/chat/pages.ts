@@ -131,10 +131,12 @@ export class Chat {
   }
 
   eventListPage() {
+    this.menu.close()
     this.navCtrl.push(EventList)
   }
 
   sensorsInfoPage() {
+    this.menu.close()
     this.navCtrl.push(Sensors)
   }
 
@@ -142,6 +144,7 @@ export class Chat {
    * Go to settings page
    */
   settingsPage() {
+    this.menu.close()
     this.navCtrl.push(Settings);
   }
 
@@ -149,7 +152,7 @@ export class Chat {
    * Go to privacy page
    */
   privacyPage() {
-    this.navCtrl.push(Settings);
+    //this.menu.close().then(_ => {this.navCtrl.push(Settings)})
   }
 
   devInfo() {

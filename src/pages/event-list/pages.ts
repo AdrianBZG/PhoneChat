@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { AlertController, NavController, NavParams, MenuController } from "ionic-angular";
+import { AlertController, NavController, NavParams } from "ionic-angular";
 import { Geolocation } from 'ionic-native';
 import * as Leaflet from "leaflet";
 import { AppService } from '../../services/app.service';
@@ -31,7 +31,6 @@ export class EventList {
   constructor(
     private nav: NavController,
     navParams: NavParams,
-    private menu: MenuController,
     public alertCtrl: AlertController,
     public appService: AppService,
     public eventService: EventService
@@ -50,7 +49,6 @@ export class EventList {
   }
 
   ionViewDidLoad() {
-    this.menu.enable(false);
 
     this.timer = setInterval(() => (this.loadEvents()), 500);
 

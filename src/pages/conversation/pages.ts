@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, NavParams, MenuController, Content, List, TextInput, Button} from 'ionic-angular';
+import { NavController, NavParams, Content, List, TextInput, Button, PopoverController } from 'ionic-angular';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/interval';
 import 'rxjs/add/operator/map';
@@ -25,18 +25,16 @@ export class Conversation {
   @ViewChild(Button) sendBtn : Button;
 
   title: String = ""
-  //lastMessages;
   lastMessages ; //: Observable<ChatBubbleI[]>;
 
   constructor(
       public navCtrl: NavController
     , public navParams: NavParams
-    , public menu: MenuController
     , public conversationService: ConversationService
     , public appService: AppService
+    , public popoverCtrl: PopoverController
     , public sensorsService : SensorsService
   ) {
-    menu.enable(true);
 
   }
 
@@ -77,6 +75,14 @@ export class Conversation {
   ionViewWillLeave() {
     this.conversationService.leave();
   }
+
+  presentPopover(myEvent) {
+    //let popover = this.popoverCtrl.create(PopoverPage);
+    //popover.present({
+    //  ev: myEvent
+    //});
+  }
+
 
   /**
    * Get events of send button click and input enter event to produce a message stream

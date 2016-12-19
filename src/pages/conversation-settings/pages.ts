@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { NavController, NavParams, MenuController } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 
 import { ConversationService } from '../../services/conversation.service';
 import { AppService } from '../../services/app.service';
@@ -18,11 +18,9 @@ export class ConversationSettings {
   constructor(
       public navCtrl: NavController
     , public navParams: NavParams
-    , public menu: MenuController
     , public conversationService: ConversationService
     , public appService: AppService
   ) {
-    menu.enable(true);
   }
 
   ionViewDidEnter() {
