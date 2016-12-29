@@ -12,7 +12,7 @@ const UserPasswordReset      = require('../models/user-pwd-reset.js');
 const UserPasswordResetFinal = require('../models/user-pwd-reset-final.js');
 
 // Register Handler
-router.route('/account/register').post((req, res) => {
+router.route('/register').post((req, res) => {
   console.log("Register {{{");
   console.log(req.body);
   let accountController = new AccountController(req.session);
@@ -27,7 +27,7 @@ router.route('/account/register').post((req, res) => {
 });
 
 //
-router.route('/account/logon').post((req, res) => {
+router.route('/logon').post((req, res) => {
   console.log("Logon {{{");
   var accountController = new AccountController(req.session);
   var userLogon = new UserLogon(req.body);
@@ -40,7 +40,7 @@ router.route('/account/logon').post((req, res) => {
 });
 
 // TODO: get and post? same thing
-router.route('/account/logoff')
+router.route('/logoff')
   .get((req, res) => { // Does have sense?
     var accountController = new AccountController(req.session);
     accountController.logoff();

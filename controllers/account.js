@@ -23,15 +23,13 @@ class AccountController {
     this.session = session;
   }
 
-  // TODO: Something is strange here
-  getUserFromUserRegistration(userRegistrationModel) {
-    return new ApiResponse({ success: true, extras: { user: user } });
-  }
-
   // Try register a user fail if the email is used currently
   register(body, callback) {
-    let error = {};
-    let mkError = (err) => new ApiResponse({ success: false, extra: {msg : err}});
+    let error = false;
+    let mkError = (err) => {
+      error = new ApiResponse({ success: false, extra: {msg : err}});
+      return "";
+    };
     let newUser = new User({
       email: body.email || mkError("Incorrect Email"),
       userName: body.userName || mkError("Incorrect firstName"),
@@ -39,19 +37,22 @@ class AccountController {
       lastName: body.lastName || mkError("Incorrect lastName"),
       password: body.password || mkError("Incorrect password")
     });
-    if (error !== {}) {
-
+    if (error) {
+      return callback("", error);
     }
 
     User.findOne({ email: newUser.email }, (err, user) => {
       if (err) {
+        console.log("WRONG 1" + err);
         return callback(err, new ApiResponse({ success: false, extras: { msg: ApiMessages.DB_ERROR } }));
       }
       if (user) {
+        console.log("Email exists" + user);
         return callback(err, new ApiResponse({ success: false, extras: { msg: ApiMessages.EMAIL_ALREADY_EXISTS } }));
       } else {
         newUser.save((err, user, numberAffected) => {
           if (err) {
+            console.log("Save to mongo");
             return callback(err, new ApiResponse({ success: false, extras: { msg: ApiMessages.DB_ERROR } }));
           }
           if (numberAffected === 1) {
@@ -101,13 +102,13 @@ class AccountController {
         } else {
           return callback(err, new ApiResponse(
             { success: false,
-              extras: { msg: me.ApiMessages.INVALID_PWD } }
+              extras: { msg: ApiMessages.INVALID_PWD } }
             ));
         }
       } else {
         return callback(err, new ApiResponse(
           { success: false,
-            extras: { msg: me.ApiMessages.EMAIL_NOT_FOUND } }
+            extras: { msg: ApiMessages.EMAIL_NOT_FOUND } }
           ));
       }
     });
