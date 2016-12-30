@@ -21,6 +21,7 @@ export class Sensors {
   private speed: any;
   private timestampAttr: any;
   private citynameattr: any;
+  private countrynameattr: any;
 
   constructor(
     private navCtrl: NavController,
@@ -33,6 +34,15 @@ export class Sensors {
   ionViewDidLoad() {
     this.menu.enable(false);
 
+    Geolocation.getCurrentPosition().then((geoposition) => {
+      $.getJSON('//nominatim.openstreetmap.org/reverse?json_callback=?&format=json', {lat: geoposition.coords.latitude, lon: geoposition.coords.longitude}, function(data) {
+        console.log(data.address.city);
+        console.log(data.address.country);
+        this.citynameattr = data.address.city;
+        this.countrynameattr = data.address.country;
+      });
+    });
+
     this.timer = setInterval(() => Geolocation.getCurrentPosition().then((geoposition) => {
       this.latitude = geoposition.coords.latitude;
       this.longitude = geoposition.coords.longitude;
@@ -42,12 +52,6 @@ export class Sensors {
       this.heading = geoposition.coords.heading;
       this.speed = geoposition.coords.speed;
       this.timestampAttr = geoposition.timestamp;
-
-      /*$.getJSON('//nominatim.openstreetmap.org/reverse?json_callback=?&format=json', {lat: geoposition.coords.latitude, lon: geoposition.coords.longitude}, function(data) {
-        this.citynameattr = 'hola';
-        console.log('City: ' + data.address.city);
-        //this.cityName = 'City: ' + data.address.city;
-      });*/
     }), 500);
 
     //this.getCityName();
