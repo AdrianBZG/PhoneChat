@@ -13,13 +13,18 @@ declare var $;
 export class Sensors {
   public latitude: any;
   public longitude: any;
-  private number: any = 0;
   private timer;
-  public cityName: string;
+  private accuracy: any;
+  private altitude: any;
+  private altitudeAccuracy: any;
+  private heading: any;
+  private speed: any;
+  private timestampAttr: any;
+  private citynameattr: any;
 
   constructor(
     private navCtrl: NavController,
-    navParams: NavParams,
+    private navParams: NavParams,
     private menu: MenuController,
     public appService: AppService
   ) {
@@ -27,13 +32,25 @@ export class Sensors {
 
   ionViewDidLoad() {
     this.menu.enable(false);
+
     this.timer = setInterval(() => Geolocation.getCurrentPosition().then((geoposition) => {
-      this.number += 10;
       this.latitude = geoposition.coords.latitude;
       this.longitude = geoposition.coords.longitude;
+      this.accuracy = geoposition.coords.accuracy;
+      this.altitude = geoposition.coords.altitude;
+      this.altitudeAccuracy = geoposition.coords.altitudeAccuracy;
+      this.heading = geoposition.coords.heading;
+      this.speed = geoposition.coords.speed;
+      this.timestampAttr = geoposition.timestamp;
+
+      /*$.getJSON('//nominatim.openstreetmap.org/reverse?json_callback=?&format=json', {lat: geoposition.coords.latitude, lon: geoposition.coords.longitude}, function(data) {
+        this.citynameattr = 'hola';
+        console.log('City: ' + data.address.city);
+        //this.cityName = 'City: ' + data.address.city;
+      });*/
     }), 500);
 
-    this.getCityName();
+    //this.getCityName();
   }
 
   eventListPage() {
@@ -44,69 +61,10 @@ export class Sensors {
     Geolocation.getCurrentPosition().then((geoposition) => {
       //this.mymap = L.map('mapid').setView([geoposition.coords.latitude, geoposition.coords.longitude], 15);
       $.getJSON('//nominatim.openstreetmap.org/reverse?json_callback=?&format=json', {lat: geoposition.coords.latitude, lon: geoposition.coords.longitude}, function(data) {
+        this.citynameattr = 'hola';
         console.log('City: ' + data.address.city);
-        this.cityName = 'City: ' + data.address.city;
+        //this.cityName = 'City: ' + data.address.city;
       });
     });
   }
 }
-
-
-
-// export class Sensors {
-//   GPSdata: String = ""
-//   mymap: any;
-//   marker:any;
-//   currentLatitude;
-//   currentLongitude;
-
-//   /**
-//    * This class controll the diferents chat that an user can access.
-//    */
-//   constructor(
-//       public navCtrl: NavController
-//     , public navParams: NavParams
-//     , public menu: MenuController
-//     , public alertCtrl: AlertController
-//     , public appService: AppService) {
-//   }
-
-
-//   initializeGenericMap() {
-//     if(this.mymap == undefined) {
-//       var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-//       var osmAttrib = 'Map @ PhoneChat';
-//       var osm = L.tileLayer(osmUrl);
-
-//       // Get GPS position
-//       Geolocation.getCurrentPosition().then((geoposition) => {
-//         this.mymap = L.map('mapid').setView([geoposition.coords.latitude, geoposition.coords.longitude], 15);
-//         this.mymap.addLayer(osm);
-//         this.marker = L.marker([geoposition.coords.latitude, geoposition.coords.longitude]).addTo(this.mymap);
-//         this.marker.bindPopup("<b>You are here!</b>").openPopup();
-//         this.mymap.invalidateSize();
-//       });
-
-
-//       // Update button TODO:
-//       //$("#toggleMapButton").html('Update map');
-
-//     } else {
-//       var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-//       var osmAttrib = 'Map @ PhoneChat';
-//       var osm = L.tileLayer(osmUrl);
-
-//       this.mymap.addLayer(osm);
-
-//       // Remove the previous marker
-//       this.mymap.removeLayer(this.marker);
-
-//       // Get GPS position
-//       Geolocation.getCurrentPosition().then((geoposition) => {
-//         this.marker = L.marker([geoposition.coords.latitude, geoposition.coords.longitude]).addTo(this.mymap);
-//         this.marker.bindPopup("<b>You are here!</b>").openPopup();
-//         this.mymap.invalidateSize();
-//       });
-//     }
-//   }
-//}
