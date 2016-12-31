@@ -13,20 +13,22 @@ export class LoginService {
   }
 
   login(userName : string, password : string) {
+    let hashedPassword = this.app.hashCodeString(password);
+
     let serverLogin : Promise<Response> =
       this.http
-        .post(this.app.getLoginURL(), { userName: userName, password: password})
+        .post(this.app.getLoginURL(), { userName: userName, password: hashedPassword})
         .toPromise();
 
     let qbLogin : Promise<any> = new Promise((resolve, reject) => {
         // Log into quick blox
-        QB.createSession({login: userName, password: password}, (err, res) => {
+        QB.createSession({login: userName, password: hashedPassword}, (err, res) => {
           if (err) {
             console.log("error")
             reject(new Error("Error on create QuickBlox Session"));
           }
           else {
-            this.app.setUserProperties(userName, password, res.user_id);
+            this.app.setUserProperties(userName, hashedPassword.toString(), res.user_id);
             this.app.connectToChat()
               .subscribe(
                 // TODO See users
