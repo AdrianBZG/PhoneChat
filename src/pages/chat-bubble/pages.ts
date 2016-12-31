@@ -18,7 +18,7 @@ export interface ChatBubbleI {
     <div class="chat-bubble {{msg.position}}">
       <div class="message-detail">
           <span style="font-weight:bold;">{{msg.senderName}} </span><br>
-          <b>Sent:</b> {{getFormattedDate(msg.time)}})<br>
+          <b>Sent:</b> {{getFormattedDate(msg.time)}}<br>
           <b>Location:</b> {{msg.cityName}}<br><br>
       </div>
       <div class="message"><b>Message:</b> {{msg.content}}</div>
