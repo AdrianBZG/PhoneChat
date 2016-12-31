@@ -295,6 +295,14 @@ export class AppService {
     return serverURL;
   }
 
+  hashCodeString(value: string) {
+    return value.split("").reduce(function(a,b) {
+                                    a = ((a<<5)-a)+b.charCodeAt(0);
+                                    return a&a
+                                  }
+                                  ,0);
+  }
+
   startChat() {
     this.subscribeContactListener();
     this.subscribeDeliveredStatusListener();
