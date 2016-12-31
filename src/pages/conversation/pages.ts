@@ -98,12 +98,13 @@ export class Conversation {
     return btnEvents.merge(inputEvents).map((ev:any) => {
       let bodyMsg = this.inputMessage.value;
       let dateValue = new Date();
-      let dateDay = dateValue.getDate()  + "/"  + (dateValue.getMonth()+1) +  "/" +  dateValue.getFullYear();
-      let dateHour = dateValue.getHours() + ":" + dateValue.getMinutes()  + ":"  + dateValue.getSeconds();
-      let finalDate = dateDay + " " + dateHour;
       this.inputMessage.setValue("");
       this.conversationService.sendMessage(bodyMsg);
-      console.log(this.sensorsService.getCityName());
+
+      this.sensorsService.getCityName().then((response) => {
+        console.log('cuidadoooo');
+        console.log(response);
+      });
 
       return { content: bodyMsg as string
              , position: 'right'
