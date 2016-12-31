@@ -12,19 +12,21 @@ declare var $;
 
 @Injectable()
 export class SensorsService {
+  cityName: any = "";
+
   constructor(private http : Http, private appService : AppService) {}
 
   getCityName() {
-    Geolocation.getCurrentPosition().then((geoposition) => {
-      //this.mymap = L.map('mapid').setView([geoposition.coords.latitude, geoposition.coords.longitude], 15);
-      $.getJSON('//nominatim.openstreetmap.org/reverse?json_callback=?&format=json', {lat: geoposition.coords.latitude, lon: geoposition.coords.longitude}).then((result) => {
-        let toReturn = 'City: ' + result.address.city;
-        //console.log(toReturn);
-        return toReturn;
-      }).done(function( data ) {
-        console.log('toy aki');
-        return data;
-      });
-    });
+    let personCityName : Promise<any> = new Promise((resolve, reject) => {
+        // Get person city name
+        Geolocation.getCurrentPosition().then((geoposition) => {
+          $.getJSON('//nominatim.openstreetmap.org/reverse?json_callback=?&format=json', {lat: geoposition.coords.latitude, lon: geoposition.coords.longitude}).then((result) => {
+            let toReturn = result.address.city;
+            this.cityName = result.address.city;
+            resolve(toReturn);
+          })
+        });
+    })
+    return Promise.all([personCityName])
   }
 }
