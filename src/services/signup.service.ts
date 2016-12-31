@@ -5,23 +5,6 @@ import { AppService } from './app.service';
 
 declare var QB;
 
-/*
-// Efficient but complicated to maintain
-enum ApiMessages {
-  EMAIL_NOT_FOUND = 0,
-  INVALID_PWD = 1,
-  DB_ERROR = 2,
-  NOT_FOUND = 3,
-  EMAIL_ALREADY_EXISTS = 4,
-  COULD_NOT_CREATE_USER = 5,
-  PASSWORD_RESET_EXPIRED = 6,
-  PASSWORD_RESET_HASH_MISMATCH = 7,
-  PASSWORD_RESET_EMAIL_MISMATCH = 8,
-  COULD_NOT_RESET_PASSWORD = 9,
-  PASSWORD_CONFIRM_MISMATCH = 10,
-}
-*/
-
 @Injectable()
 export class SignupService {
   emailReg : RegExp = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -47,15 +30,17 @@ export class SignupService {
       throw new Error("Not recognise as email");
     }
 
+    let hashedPassword = this.appService.hashCodeString(password);
+
     return Promise.all([this.http.post(this.appService.getRegisterAPI(),
         { email: email
         , userName: userName
         , firstName: name
         , lastName: lastName
-        , password: password
+        , password: hashedPassword
         }
       ).toPromise().then(() => { console.log("terminaaaaa")}),
-      this.signupQuickBlox(userName, password)
+      this.signupQuickBlox(userName, hashedPassword.toString())
      ]);
   }
 
