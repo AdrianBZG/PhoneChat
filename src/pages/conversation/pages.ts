@@ -26,6 +26,7 @@ export class Conversation {
 
   title: String = ""
   lastMessages ; //: Observable<ChatBubbleI[]>;
+  userCityName: any;
 
   constructor(
       public navCtrl: NavController
@@ -40,6 +41,11 @@ export class Conversation {
 
   ionViewDidEnter() {
     this.content.scrollToBottom();
+    // Get user city name
+    this.sensorsService.getCityName().then((response) => {
+      this.userCityName = response[0].toString();
+    });
+
     // Update conversation with last messages
     this.lastMessages =
       this.conversationService.getListOfMessages()
@@ -101,17 +107,12 @@ export class Conversation {
       this.inputMessage.setValue("");
       this.conversationService.sendMessage(bodyMsg);
 
-      this.sensorsService.getCityName().then((response) => {
-        console.log('cuidadoooo');
-        console.log(response);
-      });
-
       return { content: bodyMsg as string
              , position: 'right'
              , time: dateValue
              , senderName: this.appService.user
              , img: "http://www.free-icons-download.net/images/user-icon-44709.png"
-             , countryFlag: "https://disco.uv.es/disco_docs/wikibase/pdi/images/es.png"
+             , cityName: this.userCityName
              }
     });
   }
@@ -124,7 +125,7 @@ export class Conversation {
            , senderName: userInfo.login
            , //img: "http://ionicframework.com/img/docs/mcfly.jpg"
            img: "http://www.free-icons-download.net/images/user-icon-44709.png"
-           , countryFlag: "https://disco.uv.es/disco_docs/wikibase/pdi/images/es.png"
+           , cityName: this.userCityName
           };
   }
 }

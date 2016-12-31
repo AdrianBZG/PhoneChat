@@ -6,21 +6,22 @@ export interface ChatBubbleI {
     time: Date,
     senderName : string,
     img: string,
-    countryFlag: string,
+    cityName: string,
 }
 
 @Component({
   selector: 'chat-bubble',
   inputs: ['msg: message'],
-  template:
-  `
+  template: `
   <div class="chatBubble">
     <img class="profile-pic {{msg.position}}" src="{{msg.img}}">
     <div class="chat-bubble {{msg.position}}">
       <div class="message-detail">
-          <span style="font-weight:bold;">{{msg.senderName}} </span><img src="{{msg.countryFlag}}"><span>(Sent: {{getFormattedDate(msg.time)}}): </span><br><br>
+          <span style="font-weight:bold;">{{msg.senderName}} </span><br>
+          <b>Sent:</b> {{getFormattedDate(msg.time)}})<br>
+          <b>Location:</b> {{msg.cityName}}<br><br>
       </div>
-      <div class="message">{{msg.content}}</div>
+      <div class="message"><b>Message:</b> {{msg.content}}</div>
     </div>
   </div>
   `
