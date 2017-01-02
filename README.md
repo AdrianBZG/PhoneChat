@@ -1,16 +1,9 @@
 # PhoneChat
 
-/// Los usuarios tienen su propia localstorege  de qB custom
+## Description
 
+---
 
-Pages:
-- Login
-- Signup
+## Preview
 
-
-- Basic Chat preview
-- Basic List contact preview
-- Chat page
-
-- Setting of Chat
-- Game
+![](http://i.imgur.com/Ftf4AVJ.jpg "")
