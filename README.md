@@ -2,7 +2,7 @@
 
 ## Description
 
----
+Multimodal Interface Project for the Intelligent Interfaces subject.
 
 ## Preview
 
