@@ -7,6 +7,7 @@ import { Conversation } from '../conversation/pages';
 import { Settings } from '../settings/pages';
 import { EventList } from '../event-list/pages';
 import { Sensors } from '../sensors/pages';
+import { BrocolitoPage } from '../brocolito-page/pages';
 import { AppService } from '../../services/app.service';
 
 @Component({
@@ -128,6 +129,11 @@ export class Chat {
   games() {
     //this.navCtrl.push(Sensors)
     console.log("HERE Rudolf's game // it could be access from chat")
+  }
+
+  goToBrocolitoPage() {
+    this.menu.close();
+    this.navCtrl.push(BrocolitoPage);
   }
 
   eventListPage() {
