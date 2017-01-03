@@ -25,7 +25,7 @@ export class LoginService {
         QB.createSession({login: userName, password: hashedPassword}, (err, res) => {
           if (err) {
             console.log("error")
-            reject(new Error("Error on create QuickBlox Session"));
+            reject(new Error("Invalid credentials, please try again."));
           }
           else {
             this.app.setUserProperties(userName, hashedPassword.toString(), res.user_id);

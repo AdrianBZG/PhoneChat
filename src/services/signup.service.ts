@@ -14,20 +14,20 @@ export class SignupService {
   signup(userName: string, name: string, lastName: string, password: string, passwordRetype: string, email: string) {
     userName = userName.trim();
     if (userName == "") {
-      throw new Error("Empty user name");
+      throw new Error("Empty username");
     }
     name = name.trim();
     if (name == "") {
       throw new Error("Empty name");
     }
     if (password.length <= 8) {
-      throw new Error("Password too short");
+      throw new Error("Password is too short");
     }
     if (password != passwordRetype) {
-      throw new Error("Password Missmatch");
+      throw new Error("Passwords are not the same");
     }
     if (!this.emailReg.test(email)) {
-      throw new Error("Not recognise as email");
+      throw new Error("Invalid email format");
     }
 
     let hashedPassword = this.appService.hashCodeString(password);
@@ -39,7 +39,7 @@ export class SignupService {
         , lastName: lastName
         , password: hashedPassword
         }
-      ).toPromise().then(() => { console.log("terminaaaaa")}),
+      ).toPromise().then(() => { console.log("")}),
       this.signupQuickBlox(userName, hashedPassword.toString())
      ]);
   }
@@ -51,16 +51,16 @@ export class SignupService {
 
         QB.users.create(params, (err, user) => {
           if (!user) {
-            throw "Oops! PhoneChat had a problem and could not register you.  Please try again in a few minutes.";
+            throw "Oops! PhoneChat had a problem and could not register you. Please try again in a few minutes.";
           }
           else {
-            // TODO: Insecure of what it is user
-            console.log(user);
+            // NOTE: Insecure of what it is user
+            //console.log(user);
             this.appService.setUserProperties(name, password, user.user_id);
             this.appService.connectToChat()
               .subscribe(
-                (conneted) => resolve(user),
-                (error) => reject("To Login"));  // TODO this very wrong
+                (connected) => resolve(user),
+                (error) => resolve(user));
           }
         });
       });

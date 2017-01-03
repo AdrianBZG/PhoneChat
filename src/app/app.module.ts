@@ -13,6 +13,7 @@ import { ChatBubble } from '../pages/chat-bubble/pages';
 import { ConversationSettings } from '../pages/conversation-settings/pages';
 import { EventList as EventList } from '../pages/event-list/pages';
 import { Sensors as Sensors } from '../pages/sensors/pages';
+import { BrocolitoPage as BrocoPage } from '../pages/brocolito-page/pages';
 
 import { AppService } from '../services/app.service';
 import { EventService } from '../services/event.service';
@@ -30,6 +31,7 @@ import { SensorsService } from '../services/sensors.service';
     ConversationSettings,
     EventList,
     Sensors,
+    BrocoPage,
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -46,6 +48,7 @@ import { SensorsService } from '../services/sensors.service';
     ConversationSettings,
     EventList,
     Sensors,
+    BrocoPage,
   ],
   providers: [
     AppService,
