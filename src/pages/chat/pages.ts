@@ -10,6 +10,8 @@ import { Sensors } from '../sensors/pages';
 import { BrocolitoPage } from '../brocolito-page/pages';
 import { AppService } from '../../services/app.service';
 
+declare var QB;
+
 @Component({
   selector: 'chat',
   templateUrl: 'template.html',
@@ -82,6 +84,49 @@ export class Chat {
           text: 'Save',
           handler: data => {
             console.log('Saved clicked');
+          }
+        }
+      ]
+    });
+    prompt.present();
+  }
+
+  newGlobalChat() {
+
+    let prompt = this.alertCtrl.create({
+      title: 'Create a new global chat',
+      message: "Enter the name of the global chat to create it",
+      inputs: [
+        {
+          name: 'name',
+          placeholder: 'Name'
+        },
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Save',
+          handler: data => {
+            console.log('Saved clicked:');
+            console.log(data.name);
+            let params = {
+		            room: data.name,
+		            membersOnly: false,
+		            persistent: true
+	          };
+
+	          QB.createRoom(params, function(err, result) {
+		            if (result) {
+			               alert('Chat created');
+		            } else {
+			               alert(err);
+		            }
+	          });
           }
         }
       ]

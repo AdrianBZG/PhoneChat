@@ -11,21 +11,14 @@
      <ion-list-header>
        Chat
      </ion-list-header>
+     <button ion-item (click)="newGlobalChat()">
+       <ion-icon name="add-circle"></ion-icon>
+       New global chat
+     </button>
      <button ion-item (click)="newIndividualChat()">
        <ion-icon name="add-circle"></ion-icon>
-       New individual chat
+       New one-to-one chat
      </button>
-
-     <button ion-item (click)="newGroupChat()">
-       <ion-icon name="add-circle"></ion-icon>
-       New group chat
-     </button>
-
-     <button ion-item (click)="seeGroupChat()">
-       <ion-icon name="people"></ion-icon>
-       Groups
-     </button>
-
      <button ion-item (click)="seePeopleChat()">
        <ion-icon name="people"></ion-icon>
        People
