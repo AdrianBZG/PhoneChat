@@ -356,4 +356,12 @@ export class AppService {
 
     };
   }
+
+  commaSeparatedStringToIntArray(value: string) {
+    var intArray = [];
+    value.split(',').forEach(function(element) {
+      intArray.push(element);
+    });
+    return intArray;
+  }
 }

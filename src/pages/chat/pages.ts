@@ -65,6 +65,10 @@ export class Chat {
       message: "Enter the ID of the person to chat with",
       inputs: [
         {
+          name: 'name',
+          placeholder: 'Name'
+        },
+        {
           name: 'personid',
           placeholder: 'Person ID'
         },
@@ -81,6 +85,7 @@ export class Chat {
           handler: data => {
             let params = {
               type: 3,
+              name: data.name,
               occupants_ids: [data.personid]
             };
 
@@ -88,7 +93,7 @@ export class Chat {
               if (err) {
                 console.log(err);
               } else {
-                alert('Chat created');
+                alert('One-to-One chat created');
               }
             });
           }
@@ -128,7 +133,7 @@ export class Chat {
               if (err) {
                 console.log(err);
               } else {
-                alert('Chat created');
+                alert('Global chat created');
               }
             });
           }
@@ -141,12 +146,16 @@ export class Chat {
 
   newGroupChat() {
     let prompt = this.alertCtrl.create({
-      title: 'Create a Group',
-      message: "Enter a name for this Group",
+      title: 'Create a new global chat',
+      message: "Enter the name of the global chat to create it",
       inputs: [
         {
           name: 'name',
           placeholder: 'Name'
+        },
+        {
+          name: 'peopleids',
+          placeholder: 'People IDs (e.g.: 24,56,32)'
         },
       ],
       buttons: [
@@ -159,7 +168,21 @@ export class Chat {
         {
           text: 'Create',
           handler: data => {
-            console.log('Creating Group Chat');
+            let parsedOccupantsIds = this.appService.commaSeparatedStringToIntArray(data.peopleids);
+
+            let params = {
+              type: 2,
+              occupants_ids: parsedOccupantsIds,
+              name: data.name
+            };
+
+            QB.chat.dialog.create(params, function(err, createdDialog) {
+              if (err) {
+                console.log(err);
+              } else {
+                alert('Group chat created');
+              }
+            });
           }
         }
       ]
