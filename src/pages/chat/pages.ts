@@ -96,6 +96,7 @@ export class Chat {
                 console.log(err);
               } else {
                 this.createInfoDialog('One-to-One chat created');
+                this.appService.getGroupsDialogs();
               }
             });
           }
@@ -136,6 +137,7 @@ export class Chat {
                 console.log(err);
               } else {
                 this.createInfoDialog('Global chat created');
+                this.appService.getGroupsDialogs();
               }
             });
           }
@@ -183,6 +185,7 @@ export class Chat {
                 console.log(err);
               } else {
                 this.createInfoDialog('Group chat created');
+                this.appService.getGroupsDialogs();
               }
             });
           }
