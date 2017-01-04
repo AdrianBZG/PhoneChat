@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 import { AlertController, NavController, NavParams, MenuController } from 'ionic-angular';
 import { Geolocation } from 'ionic-native';
+import { ToastController } from 'ionic-angular';
 
 import { Conversation } from '../conversation/pages';
 import { Settings } from '../settings/pages';
@@ -28,7 +29,8 @@ export class Chat {
     , public navParams: NavParams
     , public menu: MenuController
     , public alertCtrl: AlertController
-    , public appService: AppService) {
+    , public appService: AppService
+    , public toastCtrl: ToastController) {
 
     this.user = appService.user;
     menu.enable(true);
@@ -93,7 +95,7 @@ export class Chat {
               if (err) {
                 console.log(err);
               } else {
-                alert('One-to-One chat created');
+                this.createInfoDialog('One-to-One chat created');
               }
             });
           }
@@ -133,7 +135,7 @@ export class Chat {
               if (err) {
                 console.log(err);
               } else {
-                alert('Global chat created');
+                this.createInfoDialog('Global chat created');
               }
             });
           }
@@ -180,7 +182,7 @@ export class Chat {
               if (err) {
                 console.log(err);
               } else {
-                alert('Group chat created');
+                this.createInfoDialog('Group chat created');
               }
             });
           }
@@ -286,5 +288,13 @@ export class Chat {
       ]
     });
     prompt.present();
+  }
+
+  createInfoDialog(text: string) {
+    let toast = this.toastCtrl.create({
+      message: text,
+      duration: 3000
+    });
+    toast.present();
   }
 }
