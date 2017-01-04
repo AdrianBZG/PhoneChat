@@ -114,19 +114,20 @@ export class Chat {
           handler: data => {
             console.log('Saved clicked:');
             console.log(data.name);
-            let params = {
-		            room: data.name,
-		            membersOnly: false,
-		            persistent: true
-	          };
 
-	          QB.createRoom(params, function(err, result) {
-		            if (result) {
-			               alert('Chat created');
-		            } else {
-			               alert(err);
-		            }
-	          });
+            console.log('prehola');
+            let params = {
+              type: 1,
+              name: data.name
+            };
+
+            QB.chat.dialog.create(params, function(err, createdDialog) {
+              if (err) {
+                console.log(err);
+              } else {
+                console.log('Creado');
+              }
+            });
           }
         }
       ]
