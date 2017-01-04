@@ -58,19 +58,15 @@ export class Chat {
     this.navCtrl.push(Conversation);
   }
 
-  /**
-   * Chat with a specific person in your list of contacts?
-   * TODO: This need a some
-   */
+  // Create a one-to-one chat
   newIndividualChat() {
-
     let prompt = this.alertCtrl.create({
-      title: 'Chat with',
-      message: "Enter a name for this new album you're so keen on adding",
+      title: 'Create a one-to-one chat',
+      message: "Enter the ID of the person to chat with",
       inputs: [
         {
-          name: 'title',
-          placeholder: 'Title'
+          name: 'personid',
+          placeholder: 'Person ID'
         },
       ],
       buttons: [
@@ -81,9 +77,20 @@ export class Chat {
           }
         },
         {
-          text: 'Save',
+          text: 'Create',
           handler: data => {
-            console.log('Saved clicked');
+            let params = {
+              type: 3,
+              occupants_ids: [data.personid]
+            };
+
+            QB.chat.dialog.create(params, function(err, createdDialog) {
+              if (err) {
+                console.log(err);
+              } else {
+                alert('Chat created');
+              }
+            });
           }
         }
       ]
@@ -91,8 +98,8 @@ export class Chat {
     prompt.present();
   }
 
+  // Create a new global chat
   newGlobalChat() {
-
     let prompt = this.alertCtrl.create({
       title: 'Create a new global chat',
       message: "Enter the name of the global chat to create it",
@@ -110,12 +117,8 @@ export class Chat {
           }
         },
         {
-          text: 'Save',
+          text: 'Create',
           handler: data => {
-            console.log('Saved clicked:');
-            console.log(data.name);
-
-            console.log('prehola');
             let params = {
               type: 1,
               name: data.name
@@ -125,7 +128,7 @@ export class Chat {
               if (err) {
                 console.log(err);
               } else {
-                console.log('Creado');
+                alert('Chat created');
               }
             });
           }
