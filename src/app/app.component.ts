@@ -32,7 +32,7 @@ export class MyApp {
         if (user!==null && password!==null) {
           console.log(user+password);
           this.loginService
-            .login(user, password)
+            .loginPassHash(user, password)
             .then((resp) => this.nav.setRoot(Chat));
         }
     })

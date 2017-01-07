@@ -24,7 +24,6 @@ Multimodal Interface Project for the Intelligent Interfaces subject.
 ## TODO:
 
 - Carga de login
-- Reparar el localstorage (password hasheada :/)
 - Poder enviar fotos
 - Cambiar el nombre del apk (Hello World actualmente)
 - Reparar la incapacidad de hacer login nada mas haberse registrado

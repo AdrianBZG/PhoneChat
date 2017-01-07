@@ -12,9 +12,7 @@ export class LoginService {
   constructor(private http : Http, private app : AppService) {
   }
 
-  login(userName : string, password : string) {
-    let hashedPassword = this.app.hashCodeString(password);
-
+  loginPassHash(userName: string, hashedPassword : string) {
     let serverLogin : Promise<Response> =
       this.http
         .post(this.app.getLoginURL(), { userName: userName, password: hashedPassword})
@@ -28,7 +26,7 @@ export class LoginService {
             reject(new Error("Invalid credentials, please try again."));
           }
           else {
-            this.app.setUserProperties(userName, hashedPassword.toString(), res.user_id);
+            this.app.setUserProperties(userName, hashedPassword, res.user_id);
             this.app.connectToChat()
               .subscribe(
                 // TODO See users
@@ -43,5 +41,10 @@ export class LoginService {
         });
     })
     return Promise.all([serverLogin, qbLogin])
+  }
+
+  login(userName : string, password : string) {
+    let hashedPassword = this.app.hashCodeString(password);
+    return this.loginPassHash(userName, hashedPassword);
   };
 }

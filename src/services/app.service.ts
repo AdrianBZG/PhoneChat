@@ -83,7 +83,7 @@ export class AppService {
       annyang.start();
     }
     else {
-      console.log("ERRORORO");
+      console.log("Voice fail");
 
     }
   }
@@ -295,12 +295,12 @@ export class AppService {
     return serverURL;
   }
 
-  hashCodeString(value: string) {
-    return value.split("").reduce(function(a,b) {
+  hashCodeString(value: string) : string {
+    return value.split("").reduce((a,b) => {
                                     a = ((a<<5)-a)+b.charCodeAt(0);
                                     return a&a
                                   }
-                                  ,0);
+                                  ,0).toString();
   }
 
   startChat() {
