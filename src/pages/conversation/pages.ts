@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, NavParams, Content, List, TextInput, Button, PopoverController } from 'ionic-angular';
+import { NavController, NavParams, Content, List, TextInput, Button } from 'ionic-angular';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/interval';
 import 'rxjs/add/operator/map';
@@ -22,10 +22,10 @@ export class Conversation {
   @ViewChild(Content) content: Content;
   @ViewChild(List) listMessages: List;
   @ViewChild(TextInput) inputMessage : TextInput;
-  @ViewChild(Button) sendBtn : Button;
+  @ViewChild('sendBtn') sendBtn : Button;
 
   title: String = ""
-  lastMessages ; //: Observable<ChatBubbleI[]>;
+  lastMessages : Observable<ChatBubbleI[]>;
   userCityName: any;
 
   constructor(
@@ -33,7 +33,6 @@ export class Conversation {
     , public navParams: NavParams
     , public conversationService: ConversationService
     , public appService: AppService
-    , public popoverCtrl: PopoverController
     , public sensorsService : SensorsService
   ) {
 
@@ -49,7 +48,7 @@ export class Conversation {
     // Update conversation with last messages
     this.lastMessages =
       this.conversationService.getListOfMessages()
-        .concatMap((msg) => {
+        .concatMap((msg) => { // TODO: Filter Mesages of otger chats
           return this.conversationService
                      .getUser(msg.sender_id).take(1)
                      .map((v) => {return {msg: msg, user: v}});
@@ -82,20 +81,11 @@ export class Conversation {
     this.conversationService.leave();
   }
 
-  presentPopover(myEvent) {
-    //let popover = this.popoverCtrl.create(PopoverPage);
-    //popover.present({
-    //  ev: myEvent
-    //});
-  }
-
-
   /**
    * Get events of send button click and input enter event to produce a message stream
    */
   eventSendMsg(): Observable<ChatBubbleI> {
-    let btnEvents = Observable.fromEvent(this.sendBtn.getNativeElement(), 'click')
-                        .map(_ => console.log("PUTIO VLCIJ")); // TODO: Click del mouse
+    let btnEvents = Observable.fromEvent(this.sendBtn.getNativeElement(), "click");
 
     let inputEvents = Observable.fromEvent(this.inputMessage.getNativeElement(), 'keyup')
                         .filter((key: KeyboardEvent) => key.keyCode == 13 && this.inputMessage.value != "");

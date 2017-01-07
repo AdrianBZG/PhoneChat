@@ -3,11 +3,6 @@
     <ion-title>
       {{title}}
     </ion-title>
-    <ion-buttons end>
-      <button ion-button (click)="presentPopover($event)">
-        <ion-icon name="more"></ion-icon>
-      </button>
-    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
@@ -22,7 +17,9 @@
 <ion-footer>
   <ion-toolbar>
     <ion-item>
-      <ion-icon item-left name="arrow-up"></ion-icon> <!-- Stickers and other settings -->
+      <button ion-button #attach item-left>
+        <ion-icon name="arrow-up"></ion-icon> <!-- Stickers and other settings -->
+      </button>
       <ion-input item-left #inputMessage type="text" placeholder="Type your message">
       </ion-input>
       <button ion-button #sendBtn item-right>
