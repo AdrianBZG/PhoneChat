@@ -41,17 +41,23 @@ export class Conversation {
   ionViewDidEnter() {
     this.content.scrollToBottom();
     // Get user city name
+    /*
     this.sensorsService.getCityName().then((response) => {
       this.userCityName = response[0].toString();
     });
-
+    */
     // Update conversation with last messages
     this.lastMessages =
       this.conversationService.getListOfMessages()
-        .concatMap((msg) => { // TODO: Filter Mesages of otger chats
+        .concatMap((msg) => {
           return this.conversationService
                      .getUser(msg.sender_id).take(1)
                      .map((v) => {return {msg: msg, user: v}});
+        })
+        .map(msg => {
+          console.log("Message: ");
+          console.log(msg);
+          return msg;
         })
         .map((data) => {return this.makeBubbleMsg(data.msg, data.user)})
         .merge(this.eventSendMsg())
@@ -59,20 +65,6 @@ export class Conversation {
           acc.push(value);
           this.content.scrollToBottom();
           return acc}, []);
-
-    this.lastMessages
-        .subscribe(
-          (value) => {
-            //console.log("SEE NEW VALUE")
-          },
-          (error) => {
-            console.log("ERROR");
-            console.log(error);
-          },
-          () => {
-            console.log("COMPLETE");
-          }
-        );
 
     this.title = this.appService.chat.name;
   }
@@ -91,20 +83,23 @@ export class Conversation {
                         .filter((key: KeyboardEvent) => key.keyCode == 13 && this.inputMessage.value != "");
 
     //console.log(this.appService.getPhoto(this.conversationService.getUser(this.appService.userId).blob_id));
-    return btnEvents.merge(inputEvents).map((ev:any) => {
-      let bodyMsg = this.inputMessage.value;
-      let dateValue = new Date();
-      this.inputMessage.setValue("");
-      this.conversationService.sendMessage(bodyMsg);
-
-      return { content: bodyMsg as string
-             , position: 'right'
-             , time: dateValue
-             , senderName: this.appService.user
-             , img: "http://www.free-icons-download.net/images/user-icon-44709.png"
-             , cityName: this.userCityName
-             }
-    });
+    return btnEvents
+      .merge(inputEvents)
+      .filter(_ => this.inputMessage.value !== "")
+      .map((ev:any) => {
+        let bodyMsg = this.inputMessage.value;
+        let dateValue = new Date();
+        this.inputMessage.setValue("");
+        this.conversationService.sendMessage(bodyMsg);
+        console.log("Fine here?")
+        return { content: bodyMsg as string
+              , position: 'right'
+              , time: dateValue
+              , senderName: this.appService.user
+              , img: "http://www.free-icons-download.net/images/user-icon-44709.png"
+              , cityName: this.userCityName
+              }
+      });
   }
 
   makeBubbleMsg(msg: MessageI, userInfo: any): ChatBubbleI {

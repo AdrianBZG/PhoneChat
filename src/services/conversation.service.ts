@@ -47,9 +47,7 @@ export class ConversationService {
   constructor(
     private appService : AppService
   ) {
-    console.log(this.appService.chat);
     QB.chat.muc.join(this.appService.chat.xmpp_room_jid, function(resultStanza) {
-      console.log(resultStanza);
       var joined = true;
 
       for (var i = 0; i < resultStanza.childNodes.length; i++) {
@@ -59,7 +57,7 @@ export class ConversationService {
         }
       }
     });
-    console.log("BUILD");
+    console.log("Joined to Chat")
   }
 
   /**
@@ -67,6 +65,7 @@ export class ConversationService {
    */
   leave() {
     QB.chat.muc.leave(this.appService.chat.xmpp_room_jid, (err, fine) => {
+      console.log("Leave chat")
       if (err) {
         console.log("ON LEAVE CONVERSATION ERROR: ");
         console.log(err);
@@ -82,40 +81,47 @@ export class ConversationService {
 
     return Observable.create((observer) => {
       QB.chat.message.list(params, (err, messages) => {
+        console.log("Get ListMessages");
         if (err) {
+          console.log("Get List of messages Error")
           console.log(err);
           observer.error(err);
         }
         else {
+          console.log("HEEEEEEEEEEEEEEEE")
           for (let msg of messages.items) {
             observer.next(msg);
           }
         }
+        observer.complete();
       });
+
       // Keep listening messages
+      /*
       QB.chat.onMessageListener = ((err, msg) => {
         if (err) {
           observer.error(err);
         }
         else {
-          observer.next(msg);
+          if (msg.chat_dialog_id === this.appService.chat._id)  {
+             observer.next(msg);
+          }
         }
       });
+      */
     });
   }
 
-  registerNewMessages(fun : (dialog: any, msg : MessageI) => void) {
-    QB.chat.onMessageListener = fun;
-  }
-
-
   sendMessage(text, attachmentFileId?) {
+    console.log("Sending message")
+    console.log(text);
+    /*
     QB.chat.onSentMessageCallback = function(messageLost, messageSent){
        console.group('onSentMessageCallback');
            messageLost ? console.log('Message was lost', messageLost) : console.log('Message was sent successfully', messageSent)
        console.groupEnd();
     };
-    //stickerpipe.onUserMessageSent(stickerpipe.isSticker(text));
+    */
 
     let msg = {
         type: this.appService.chat.type === 3 ? 'chat' : 'groupchat',
@@ -135,9 +141,6 @@ export class ConversationService {
 
         QB.chat.send(opponentId, msg);
 
-        //$('.list-group-item.active .list-group-item-text')
-        //    .text(stickerpipe.isSticker(msg.body) ? 'Sticker' : msg.body);
-
         if(attachmentFileId === null){
           return msg;
         } else {
@@ -148,6 +151,7 @@ export class ConversationService {
     }
 
     QB.chat.sendIsStopTypingStatus(this.appService.userId);
+    console.log("Here them")
     return msg;
   }
 
