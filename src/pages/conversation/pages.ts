@@ -41,11 +41,13 @@ export class Conversation {
   ionViewDidEnter() {
     this.content.scrollToBottom();
     // Get user city name
-    /*
+
     this.sensorsService.getCityName().then((response) => {
-      this.userCityName = response[0].toString();
+      if (response[0]) {
+        this.userCityName = response[0].toString();
+      }
     });
-    */
+
     // Update conversation with last messages
     this.lastMessages =
       this.conversationService.getListOfMessages()
@@ -53,11 +55,6 @@ export class Conversation {
           return this.conversationService
                      .getUser(msg.sender_id).take(1)
                      .map((v) => {return {msg: msg, user: v}});
-        })
-        .map(msg => {
-          console.log("Message: ");
-          console.log(msg);
-          return msg;
         })
         .map((data) => {return this.makeBubbleMsg(data.msg, data.user)})
         .merge(this.eventSendMsg())

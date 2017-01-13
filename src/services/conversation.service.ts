@@ -81,14 +81,12 @@ export class ConversationService {
 
     return Observable.create((observer) => {
       QB.chat.message.list(params, (err, messages) => {
-        console.log("Get ListMessages");
         if (err) {
           console.log("Get List of messages Error")
           console.log(err);
           observer.error(err);
         }
         else {
-          console.log("HEEEEEEEEEEEEEEEE")
           for (let msg of messages.items) {
             observer.next(msg);
           }
@@ -97,18 +95,11 @@ export class ConversationService {
       });
 
       // Keep listening messages
-      /*
       QB.chat.onMessageListener = ((err, msg) => {
-        if (err) {
-          observer.error(err);
-        }
-        else {
-          if (msg.chat_dialog_id === this.appService.chat._id)  {
-             observer.next(msg);
-          }
+        if (msg.chat_dialog_id === this.appService.chat._id)  {
+            observer.next(msg);
         }
       });
-      */
     });
   }
 
