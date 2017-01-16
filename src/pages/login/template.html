@@ -1,25 +1,24 @@
-
 <ion-header>
-  <ion-navbar>
-    <ion-title>Start to chat with PhoneChat</ion-title>
-  </ion-navbar>
+    <ion-navbar>
+        <ion-title>Start to chat with PhoneChat</ion-title>
+    </ion-navbar>
 </ion-header>
 
 <ion-content class="logo">
-  <ion-icon name="chatbubbles"></ion-icon>
-  <ion-list>
-    <ion-item>
-      <ion-label color="primary" floating>User name</ion-label>
-      <ion-input [(ngModel)]="userName" type="text"></ion-input>
-    </ion-item>
+    <ion-icon name="chatbubbles"></ion-icon>
+    <ion-list>
+        <ion-item>
+            <ion-label color="primary" floating>User name</ion-label>
+            <ion-input [(ngModel)]="userName" type="text"></ion-input>
+        </ion-item>
 
-    <ion-item>
-      <ion-label color="primary" floating>Password</ion-label>
-      <ion-input [(ngModel)]="password" type="password"></ion-input>
-    </ion-item>
-  </ion-list>
-  <div padding>
-    <button ion-button block type="button" (click)="login()">Log In</button>
-    <button ion-button block type="button" (click)="signup()">Haven't an account?</button>
-  </div>
+        <ion-item>
+            <ion-label color="primary" floating>Password</ion-label>
+            <ion-input [(ngModel)]="password" type="password"></ion-input>
+        </ion-item>
+    </ion-list>
+    <div padding>
+        <button ion-button block type="button" (click)="login()">Log In</button>
+        <button ion-button block type="button" (click)="signup()">Haven't an account?</button>
+    </div>
 </ion-content>

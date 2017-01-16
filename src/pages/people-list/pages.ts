@@ -18,7 +18,7 @@ export class PeopleList {
     }
 
     getUserList(): Promise<any[]> {
-        let params = {order:"asc+login", per_page: 100};
+        let params = {order: "asc+login", per_page: 100};
 
         return new Promise((resolve, reject) => {
             QB.users.listUsers(params, function (error, response) {

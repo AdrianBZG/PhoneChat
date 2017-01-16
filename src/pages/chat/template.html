@@ -1,105 +1,105 @@
 <ion-menu [content]="mycontent">
 
-  <ion-header>
-    <ion-toolbar>
-      <ion-title>{{user}}</ion-title>
-    </ion-toolbar>
-  </ion-header>
+    <ion-header>
+        <ion-toolbar>
+            <ion-title>{{user}}</ion-title>
+        </ion-toolbar>
+    </ion-header>
 
-  <ion-content>
-   <ion-list>
-     <ion-list-header>
-       Chat
-     </ion-list-header>
-     <button ion-item (click)="newGlobalChat()">
-       <ion-icon name="add-circle"></ion-icon>
-       New global chat
-     </button>
-     <button ion-item (click)="newIndividualChat()">
-       <ion-icon name="add-circle"></ion-icon>
-       New one-to-one chat
-     </button>
-     <button ion-item (click)="newGroupChat()">
-       <ion-icon name="add-circle"></ion-icon>
-       New group chat
-     </button>
-     <button ion-item (click)="seePeoplePage()">
-       <ion-icon name="people"></ion-icon>
-       People
-     </button>
+    <ion-content>
+        <ion-list>
+            <ion-list-header>
+                Chat
+            </ion-list-header>
+            <button ion-item (click)="newGlobalChat()">
+                <ion-icon name="add-circle"></ion-icon>
+                New global chat
+            </button>
+            <button ion-item (click)="newIndividualChat()">
+                <ion-icon name="add-circle"></ion-icon>
+                New one-to-one chat
+            </button>
+            <button ion-item (click)="newGroupChat()">
+                <ion-icon name="add-circle"></ion-icon>
+                New group chat
+            </button>
+            <button ion-item (click)="seePeoplePage()">
+                <ion-icon name="people"></ion-icon>
+                People
+            </button>
 
-     <ion-list-header>
-       Games
-     </ion-list-header>
-     <button ion-item (click)="goToBrocolitoPage()">
-       <ion-icon name="game-controller-a"></ion-icon>
-       Brocolito.io
-     </button>
+            <ion-list-header>
+                Games
+            </ion-list-header>
+            <button ion-item (click)="goToBrocolitoPage()">
+                <ion-icon name="game-controller-a"></ion-icon>
+                Brocolito.io
+            </button>
 
-     <ion-list-header>
-       Meeting System
-     </ion-list-header>
-     <button ion-item (click)="eventListPage()">
-       <ion-icon name="flag"></ion-icon>
-       Event List
-     </button>
+            <ion-list-header>
+                Meeting System
+            </ion-list-header>
+            <button ion-item (click)="eventListPage()">
+                <ion-icon name="flag"></ion-icon>
+                Event List
+            </button>
 
-     <ion-list-header>
-       Settings
-     </ion-list-header>
+            <ion-list-header>
+                Settings
+            </ion-list-header>
 
-     <button ion-item (click)="settingsPage()">
-       <ion-icon name="settings"></ion-icon>
-       Session
-     </button>
+            <button ion-item (click)="settingsPage()">
+                <ion-icon name="settings"></ion-icon>
+                Session
+            </button>
 
-     <button ion-item (click)="privacyPage()">
-       <ion-icon name="eye"></ion-icon>
-       Privacy
-     </button>
+            <button ion-item (click)="privacyPage()">
+                <ion-icon name="eye"></ion-icon>
+                Privacy
+            </button>
 
-     <ion-list-header>
-       Device
-     </ion-list-header>
+            <ion-list-header>
+                Device
+            </ion-list-header>
 
-     <button ion-item (click)="sensorsInfoPage()">
-       <ion-icon name="information-circle"></ion-icon>
-       Sensors overview
-     </button>
+            <button ion-item (click)="sensorsInfoPage()">
+                <ion-icon name="information-circle"></ion-icon>
+                Sensors overview
+            </button>
 
-     <ion-list-header>
-       Other
-     </ion-list-header>
+            <ion-list-header>
+                Other
+            </ion-list-header>
 
-     <button ion-item (click)="devInfo()">
-       <ion-icon name="code"></ion-icon>
-       Developers
-     </button>
-    </ion-list>
-  </ion-content>
+            <button ion-item (click)="devInfo()">
+                <ion-icon name="code"></ion-icon>
+                Developers
+            </button>
+        </ion-list>
+    </ion-content>
 
 </ion-menu>
 
 <ion-header>
-  <ion-navbar #mycontent>
-    <button ion-button menuToggle icon-only>
-      <ion-icon name='menu'></ion-icon>
-    </button>
-    <ion-title>
-      PhoneChat
-    </ion-title>
-  </ion-navbar>
+    <ion-navbar #mycontent>
+        <button ion-button menuToggle icon-only>
+            <ion-icon name='menu'></ion-icon>
+        </button>
+        <ion-title>
+            PhoneChat
+        </ion-title>
+    </ion-navbar>
 </ion-header>
 <ion-content>
-  <ion-list *ngFor="let chat of topicChats"> <!-- it should create new modified components -->
-    <!-- Put chat image over here -->
-    <ion-item (click)="openChat(chat)">
-      <ion-avatar item-left>
-        <!--<img src={{chat.photo}}> -->
-        <img src="https://maxcdn.icons8.com/Share/icon/Messaging//chat1600.png">
-      </ion-avatar>
-      <h2>{{chat.name}}</h2>
-      <ion-badge *ngIf="chat.unread_messages_count!=0" item-right>{{chat.unread_messages_count}}</ion-badge>
-    </ion-item>
-  </ion-list>
+    <ion-list *ngFor="let chat of topicChats"> <!-- it should create new modified components -->
+        <!-- Put chat image over here -->
+        <ion-item (click)="openChat(chat)">
+            <ion-avatar item-left>
+                <!--<img src={{chat.photo}}> -->
+                <img src="https://maxcdn.icons8.com/Share/icon/Messaging//chat1600.png">
+            </ion-avatar>
+            <h2>{{chat.name}}</h2>
+            <ion-badge *ngIf="chat.unread_messages_count!=0" item-right>{{chat.unread_messages_count}}</ion-badge>
+        </ion-item>
+    </ion-list>
 </ion-content>

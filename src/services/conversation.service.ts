@@ -61,7 +61,6 @@ export class ConversationService {
         });
 
 
-
         QB.chat.muc.join(this.appService.chat.xmpp_room_jid, function (resultStanza) {
             let joined = true;
 
@@ -95,7 +94,7 @@ export class ConversationService {
                     this.getUser(msg.sender_id).then(user => {
                         return this.makeBubbleMsg(msg, user);
                     }))).then((msgs: ChatBubbleI[]) => {
-                        this.messages.next(this.messages.getValue().concat(msgs));
+                    this.messages.next(this.messages.getValue().concat(msgs));
                 });
             }
         });
@@ -105,7 +104,7 @@ export class ConversationService {
      * Keep listening messages of current dialog
      */
     listenNewMessages() {
-        QB.chat.onMessageListener = ((userid, msg : MessageI) => {
+        QB.chat.onMessageListener = ((userid, msg: MessageI) => {
             if (msg.chat_dialog_id === this.appService.chat._id) {
                 this.getUser(userid).then(user =>
                     this.messages.next(this.messages.getValue().concat(this.makeBubbleMsg(msg, user)))

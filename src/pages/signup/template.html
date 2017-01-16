@@ -1,46 +1,45 @@
-
 <ion-header>
-  <ion-navbar>
-    <ion-title>Create a Account into PhoneChat</ion-title>
-  </ion-navbar>
+    <ion-navbar>
+        <ion-title>Create a Account into PhoneChat</ion-title>
+    </ion-navbar>
 </ion-header>
 
 <ion-content class="logo">
-  <ion-icon name="chatbubbles"></ion-icon>
-  <ion-list>
-    <ion-item>
-      <ion-label color="primary" floating>User name</ion-label>
-      <ion-input [(ngModel)]="userName" type="text"></ion-input>
-    </ion-item>
+    <ion-icon name="chatbubbles"></ion-icon>
+    <ion-list>
+        <ion-item>
+            <ion-label color="primary" floating>User name</ion-label>
+            <ion-input [(ngModel)]="userName" type="text"></ion-input>
+        </ion-item>
 
-    <ion-item>
-      <ion-label color="primary" floating>Name</ion-label>
-      <ion-input [(ngModel)]="name" type="text"></ion-input>
-    </ion-item>
+        <ion-item>
+            <ion-label color="primary" floating>Name</ion-label>
+            <ion-input [(ngModel)]="name" type="text"></ion-input>
+        </ion-item>
 
-    <ion-item>
-      <ion-label color="primary" floating>Last Name</ion-label>
-      <ion-input [(ngModel)]="lastName" type="text"></ion-input>
-    </ion-item>
+        <ion-item>
+            <ion-label color="primary" floating>Last Name</ion-label>
+            <ion-input [(ngModel)]="lastName" type="text"></ion-input>
+        </ion-item>
 
-    <ion-item>
-      <ion-label color="primary" floating>Email</ion-label>
-      <ion-input [(ngModel)]="email" type="email"></ion-input>
-    </ion-item>
+        <ion-item>
+            <ion-label color="primary" floating>Email</ion-label>
+            <ion-input [(ngModel)]="email" type="email"></ion-input>
+        </ion-item>
 
-    <ion-item>
-      <ion-label color="primary" floating>Password</ion-label>
-      <ion-input [(ngModel)]="password" type="password"></ion-input>
-    </ion-item>
+        <ion-item>
+            <ion-label color="primary" floating>Password</ion-label>
+            <ion-input [(ngModel)]="password" type="password"></ion-input>
+        </ion-item>
 
-    <ion-item>
-      <ion-label color="primary" floating>Check password</ion-label>
-      <ion-input [(ngModel)]="passwordRetype" type="password"></ion-input>
-    </ion-item>
+        <ion-item>
+            <ion-label color="primary" floating>Check password</ion-label>
+            <ion-input [(ngModel)]="passwordRetype" type="password"></ion-input>
+        </ion-item>
 
-  </ion-list>
-  <div padding>
-    <button ion-button block type="button" (click)="signup()">Create Account</button>
-    <button ion-button block type="button" (click)="login()">Have an account?</button>
-  </div>
+    </ion-list>
+    <div padding>
+        <button ion-button block type="button" (click)="signup()">Create Account</button>
+        <button ion-button block type="button" (click)="login()">Have an account?</button>
+    </div>
 </ion-content>

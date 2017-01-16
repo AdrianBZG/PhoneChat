@@ -1,47 +1,46 @@
-import { Component } from '@angular/core';
-import { AlertController, NavController, NavParams } from 'ionic-angular';
-
-import { SignUp } from '../signup/pages';
-import { Chat } from '../chat/pages';
-
-import { LoginService } from "../../services/login.service";
+import {Component} from "@angular/core";
+import {AlertController, NavController, NavParams} from "ionic-angular";
+import {SignUp} from "../signup/pages";
+import {Chat} from "../chat/pages";
+import {LoginService} from "../../services/login.service";
 
 @Component({
-  styles: ['ion-icon { display: block; text-align: center; font-size: 10em; }'],
-  templateUrl: 'template.html',
-  providers: [ LoginService ]
+    styles: ['ion-icon { display: block; text-align: center; font-size: 10em; }'],
+    templateUrl: 'template.html',
+    providers: [LoginService]
 })
 export class Login {
-  password : string = "";
-  userName : string = "";
-  constructor(
-      public navCtrl: NavController
-    , public navParams: NavParams
-    , public alertCtrl: AlertController
-    , private loginService: LoginService) {}
+    password: string = "";
+    userName: string = "";
 
-  signup() {
-    this.navCtrl.setRoot(SignUp)
-  }
+    constructor(public navCtrl: NavController
+        , public navParams: NavParams
+        , public alertCtrl: AlertController
+        , private loginService: LoginService) {
+    }
 
-  login() {
-    console.log("Login " + this.password + this.userName);
-    this.loginService.login(this.userName, this.password)
-      .then((response) => {
-        this.navCtrl.setRoot(Chat);
-      },
-      (err) => {
-        this.showError(err);
-      });
-  }
+    signup() {
+        this.navCtrl.setRoot(SignUp)
+    }
 
-  showError(err : string) {
-    let alert = this.alertCtrl.create({
-        title: 'Invalid input',
-        message: err,
-        buttons: ['OK']
-      });
-    alert.present();
-  }
+    login() {
+        console.log("Login " + this.password + this.userName);
+        this.loginService.login(this.userName, this.password)
+            .then((response) => {
+                    this.navCtrl.setRoot(Chat);
+                },
+                (err) => {
+                    this.showError(err);
+                });
+    }
+
+    showError(err: string) {
+        let alert = this.alertCtrl.create({
+            title: 'Invalid input',
+            message: err,
+            buttons: ['OK']
+        });
+        alert.present();
+    }
 
 }

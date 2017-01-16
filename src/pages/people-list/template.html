@@ -1,15 +1,15 @@
 <ion-header>
-  <ion-navbar swipeBackEnabled="false">
-    <ion-title>
-      People using PhoneChat
-    </ion-title>
-  </ion-navbar>
+    <ion-navbar swipeBackEnabled="false">
+        <ion-title>
+            People using PhoneChat
+        </ion-title>
+    </ion-navbar>
 </ion-header>
 
 <ion-content>
-  <ion-list *ngFor="let person of peopleArray | async">
-    <ion-item>
-      <h2>{{person.login}}</h2>
-    </ion-item>
-  </ion-list>
+    <ion-list *ngFor="let person of peopleArray | async">
+        <ion-item>
+            <h2>{{person.login}}</h2>
+        </ion-item>
+    </ion-list>
 </ion-content>

@@ -1,7 +1,7 @@
 import {Component, ViewChild} from "@angular/core";
 import {NavController, NavParams, Content, TextInput, Button, LoadingController} from "ionic-angular";
 import {Observable} from "rxjs/Observable";
-import { Camera } from 'ionic-native';
+import {Camera} from "ionic-native";
 import "rxjs/add/observable/interval";
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/startWith";
@@ -40,7 +40,8 @@ export class Conversation {
         , public loadingCtrl: LoadingController
         , public navParams: NavParams
         , public conversationService: ConversationService
-        , public appService: AppService) {}
+        , public appService: AppService) {
+    }
 
     /**
      * Load messages
