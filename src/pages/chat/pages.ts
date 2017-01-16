@@ -7,6 +7,7 @@ import {EventList} from "../event-list/pages";
 import {Sensors} from "../sensors/pages";
 import {BrocolitoPage} from "../brocolito-page/pages";
 import {PeopleList} from "../people-list/pages";
+import {DevelopersPage} from "../developers-page/pages";
 import {AppService} from "../../services/app.service";
 
 declare var QB;
@@ -241,7 +242,8 @@ export class Chat {
     }
 
     devInfo() {
-        // TODO: Show info about ourself and github project location
+      this.menu.close()
+      this.navCtrl.push(DevelopersPage);
     }
 
     newEvent(latLng?: any) {
