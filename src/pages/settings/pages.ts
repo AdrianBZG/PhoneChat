@@ -10,9 +10,9 @@ declare var $;
     templateUrl: 'template.html',
 })
 export class Settings {
-    public userIp: any;
     public userName: any;
     public userId: any;
+    public userIpAddress: any;
 
     constructor(public navCtrl: NavController
         , public navParams: NavParams
@@ -22,9 +22,9 @@ export class Settings {
     ionViewDidEnter() {
         this.userName = this.appService.user;
         this.userId = this.appService.userId;
-        $.get("http://ipinfo.io", function (response) {
-            this.userIp = response.ip;
-        }, "jsonp");
+        console.log('Hey: ');
+        console.log(this.appService.userIp);
+        this.userIpAddress = this.appService.userIp;
     }
 
     disconnect() {

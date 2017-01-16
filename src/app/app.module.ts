@@ -12,6 +12,7 @@ import {ConversationSettings} from "../pages/conversation-settings/pages";
 import {EventList as EventList} from "../pages/event-list/pages";
 import {PeopleList as PeopleList} from "../pages/people-list/pages";
 import {DevelopersPage as DevelopersPage} from "../pages/developers-page/pages";
+import {PrivacySettings as PrivacySettings} from "../pages/privacy/pages";
 import {Sensors as Sensors} from "../pages/sensors/pages";
 import {BrocolitoPage as BrocoPage} from "../pages/brocolito-page/pages";
 import {AppService} from "../services/app.service";
@@ -33,6 +34,7 @@ import {SensorsService} from "../services/sensors.service";
         BrocoPage,
         PeopleList,
         DevelopersPage,
+        PrivacySettings,
     ],
     imports: [
         IonicModule.forRoot(MyApp)
@@ -52,6 +54,7 @@ import {SensorsService} from "../services/sensors.service";
         BrocoPage,
         PeopleList,
         DevelopersPage,
+        PrivacySettings,
     ],
     providers: [
         AppService,

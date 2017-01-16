@@ -7,6 +7,7 @@ import "rxjs/add/operator/map";
 
 
 declare var annyang;
+declare var $;
 
 const serverURL = "http://localhost:8100/api";
 //const serverURL = "http://phonechat.herokuapp.com/api"; // Uncomment when build to android
@@ -18,6 +19,7 @@ export class AppService {
     public userId: number;
     public password: string;
     public chat: DialogMsg;
+    public userIp: any;
 
     constructor(private storage: Storage) {
         // QB Initialization
@@ -85,6 +87,12 @@ export class AppService {
             console.log("Voice fail");
 
         }
+
+        $.get("http://ipinfo.io", function (response) {
+            this.userIp = response.ip;
+            console.log('IP obtained');
+            console.log(this.userIp);
+        }, "jsonp");
     }
 
 

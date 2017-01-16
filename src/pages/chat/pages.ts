@@ -8,6 +8,7 @@ import {Sensors} from "../sensors/pages";
 import {BrocolitoPage} from "../brocolito-page/pages";
 import {PeopleList} from "../people-list/pages";
 import {DevelopersPage} from "../developers-page/pages";
+import {PrivacySettings} from "../privacy/pages";
 import {AppService} from "../../services/app.service";
 
 declare var QB;
@@ -238,7 +239,8 @@ export class Chat {
      * Go to privacy page
      */
     privacyPage() {
-        //this.menu.close().then(_ => {this.navCtrl.push(Settings)})
+      this.menu.close()
+      this.navCtrl.push(PrivacySettings);
     }
 
     devInfo() {
