@@ -214,6 +214,9 @@ export class ConversationService {
                     .getUserInfo(userId)
                     .then(user => {
                         this.mergeUsers([user]);
+                        this.appService.getPhoto(user.blob_id).subscribe(value => {
+                            console.log(value)
+                        });
                         resolve(user);
                     })
             }
@@ -229,7 +232,6 @@ export class ConversationService {
     }
 
     makeBubbleMsg(msg: MessageI, userInfo: any): ChatBubbleI {
-        //console.log(this.appService.getPhoto(this.conversationService.getUser(userId).blob_id));
         return {
             content: msg.message
             , position: msg.sender_id == this.appService.userId ? 'right' : ' left'

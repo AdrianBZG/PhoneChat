@@ -1,52 +1,34 @@
-import { Component } from "@angular/core";
-import { AlertController, NavController, NavParams } from "ionic-angular";
-import { AppService } from '../../services/app.service';
+import {Component} from "@angular/core";
+import {AppService} from "../../services/app.service";
 
 declare var QB;
 
-interface ValuePair {
-    first: string;
-    second: string;
-}
-
 @Component({
-  selector: 'event-list',
-  templateUrl: 'template.html',
+    selector: 'event-list',
+    templateUrl: 'template.html',
 })
 export class PeopleList {
-  private map: any  ;
-  public peopleArray: { id: number, name: string }[] = [{id : 0, name: 'Test'}];
+    public peopleArray: Promise<any[]>;
 
-  constructor(
-    private nav: NavController,
-    navParams: NavParams,
-    public alertCtrl: AlertController,
-    public appService: AppService
-  ) {
-    this.map = 'chuo';
-  }
+    constructor(public appService: AppService) {
+        this.peopleArray = this.getUserList()
+    }
 
-  ionViewDidLoad() {
-    this.getUserList();
-  }
+    ionViewDidLoad() {
+    }
 
-  getUserList() {
-    console.log('chuo');
-    QB.users.listUsers({ order:'desc'+'string'+'full_name'}, function(error, response){
-      if(error) {
-        console.log(error);
-      } else {
-        //console.log(response);
-        console.log('wtf1');
-        console.log(response.items.length);
-        for (var i = 0; i < response.items.length; i++) {
-          console.log('wtf2');
-          var item = {id: response.items[i].user.id, name: response.items[i].user.login};
-          this.peopleArray.push(item);
-          //console.log(this.peopleArray);
-          console.log('wtf3');
-        }
-      }
-    });
-  }
+    getUserList(): Promise<any[]> {
+        let params = {order:"asc+login", per_page: 100};
+
+        return new Promise((resolve, reject) => {
+            QB.users.listUsers(params, function (error, response) {
+                if (error) {
+                    console.log(error);
+                    reject(error);
+                } else {
+                    resolve(response.items.map(user => ({login: user.user.login})));
+                }
+            });
+        });
+    }
 }

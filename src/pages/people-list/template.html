@@ -7,12 +7,9 @@
 </ion-header>
 
 <ion-content>
-  <ion-list *ngFor="let person of peopleArray">
+  <ion-list *ngFor="let person of peopleArray | async">
     <ion-item>
-      <ion-avatar item-left>
-        {{person.second}}
-      </ion-avatar>
-      <h2>{{person.first}}</h2>
+      <h2>{{person.login}}</h2>
     </ion-item>
   </ion-list>
 </ion-content>

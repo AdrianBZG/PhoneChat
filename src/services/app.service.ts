@@ -141,25 +141,24 @@ export class AppService {
   /**
    * Upload files
    */
-  uploadFile(filePath): Observable<any> {
-    return Observable.create((observer) => {
+  uploadFile(filePath): Promise<any> {
+    return new Promise((resolve, reject) => {
       QB.content.createAndUpload({file: filePath, 'public': false}, (err, blob) => {
         if (blob) {
           QB.users.update(this.userId, {blob_id: blob.id}, (err, user) => {
             if (user) {
               console.log(user);
-              observer.next(user);
+              resolve(user);
             }
             else {
-              observer.error(err);
+              reject(err);
             }
           })
         }
         else {
-          observer.error(err);
+          reject(err);
         }
       });
-      observer.complete();
     });
   }
 

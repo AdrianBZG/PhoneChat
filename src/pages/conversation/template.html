@@ -17,11 +17,11 @@
 <ion-footer>
   <ion-toolbar>
     <ion-item>
-      <button ion-button #attach item-left>
-        <ion-icon name="arrow-up"></ion-icon> <!-- Stickers and other settings -->
-      </button>
       <ion-input item-left #inputMessage type="text" placeholder="Type your message">
       </ion-input>
+        <button ion-button #attach (click)="takePicture()" item-right>
+            <ion-icon name="camera"></ion-icon> <!-- Stickers and other settings -->
+        </button>
       <button ion-button #sendBtn item-right>
         <ion-icon name="send"></ion-icon>
       </button>
