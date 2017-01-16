@@ -1,41 +1,41 @@
-import {Component} from '@angular/core';
+import {Component} from "@angular/core";
 
 export interface ChatBubbleI {
     content: string
     position: string, // 'left' | 'right',
     time: Date,
-    senderName : string,
+    senderName: string,
     img: string,
     cityName: string,
 }
 
 @Component({
-  selector: 'chat-bubble',
-  inputs: ['msg: message'],
-  template: `
-  <div class="chatBubble">
-    <img class="profile-pic {{msg.position}}" src="{{msg.img}}">
-    <div class="chat-bubble {{msg.position}}">
-      <div class="message-detail">
-          <span style="font-weight:bold;">{{msg.senderName}} </span><br>
-          <b>Sent:</b> {{getFormattedDate(msg.time)}}<br>
-          <b>Location:</b> {{msg.cityName}}<br><br>
-      </div>
-      <div class="message"><b>Message:</b> {{msg.content}}</div>
-    </div>
-  </div>
+    selector: 'chat-bubble',
+    inputs: ['msg: message'],
+    template: `
+    <ion-item>
+        <ion-avatar *ngIf="msg.position=='left'" item-left>
+            <img src="{{msg.img}}">
+        </ion-avatar>
+        <ion-avatar *ngIf="msg.position=='right'" item-right>
+            <img src="{{msg.img}}">
+        </ion-avatar>
+        <h2>{{msg.senderName}} from {{msg.cityName}}</h2>
+        <p>{{msg.content}}</p>
+    </ion-item>
   `
 })
 export class ChatBubble {
-  msg : ChatBubbleI
+    msg: ChatBubbleI
 
-  constructor() {}
+    constructor() {
+    }
 
-  getFormattedDate(theDate: Date) {
-    let castedDate = new Date(theDate);
-    let dateDay = castedDate.getDate()  + "/"  + (castedDate.getMonth()+1) +  "/" +  castedDate.getFullYear();
-    let dateHour = castedDate.getHours() + ":" + castedDate.getMinutes()  + ":"  + castedDate.getSeconds();
-    let finalDate = dateDay + " " + dateHour;
-    return finalDate;
-  }
+    getFormattedDate(theDate: Date) {
+        let castedDate = new Date(theDate);
+        let dateDay = castedDate.getDate() + "/" + (castedDate.getMonth() + 1) + "/" + castedDate.getFullYear();
+        let dateHour = castedDate.getHours() + ":" + castedDate.getMinutes() + ":" + castedDate.getSeconds();
+        let finalDate = dateDay + " " + dateHour;
+        return finalDate;
+    }
 }

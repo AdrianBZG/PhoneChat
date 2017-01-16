@@ -8,6 +8,7 @@
   display: inline-block;
   position: relative;
   max-width: 100%;
+  width: 100%;
 
   img.profile-pic {
     width: 40px;
@@ -42,7 +43,7 @@
     padding: 10px 18px;
     position: relative;
     margin: 10px;
-    max-width: 80%;
+    width: 90%;
   }
 
   .chat-bubble:before {

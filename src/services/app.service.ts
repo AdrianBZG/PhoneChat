@@ -92,12 +92,12 @@ export class AppService {
   /**
    * Get user Info from id
    */
-  getUserInfo(userId : number): Observable<any> {
-    return Observable.create((observer) => {
+  getUserInfo(userId : number): Promise<any> {
+    return new Promise((resolve, reject) => {
       QB.users.get(userId, (err, result) => {
         if (err) {
           //observer.error(err)
-          observer.next({
+          resolve({
             blob_id: 0,
             created_at: "ErrorUser",
             custom_data: null,
@@ -118,10 +118,9 @@ export class AppService {
           })
         }
         else {
-          observer.next(result);
+          resolve(result);
         }
       });
-      //observer.complete();
     });
   }
 

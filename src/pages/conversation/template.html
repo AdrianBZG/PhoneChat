@@ -7,7 +7,7 @@
 </ion-header>
 
 <ion-content #content>
-  <ion-list #list *ngFor="let msg of lastMessages | async">
+  <ion-list #list *ngFor="let msg of messages">
     <chat-bubble [message]="msg"></chat-bubble>
   </ion-list>
 </ion-content>
