@@ -26,7 +26,7 @@ export class PeopleList {
                     console.log(error);
                     reject(error);
                 } else {
-                    resolve(response.items.map(user => ({login: user.user.login})));
+                    resolve(response.items.map(user => ({login: user.user.login, id: user.user.id})));
                 }
             });
         });

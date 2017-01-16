@@ -9,7 +9,7 @@
 <ion-content>
     <ion-list *ngFor="let person of peopleArray | async">
         <ion-item>
-            <h2>{{person.login}}</h2>
+            <h2>{{person.login}} {{person.id}}</h2>
         </ion-item>
     </ion-list>
 </ion-content>
