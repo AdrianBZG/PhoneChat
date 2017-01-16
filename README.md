@@ -23,8 +23,8 @@ Multimodal Interface Project for the Intelligent Interfaces subject.
 
 ## TODO:
 
-- Carga de login
+- Carga de login (Done)
 - Poder enviar fotos
-- Cambiar el nombre del apk (Hello World actualmente)
+- Cambiar el nombre del apk (Hello World actualmente) (Done)
 - Reparar la incapacidad de hacer login nada mas haberse registrado
 - Mostrar feedback de error y no popups en el login y signup
