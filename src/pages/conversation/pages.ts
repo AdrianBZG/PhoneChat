@@ -57,6 +57,10 @@ export class Conversation {
         });
 
         this.title = this.appService.chat.name;
+
+        this.eventSendMsg().subscribe(chatbubble => {
+            this.conversationService.messages.next(this.conversationService.messages.getValue().concat(chatbubble))
+        })
     }
 
     ionViewWillLeave() {
