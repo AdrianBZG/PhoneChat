@@ -17,6 +17,8 @@ declare var $;
 //const serverURL = "http://localhost:8100/api";
 const serverURL = "http://phonechat.herokuapp.com/api"; // Uncomment when build to android
 
+
+
 @Injectable()
 export class AppService {
     // Indentification of user logued
