@@ -197,11 +197,9 @@ export class Chat {
     }
 
     seeGroupChat() {
-        // TODO: Filter topicChats to groups only
     }
 
     seePeopleChat() {
-        // TODO: Filter to person to person chats
     }
 
     inviteFriends() {
