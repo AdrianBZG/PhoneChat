@@ -1,6 +1,6 @@
 import {Component} from "@angular/core";
 import {AlertController, NavController, NavParams, MenuController, ToastController} from "ionic-angular";
-import {Geolocation} from "ionic-native";
+import {Geolocation, Contacts} from "ionic-native";
 import {Conversation} from "../conversation/pages";
 import {Settings} from "../settings/pages";
 import {EventList} from "../event-list/pages";
@@ -200,6 +200,22 @@ export class Chat {
 
     seePeopleChat() {
         // TODO: Filter to person to person chats
+    }
+
+    inviteFriends() {
+      let contactsfound
+      Contacts.pickContact().then((contacts) => {
+        contactsfound = contacts;
+        for(var i=0; i<contactsfound.length; i++) {
+            let contactEmail = contactsfound[i].emails[0].value; // Contact saved email
+            if(contactEmail != null) {
+
+            }
+        }
+      })
+
+      if (contactsfound.length == 0)
+        alert('No Contacts found');
     }
 
     games() {

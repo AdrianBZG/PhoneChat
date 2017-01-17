@@ -30,6 +30,9 @@
         },
         "com-badrit-base64": {
             "PACKAGE_NAME": "com.phonechat.app"
+        },
+        "cordova-plugin-contacts": {
+            "PACKAGE_NAME": "com.phonechat.app"
         }
     },
     "dependent_plugins": {
