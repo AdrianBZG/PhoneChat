@@ -18,8 +18,11 @@
         <ion-item>
             <ion-input item-left #inputMessage type="text" placeholder="Type your message">
             </ion-input>
+            <button ion-button #attach (click)="openGallery()" item-right>
+                <ion-icon name="images"></ion-icon>
+            </button>
             <button ion-button #attach (click)="takePicture()" item-right>
-                <ion-icon name="camera"></ion-icon> <!-- Stickers and other settings -->
+                <ion-icon name="camera"></ion-icon>
             </button>
             <button ion-button #sendBtn item-right>
                 <ion-icon name="send"></ion-icon>

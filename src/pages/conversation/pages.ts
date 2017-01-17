@@ -75,6 +75,23 @@ export class Conversation {
         })
     }
 
+    openGallery() {
+      let cameraOptions = {
+        sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+        destinationType: Camera.DestinationType.FILE_URI,
+        quality: 100,
+        targetWidth: 1000,
+        targetHeight: 1000,
+        encodingType: Camera.EncodingType.JPEG,
+        correctOrientation: true
+      }
+
+      Camera.getPicture(cameraOptions).then(file_uri => {
+          console.log('Test Imagen: ' + file_uri)
+        },
+        err => console.log(err));
+    }
+
     /**
      * Get events of send button click and input enter event to produce a message stream
      */

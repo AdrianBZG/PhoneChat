@@ -22,7 +22,7 @@
                         },
                         {
                             "xml": "<feature name=\"Device\"><param name=\"android-package\" value=\"org.apache.cordova.device.Device\" /></feature>",
-                            "count": 1
+                            "count": 2
                         },
                         {
                             "xml": "<feature name=\"Accelerometer\"><param name=\"android-package\" value=\"org.apache.cordova.devicemotion.AccelListener\" /></feature>",
@@ -98,7 +98,7 @@
                         },
                         {
                             "xml": "<feature name=\"Whitelist\"><param name=\"android-package\" value=\"org.apache.cordova.whitelist.WhitelistPlugin\" /><param name=\"onload\" value=\"true\" /></feature>",
-                            "count": 1
+                            "count": 2
                         },
                         {
                             "xml": "<feature name=\"WebSocket\"><param name=\"android-package\" value=\"com.knowledgecode.cordova.websocket.WebSocket\" /></feature>",
@@ -106,6 +106,14 @@
                         },
                         {
                             "xml": "<feature name=\"CameraPreview\"><param name=\"android-package\" value=\"com.mbppower.CameraPreview\" /><param name=\"onload\" value=\"true\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"ImagePicker\"><param name=\"android-package\" value=\"com.synconset.ImagePicker\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Base64\"><param name=\"android-package\" value=\"com.badrit.Base64.Base64Plugin\" /></feature>",
                             "count": 1
                         }
                     ],
@@ -181,6 +189,10 @@
                         {
                             "xml": "<activity android:name=\"com.mbppower.CameraActivity\" android:screenOrientation=\"portrait\" android:theme=\"@style/CameraPreviewTheme\" />",
                             "count": 1
+                        },
+                        {
+                            "xml": "<activity android:label=\"@string/multi_app_name\" android:name=\"com.synconset.MultiImageChooserActivity\" android:theme=\"@android:style/Theme.Holo.Light\"></activity>",
+                            "count": 1
                         }
                     ],
                     "/manifest": [
@@ -234,7 +246,7 @@
                         },
                         {
                             "xml": "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />",
-                            "count": 1
+                            "count": 2
                         }
                     ]
                 }
@@ -258,7 +270,7 @@
             "PACKAGE_NAME": "com.phonegap.helloworld"
         },
         "cordova-plugin-device": {
-            "PACKAGE_NAME": "com.phonegap.helloworld"
+            "PACKAGE_NAME": "com.phonechat.app"
         },
         "cordova-plugin-device-motion": {
             "PACKAGE_NAME": "com.phonegap.helloworld"
@@ -307,7 +319,7 @@
             "PACKAGE_NAME": "com.phonegap.helloworld"
         },
         "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "com.phonegap.helloworld"
+            "PACKAGE_NAME": "com.phonechat.app"
         },
         "cordova-plugin-websocket": {
             "PACKAGE_NAME": "com.phonegap.helloworld"
@@ -317,6 +329,12 @@
         },
         "com.megster.cordova.FileChooser": {
             "PACKAGE_NAME": "com.phonegap.helloworld"
+        },
+        "cordova-plugin-image-picker": {
+            "PACKAGE_NAME": "com.phonegap.helloworld"
+        },
+        "com-badrit-base64": {
+            "PACKAGE_NAME": "com.phonechat.app"
         }
     },
     "dependent_plugins": {},
@@ -870,6 +888,30 @@
             "clobbers": [
                 "fileChooser"
             ]
+        },
+        {
+            "file": "plugins/cordova-plugin-image-picker/www/imagepicker.js",
+            "id": "cordova-plugin-image-picker.ImagePicker",
+            "pluginId": "cordova-plugin-image-picker",
+            "clobbers": [
+                "plugins.imagePicker"
+            ]
+        },
+        {
+            "file": "plugins/cordova-plugin-device/www/device.js",
+            "id": "cordova-plugin-device.device",
+            "pluginId": "cordova-plugin-device",
+            "clobbers": [
+                "device"
+            ]
+        },
+        {
+            "file": "plugins/com-badrit-base64/www/Base64.js",
+            "id": "com-badrit-base64.Base64",
+            "pluginId": "com-badrit-base64",
+            "clobbers": [
+                "navigator.Base64"
+            ]
         }
     ],
     "plugin_metadata": {
@@ -897,6 +939,8 @@
         "cordova-plugin-whitelist": "1.2.2",
         "cordova-plugin-websocket": "0.12.0",
         "com.mbppower.camerapreview": "0.0.8",
-        "com.megster.cordova.FileChooser": "0.0.0"
+        "com.megster.cordova.FileChooser": "0.0.0",
+        "cordova-plugin-image-picker": "1.1.1",
+        "com-badrit-base64": "0.2.0"
     }
 }
