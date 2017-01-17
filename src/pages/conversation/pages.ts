@@ -53,11 +53,9 @@ export class Conversation {
         loading.present();
 
         this.conversationService.messages.subscribe(msgs => {
-            if (msgs.length != 0) {
                 this.messages = msgs;
                 loading.dismiss();
                 this.content.scrollToBottom();
-            }
         });
 
         this.title = this.appService.chat.name;
