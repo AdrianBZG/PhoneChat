@@ -19,23 +19,27 @@ export class ImgurService {
       if (this.token) auth = 'Bearer ' + this.token;
       else auth = 'Client-ID ' + this.clientId;
 
-      $.ajax({
-          url: 'https://api.imgur.com/3/image',
-          type: 'POST',
-          headers: {
-            Authorization: auth,
-            Accept: 'application/json'
-          },
-          data: {
-            image: fileUrl,
-            type: 'base64'
-          },
-          success: function(result) {
-            var id = result.data.id;
-            console.log('URL de la imagen: ' + id);
-          }
-        });
-      }
+      let uploadImageToImgur: Promise<any> = new Promise((resolve, reject) => {
+          $.ajax({
+            url: 'https://api.imgur.com/3/image',
+            type: 'POST',
+            headers: {
+              Authorization: auth,
+              Accept: 'application/json'
+            },
+            data: {
+              image: fileUrl,
+              type: 'base64'
+            },
+            success: function(result) {
+              let id = result.data.id;
+              console.log('URL de la imagen: ' + id);
+              resolve(id);
+            }
+          });
+        })
+        return Promise.all([uploadImageToImgur])
+    }
 
     extractToken(hash) {
       var match = hash.match(/access_token=(\w+)/);
