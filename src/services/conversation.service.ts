@@ -108,7 +108,8 @@ export class ConversationService {
             console.log("hey bro a new message");
             console.log(msg)
             console.log(userid)
-            if (msg.dialog_id === this.appService.chat._id) {
+            console.log(this.appService.userId)
+            if (msg.dialog_id === this.appService.chat._id && userid != this.appService.userId) {
                 let newMsg = {
                     _id: msg.message_id,
                     created_at: null,

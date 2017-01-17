@@ -20,7 +20,7 @@ export interface ChatBubbleI {
         <ion-avatar *ngIf="msg.position=='right'" item-right>
             <img src="{{msg.img}}">
         </ion-avatar>
-        <h2>{{msg.senderName}} from {{msg.cityName}}</h2>
+        <h2>{{msg.senderName}} {{getLocation()}}</h2>
         <p>{{msg.content}}</p>
     </ion-item>
   `
@@ -29,6 +29,10 @@ export class ChatBubble {
     msg: ChatBubbleI
 
     constructor() {
+    }
+
+    getLocation() {
+        return this.msg.cityName? "from "+ this.msg.cityName : "";
     }
 
     getFormattedDate(theDate: Date) {

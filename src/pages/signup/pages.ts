@@ -41,7 +41,7 @@ export class SignUp {
                 , this.email)
                 .then((resp) => {
                         console.log("setRoot")
-                        this.navCtrl.setRoot(Chat);
+                        this.navCtrl.setRoot(Login);
                     },
                     (err) => {
                         this.showError(err);

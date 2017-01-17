@@ -60,10 +60,7 @@ export class SignupService {
                         // NOTE: Insecure of what it is user
                         //console.log(user);
                         this.appService.setUserProperties(name, password, user.user_id);
-                        this.appService.connectToChat()
-                            .subscribe(
-                                (connected) => resolve(user),
-                                (error) => resolve(user));
+                        resolve(null);
                     }
                 });
             });
