@@ -17,6 +17,7 @@ import {Sensors as Sensors} from "../pages/sensors/pages";
 import {BrocolitoPage as BrocoPage} from "../pages/brocolito-page/pages";
 import {AppService} from "../services/app.service";
 import {EventService} from "../services/event.service";
+import {ImgurService} from "../services/imgur.service";
 import {SensorsService} from "../services/sensors.service";
 
 @NgModule({
@@ -60,6 +61,7 @@ import {SensorsService} from "../services/sensors.service";
         AppService,
         EventService,
         SensorsService,
+        ImgurService,
         Storage
     ]
 })

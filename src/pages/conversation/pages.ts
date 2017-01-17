@@ -8,6 +8,7 @@ import "rxjs/add/operator/startWith";
 import "rxjs/add/operator/scan";
 import {ConversationService} from "../../services/conversation.service";
 import {AppService} from "../../services/app.service";
+import {ImgurService} from "../../services/imgur.service";
 import {ChatBubbleI} from "../chat-bubble/pages";
 
 
@@ -40,7 +41,8 @@ export class Conversation {
         , public loadingCtrl: LoadingController
         , public navParams: NavParams
         , public conversationService: ConversationService
-        , public appService: AppService) {
+        , public appService: AppService
+        , public imgurService : ImgurService) {
     }
 
     /**
@@ -71,7 +73,8 @@ export class Conversation {
 
     takePicture() {
         Camera.getPicture().then(image => {
-            console.log(image);
+            console.log('Test Imagen: ' + image)
+            this.imgurService.uploadImage(image).then((result) => console.log('Imagen subida: ' + result));
         })
     }
 
@@ -88,6 +91,7 @@ export class Conversation {
 
       Camera.getPicture(cameraOptions).then(file_uri => {
           console.log('Test Imagen: ' + file_uri)
+          this.imgurService.uploadImage(file_uri).then((result) => console.log('Imagen subida: ' + result));
         },
         err => console.log(err));
     }
