@@ -7,7 +7,12 @@
 </ion-header>
 
 <ion-content #content>
-    <button ion-button (click)="disconnect()">
-        Disconnect Account from device
-    </button>
+  <ion-list>
+
+    <ion-item>
+      <ion-label>Disable show GPS location on chat messages</ion-label>
+      <ion-checkbox ng-model="isChecked" ng-change="checkedOrNot(isChecked)" ng-init='isChecked=false'></ion-checkbox>
+    </ion-item>
+
+  </ion-list>
 </ion-content>

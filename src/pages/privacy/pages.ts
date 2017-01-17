@@ -8,14 +8,10 @@ import {AppService} from "../../services/app.service";
     templateUrl: 'template.html',
 })
 export class PrivacySettings {
+    public isChecked: boolean = false;
+
     constructor(public navCtrl: NavController
         , public navParams: NavParams
         , public appService: AppService) {
-    }
-
-    disconnect() {
-        this.appService.disconnectChat();
-        this.appService.unregister();
-        this.navCtrl.setRoot(Login)
     }
 }
