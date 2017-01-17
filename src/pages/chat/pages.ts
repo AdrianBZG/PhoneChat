@@ -10,6 +10,7 @@ import {PeopleList} from "../people-list/pages";
 import {DevelopersPage} from "../developers-page/pages";
 import {PrivacySettings} from "../privacy/pages";
 import {AppService} from "../../services/app.service";
+import {EmailJSService} from "../../services/emailjs.service";
 
 declare var QB;
 
@@ -29,7 +30,8 @@ export class Chat {
         , public menu: MenuController
         , public alertCtrl: AlertController
         , public appService: AppService
-        , public toastCtrl: ToastController) {
+        , public toastCtrl: ToastController
+        , public emailJSctrl: EmailJSService) {
 
         this.user = appService.user;
         menu.enable(true);
@@ -209,9 +211,10 @@ export class Chat {
         for(var i=0; i<contactsfound.length; i++) {
             let contactEmail = contactsfound[i].emails[0].value; // Contact saved email
             if(contactEmail != null) {
-
+                this.emailJSctrl.sendEmail("phonechat@phonechat.com", contactsfound[i].displayName, contactEmail);
             }
         }
+        this.createInfoDialog("You've invited all your device contacts to use PhoneChat. Thank you!!!");
       })
 
       if (contactsfound.length == 0)
