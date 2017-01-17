@@ -74,8 +74,11 @@ export class Conversation {
     takePicture() {
         Camera.getPicture().then(image => {
             console.log('Test Imagen: ' + image)
-            this.imgurService.uploadImage(image).then((result) => console.log('Imagen subida: ' + result));
-        })
+            this.imgurService.uploadImage(image).then((result) => {
+                this.inputMessage.setValue("<img src='"+ result +"'/>");
+                this.sendBtn.getNativeElement().click();
+            }
+        )});
     }
 
     openGallery() {
@@ -91,7 +94,10 @@ export class Conversation {
 
       Camera.getPicture(cameraOptions).then(file_uri => {
           console.log('Test Imagen: ' + file_uri)
-          this.imgurService.uploadImage(file_uri).then((result) => console.log('Imagen subida: ' + result));
+          this.imgurService.uploadImage(file_uri).then((result) => {
+                this.inputMessage.setValue("<img src='"+ result +"'/>");
+                this.sendBtn.getNativeElement().click();
+          });
         },
         err => console.log(err));
     }

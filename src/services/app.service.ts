@@ -12,11 +12,10 @@ import {BrocolitoPage} from "../pages/brocolito-page/pages";
 import {PeopleList} from "../pages/people-list/pages";
 import {DevelopersPage} from "../pages/developers-page/pages";
 
-declare var annyang;
 declare var $;
 
-//const serverURL = "http://localhost:8100/api";
-const serverURL = "http://phonechat.herokuapp.com/api"; // Uncomment when build to android
+const serverURL = "http://localhost:8100/api";
+//const serverURL = "http://phonechat.herokuapp.com/api"; // Uncomment when build to android
 
 @Injectable()
 export class AppService {
@@ -28,7 +27,6 @@ export class AppService {
     public userIp: any;
 
     constructor(private storage: Storage
-              , public navCtrl: NavController
               ) {
         // QB Initialization
         let QBApp = {
@@ -59,43 +57,6 @@ export class AppService {
         };
         QB.init(QBApp.appId, QBApp.authKey, QBApp.authSecret, config);
 
-
-        let commands = {
-            'show brocolito': function () {
-                this.navCtrl.push(BrocolitoPage);
-            },
-            'show developers': function () {
-                this.navCtrl.push(DevelopersPage);
-            },
-            'show events': function () {
-                this.navCtrl.push(EventList)
-            },
-            'show session': function () {
-                this.navCtrl.push(Settings);
-            },
-            'show people': function () {
-               this.navCtrl.push(PeopleList)
-            },
-            'show sensors': function () {
-               this.navCtrl.push(Sensors)
-            },
-            'invite friends': function () {
-                // TODO: DO it
-                //$('#showMenuBtn').click();
-            }
-        };
-
-        if (annyang) {
-            // Add our commands to annyang
-            annyang.addCommands(commands);
-
-            // Start listening.
-            annyang.start();
-        }
-        else {
-            console.log("Voice fail");
-
-        }
 
         $.get("http://ipinfo.io", function (response) {
             this.userIp = response.ip;

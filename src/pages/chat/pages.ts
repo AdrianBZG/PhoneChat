@@ -13,6 +13,7 @@ import {AppService} from "../../services/app.service";
 import {EmailJSService} from "../../services/emailjs.service";
 
 declare var QB;
+declare var annyang;
 
 @Component({
     selector: 'chat',
@@ -50,7 +51,45 @@ export class Chat {
                     console.log(error);
                     this.navCtrl.pop();
                 }
-            )
+            );
+
+        let self = this
+        let commands = {
+            'show brocolito': function () {
+                self.navCtrl.push(BrocolitoPage);
+            },
+            'show developers': function () {
+                self.navCtrl.push(DevelopersPage);
+            },
+            'show events': function () {
+                self.navCtrl.push(EventList)
+            },
+            'show session': function () {
+                self.navCtrl.push(Settings);
+            },
+            'show people': function () {
+               self.navCtrl.push(PeopleList)
+            },
+            'show sensors': function () {
+               self.navCtrl.push(Sensors)
+            },
+            'invite friends': function () {
+                // TODO: DO it
+                //$('#showMenuBtn').click();
+            }
+        };
+
+        if (annyang) {
+            // Add our commands to annyang
+            annyang.addCommands(commands);
+
+            // Start listening.
+            annyang.start();
+        }
+        else {
+            console.log("Voice fail");
+
+        }
     };
 
     /**

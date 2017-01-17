@@ -104,10 +104,28 @@ export class ConversationService {
      * Keep listening messages of current dialog
      */
     listenNewMessages() {
-        QB.chat.onMessageListener = ((userid, msg: MessageI) => {
-            if (msg.chat_dialog_id === this.appService.chat._id) {
+        QB.chat.onMessageListener = ((userid, msg) => {
+            console.log("hey bro a new message");
+            console.log(msg)
+            console.log(userid)
+            if (msg.dialog_id === this.appService.chat._id) {
+                let newMsg = {
+                    _id: msg.message_id,
+                    created_at: null,
+                    updated_at: null,
+                    attachments: [],
+                    read_ids: [],
+                    delivered_ids: [],
+                    chat_dialog_id:  msg.dialog_id,
+                    date_sent: msg.date_sent,
+                    message: msg.body,
+                    recipient_id: null,
+                    sender_id: userid,
+                    read: 0
+                };
+
                 this.getUser(userid).then(user =>
-                    this.messages.next(this.messages.getValue().concat(this.makeBubbleMsg(msg, user)))
+                    this.messages.next(this.messages.getValue().concat(this.makeBubbleMsg(newMsg, user)))
                 )
             }
         });
