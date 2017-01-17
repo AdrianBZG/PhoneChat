@@ -1,10 +1,16 @@
 /// <reference path="../../.vscode/typings/quickblox/quickblox.d.ts" />
 import {Injectable} from "@angular/core";
+import {NavController} from "ionic-angular";
 import {Storage} from "@ionic/storage";
 import {Observable} from "rxjs/Observable";
 import "rxjs/add/observable/of";
 import "rxjs/add/operator/map";
-
+import {Settings} from "../pages/settings/pages";
+import {EventList} from "../pages/event-list/pages";
+import {Sensors} from "../pages/sensors/pages";
+import {BrocolitoPage} from "../pages/brocolito-page/pages";
+import {PeopleList} from "../pages/people-list/pages";
+import {DevelopersPage} from "../pages/developers-page/pages";
 
 declare var annyang;
 declare var $;
@@ -21,7 +27,9 @@ export class AppService {
     public chat: DialogMsg;
     public userIp: any;
 
-    constructor(private storage: Storage) {
+    constructor(private storage: Storage
+              , public navCtrl: NavController
+              ) {
         // QB Initialization
         let QBApp = {
             appId: 49438,
@@ -53,25 +61,26 @@ export class AppService {
 
 
         let commands = {
-            'show test': function () {
-                alert('test');
+            'show brocolito': function () {
+                this.navCtrl.push(BrocolitoPage);
             },
-            'show teacher': function () {
-                alert('hello teacher');
+            'show developers': function () {
+                this.navCtrl.push(DevelopersPage);
             },
-            'show superman': function () {
-                alert('my name is superman');
+            'show events': function () {
+                this.navCtrl.push(EventList)
             },
-            'move developers': function () {
-                //$.mobile.navigate("#developers");
+            'show session': function () {
+                this.navCtrl.push(Settings);
             },
-            'move login': function () {
-                //showLoginModal();
+            'show people': function () {
+               this.navCtrl.push(PeopleList)
             },
-            'move chat': function () {
-                //$.mobile.navigate("#chat");
+            'show sensors': function () {
+               this.navCtrl.push(Sensors)
             },
-            'show menu': function () {
+            'invite friends': function () {
+                // TODO: DO it
                 //$('#showMenuBtn').click();
             }
         };

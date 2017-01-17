@@ -14,14 +14,14 @@ export class Sensors {
     public latitude: any;
     public longitude: any;
     private timer;
-    private accuracy: any;
-    private altitude: any;
-    private altitudeAccuracy: any;
-    private heading: any;
-    private speed: any;
-    private timestampAttr: any;
-    private citynameattr: any;
-    private countrynameattr: any;
+    public accuracy: any;
+    public altitude: any;
+    public altitudeAccuracy: any;
+    public heading: any;
+    public speed: any;
+    public timestampAttr: any;
+    public citynameattr: any;
+    public countrynameattr: any;
 
     constructor(private navCtrl: NavController,
                 private navParams: NavParams,

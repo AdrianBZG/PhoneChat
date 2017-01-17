@@ -27,9 +27,9 @@ export class MyApp {
         Promise
             .all([storage.get("user"), storage.get("password")])
             .then(([user, password]) => {
-                let loading = loadingCtrl.create({content: "Login into App as " + user});
-                loading.present();
                 if (user !== null && password !== null) {
+                    let loading = loadingCtrl.create({content: "Login into App as " + user});
+                    loading.present();
                     console.log(user + password);
                     this.loginService
                         .loginPassHash(user, password)

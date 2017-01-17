@@ -30,13 +30,8 @@ buildscript {
     // http://tools.android.com/tech-docs/new-build-system/version-compatibility
     // and https://issues.apache.org/jira/browse/CB-8143
     dependencies {
-
         classpath 'com.android.tools.build:gradle:2.1.0'
     }
-}
-
-dependencies {
-    compile 'com.google.android.gms:play-services:10.0.0'
 }
 
 // Allow plugins to declare Maven dependencies via build-extras.gradle.
@@ -254,6 +249,8 @@ dependencies {
     // SUB-PROJECT DEPENDENCIES START
     debugCompile project(path: "CordovaLib", configuration: "debug")
     releaseCompile project(path: "CordovaLib", configuration: "release")
+    compile "com.google.android.gms:play-services-maps:+"
+    compile "com.google.android.gms:play-services-location:+"
     // SUB-PROJECT DEPENDENCIES END
 }
 

@@ -7,36 +7,88 @@
         "files": {}
     },
     "installed_plugins": {
-        "cordova-plugin-geolocation": {
-            "PACKAGE_NAME": "com.phonegap.helloworld"
-        },
-        "com.mbppower.camerapreview": {
-            "PACKAGE_NAME": "com.phonegap.helloworld"
-        },
-        "cordova-plugin-device-orientation": {
-            "PACKAGE_NAME": "com.phonegap.helloworld"
-        },
-        "com.megster.cordova.FileChooser": {
-            "PACKAGE_NAME": "com.phonegap.helloworld"
-        },
-        "cordova-plugin-camera": {
-            "PACKAGE_NAME": "com.phonegap.helloworld"
-        },
-        "cordova-plugin-image-picker": {
-            "PACKAGE_NAME": "com.phonegap.helloworld"
-        },
-        "cordova-plugin-whitelist": {
+        "com-badrit-base64": {
             "PACKAGE_NAME": "com.phonechat.app"
         },
-        "com-badrit-base64": {
+        "com.mbppower.camerapreview": {
+            "PACKAGE_NAME": "com.phonechat.app"
+        },
+        "com.megster.cordova.FileChooser": {
+            "PACKAGE_NAME": "com.phonechat.app"
+        },
+        "cordova-plugin-battery-status": {
+            "PACKAGE_NAME": "com.phonechat.app"
+        },
+        "cordova-plugin-camera": {
+            "PACKAGE_NAME": "com.phonechat.app"
+        },
+        "cordova-plugin-console": {
             "PACKAGE_NAME": "com.phonechat.app"
         },
         "cordova-plugin-contacts": {
             "PACKAGE_NAME": "com.phonechat.app"
+        },
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "com.phonechat.app"
+        },
+        "cordova-plugin-device-motion": {
+            "PACKAGE_NAME": "com.phonechat.app"
+        },
+        "cordova-plugin-device-orientation": {
+            "PACKAGE_NAME": "com.phonechat.app"
+        },
+        "cordova-plugin-dialogs": {
+            "PACKAGE_NAME": "com.phonechat.app"
+        },
+        "cordova-plugin-file-transfer": {
+            "PACKAGE_NAME": "com.phonechat.app"
+        },
+        "cordova-plugin-geolocation": {
+            "PACKAGE_NAME": "com.phonechat.app"
+        },
+        "cordova-plugin-globalization": {
+            "PACKAGE_NAME": "com.phonechat.app"
+        },
+        "cordova-plugin-googlemaps": {
+            "API_KEY_FOR_ANDROID": "AIzaSyB7_39pIm3Oit-W5G5uAp9MBS3nhejIuEE",
+            "PACKAGE_NAME": "com.phonechat.app"
+        },
+        "cordova-plugin-image-picker": {
+            "PACKAGE_NAME": "com.phonechat.app"
+        },
+        "cordova-plugin-inappbrowser": {
+            "PACKAGE_NAME": "com.phonechat.app"
+        },
+        "cordova-plugin-media": {
+            "PACKAGE_NAME": "com.phonechat.app"
+        },
+        "cordova-plugin-media-capture": {
+            "PACKAGE_NAME": "com.phonechat.app"
+        },
+        "cordova-plugin-network-information": {
+            "PACKAGE_NAME": "com.phonechat.app"
+        },
+        "cordova-plugin-splashscreen": {
+            "PACKAGE_NAME": "com.phonechat.app"
+        },
+        "cordova-plugin-statusbar": {
+            "PACKAGE_NAME": "com.phonechat.app"
+        },
+        "cordova-plugin-vibration": {
+            "PACKAGE_NAME": "com.phonechat.app"
+        },
+        "cordova-plugin-websocket": {
+            "PACKAGE_NAME": "com.phonechat.app"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "com.phonechat.app"
         }
     },
     "dependent_plugins": {
-        "cordova-plugin-device": {
+        "cordova-plugin-compat": {
+            "PACKAGE_NAME": "com.phonechat.app"
+        },
+        "cordova-plugin-file": {
             "PACKAGE_NAME": "com.phonechat.app"
         }
     }
