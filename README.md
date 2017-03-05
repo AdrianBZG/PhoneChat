@@ -11,7 +11,7 @@ Multimodal Interface Project for the Intelligent Interfaces subject.
 ## DEVELOPERS
 
 ### Adrián Rodríguez Bazaga
-  - Email: arodriba@ull.es
+  - Email: adrian@qmindgroup.com
   - [Personal page](http://www.adrianbazaga.com/)
 
 ### Eleazar Díaz Delgado
@@ -20,11 +20,22 @@ Multimodal Interface Project for the Intelligent Interfaces subject.
 
 ### Rudolf Cicko
   - Email: alu0100824780@ull.edu.es
+  
+  
+LICENSE
+=======
+``` java
+Copyright 2017 Adrián Rodríguez Bazaga, Eleazar Díaz Delgado and Rudolf Cicko
 
-## TODO:
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
 
-- Carga de login (Done)
-- Poder enviar fotos
-- Cambiar el nombre del apk (Hello World actualmente) (Done)
-- Reparar la incapacidad de hacer login nada mas haberse registrado
-- Mostrar feedback de error y no popups en el login y signup
+        http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+```
